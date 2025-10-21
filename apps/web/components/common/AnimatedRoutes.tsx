@@ -1,0 +1,1 @@
+full contents of apps/web/components/common/AnimatedRoutes.tsx

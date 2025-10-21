@@ -1,0 +1,7 @@
+{
+  "name": "Helio-APP_1",
+  "description": "Helio App real estate application.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
