@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 // FIX: Corrected import path for monorepo structure
-import type { Activity } from '../../../../packages/shared-logic/types';
+import type { Activity } from '../../../packages/shared-logic/types';
 import { WrenchScrewdriverIcon, ShieldExclamationIcon, NewspaperIcon, HomeModernIcon } from '../common/Icons';
 // FIX: Corrected import path for monorepo structure
-import { useServices } from '../../../../packages/shared-logic/context/ServicesContext';
+import { useServices } from '../../../packages/shared-logic/context/ServicesContext';
 // FIX: Corrected import path for monorepo structure
-import { useProperties } from '../../../../packages/shared-logic/context/PropertiesContext';
+import { useProperties } from '../../../packages/shared-logic/context/PropertiesContext';
 // FIX: Corrected import path for monorepo structure
-import { useNews } from '../../../../packages/shared-logic/context/NewsContext';
+import { useNews } from '../../../packages/shared-logic/context/NewsContext';
 
 const formatRelativeTime = (dateString: string) => {
     const date = new Date(dateString);

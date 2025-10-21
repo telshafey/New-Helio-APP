@@ -469,7 +469,7 @@ export interface AuthContextType {
   publicLogin: (email: string, password?: string) => boolean;
   publicLogout: () => void;
   register: (user: Omit<AppUser, 'id' | 'joinDate' | 'avatar' | 'status' | 'role'>) => boolean;
-  updateProfile: (user: Omit<AppUser, 'joinDate' | 'status' | 'password'>) => void;
+  updateProfile: (user: Omit<AppUser, 'joinDate' | 'status' | 'password' | 'role'>) => void;
 }
 
 export interface CommunityContextType {

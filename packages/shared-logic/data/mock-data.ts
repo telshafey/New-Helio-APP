@@ -1,5 +1,3 @@
-
-
 // FIX: Corrected import path for types
 import type { Category, Service, Review, News, Notification, Property, EmergencyContact, ServiceGuide, AppUser, Supervisor, Driver, WeeklyScheduleItem, ExternalRoute, PublicPagesContent, Post, Advertisement, AboutCityPageContent, AdminUser, AuditLog, MarketplaceItem, JobPosting, Circle, LostAndFoundItem, ExclusiveOffer, UserOffer, InternalRoute } from '../types';
 
@@ -730,12 +728,11 @@ const getStartOfWeek = (date: Date) => {
 
 export const generateWeeklySchedule = (startDate: Date): WeeklyScheduleItem[] => {
     const schedule: WeeklyScheduleItem[] = [];
-    // FIX: Add missing 'avatar' property to align with the Driver type.
     const drivers = [
-        { name: 'أحمد المصري', phone: '010-1111-2222', avatar: 'https://picsum.photos/200/200?random=1' },
-        { name: 'خالد عبدالله', phone: '011-2222-3333', avatar: 'https://picsum.photos/200/200?random=3' },
-        { name: 'ياسر القحطاني', phone: '015-3333-4444', avatar: 'https://picsum.photos/200/200?random=7' },
-        { name: 'سعيد العويران', phone: '012-4444-5555', avatar: 'https://picsum.photos/200/200?random=8' }
+        { name: 'أحمد المصري', phone: '010-1111-2222' },
+        { name: 'خالد عبدالله', phone: '011-2222-3333' },
+        { name: 'ياسر القحطاني', phone: '015-3333-4444' },
+        { name: 'سعيد العويران', phone: '012-4444-5555' }
     ];
     for (let i = 0; i < 7; i++) {
         const currentDate = new Date(startDate);

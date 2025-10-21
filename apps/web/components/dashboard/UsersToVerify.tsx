@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserCircleIcon, CheckCircleIcon } from '../common/Icons';
 // FIX: Corrected import path for monorepo structure
-import { useUsers } from '../../../../packages/shared-logic/context/UsersContext';
+import { useUsers } from '../../../packages/shared-logic/context/UsersContext';
 
 const UsersToVerify: React.FC = () => {
     const { users, handleSaveUser } = useUsers();
@@ -11,7 +11,7 @@ const UsersToVerify: React.FC = () => {
     const approveUser = (userId: number) => {
         const user = users.find(u => u.id === userId);
         if (user) {
-            handleSaveUser({ ...user, status: 'active' });
+            handleSaveUser({ ...user, status: 'active', role: user.role });
         }
     };
 

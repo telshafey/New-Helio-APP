@@ -1,9 +1,10 @@
 
+
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 // FIX: Corrected import paths for monorepo structure
 import { mockPosts, mockMarketplaceItems, mockJobPostings, mockCircles, mockLostAndFoundItems, mockOffers, mockUserOffers } from '../data/mock-data';
 // FIX: Corrected import path for types
-import type { Post, Comment, CommunityContextType, MarketplaceItem, JobPosting, ListingStatus, Circle, LostAndFoundItem, ExclusiveOffer, UserOffer } from '../packages/shared-logic/types';
+import type { Post, Comment, CommunityContextType, MarketplaceItem, JobPosting, ListingStatus, Circle, LostAndFoundItem, ExclusiveOffer, UserOffer } from '../types';
 import { useAuth } from './AuthContext';
 import { useUI } from './UIContext';
 
