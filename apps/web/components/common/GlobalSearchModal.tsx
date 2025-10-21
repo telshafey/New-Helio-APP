@@ -56,7 +56,7 @@ const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, onClose }
                 type: 'خدمة',
                 title: s.name,
                 subtitle: s.address,
-                link: `/services/detail/${s.id}`,
+                link: `/service/${s.id}`,
                 icon: <WrenchScrewdriverIcon className="w-5 h-5 text-cyan-500" />
             }));
 
