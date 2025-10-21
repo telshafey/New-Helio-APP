@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 // FIX: Corrected import paths for monorepo structure
-import type { Advertisement } from '../../../../packages/shared-logic/types';
+import type { Advertisement } from '../../../packages/shared-logic/types';
 // FIX: Corrected import path for Icons
 import { ChevronLeftIcon, ChevronRightIcon } from './Icons';
 import ImageModal from './ImageModal';

@@ -1,6 +1,6 @@
 import React from 'react';
 // FIX: Corrected import paths for monorepo structure
-import { useUI } from '../../../../packages/shared-logic/context/UIContext';
+import { useUI } from '../../../packages/shared-logic/context/UIContext';
 // FIX: Corrected import path for Icons
 import { ShareIcon } from './Icons';
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // FIX: Corrected import paths for monorepo structure
-import { useAuth } from '../../../../packages/shared-logic/context/AuthContext';
+import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
 // FIX: Corrected import paths for monorepo structure
-import { AppUser } from '../../../../packages/shared-logic/types';
+import { AppUser } from '../../../packages/shared-logic/types';
 import { UserCircleIcon, ArrowLeftOnRectangleIcon, BuildingStorefrontIcon, TagIcon } from './Icons';
 
 interface ProfileDropDownProps {

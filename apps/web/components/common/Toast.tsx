@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 // FIX: Corrected import paths for monorepo structure
-import { useUI } from '../../../../packages/shared-logic/context/UIContext';
+import { useUI } from '../../../packages/shared-logic/context/UIContext';
 // FIX: Corrected import path for Icons
 import { CheckCircleIcon, XCircleIcon } from './Icons';
-import type { ToastMessage } from '../../../../packages/shared-logic/types';
+import type { ToastMessage } from '../../../packages/shared-logic/types';
 
 const Toast: React.FC<{ message: ToastMessage; onDismiss: (id: number) => void }> = ({ message, onDismiss }) => {
     useEffect(() => {

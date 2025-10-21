@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 // FIX: Corrected import path for monorepo structure
-import { useUsers } from '../../../../packages/shared-logic/context/UsersContext';
+import { useUsers } from '../../../packages/shared-logic/context/UsersContext';
 // FIX: Corrected import path for monorepo structure
-import { useServices } from '../../../../packages/shared-logic/context/ServicesContext';
+import { useServices } from '../../../packages/shared-logic/context/ServicesContext';
 // FIX: Corrected import path for monorepo structure
-import { useProperties } from '../../../../packages/shared-logic/context/PropertiesContext';
+import { useProperties } from '../../../packages/shared-logic/context/PropertiesContext';
 // FIX: Corrected import path for monorepo structure
-import { useNews } from '../../../../packages/shared-logic/context/NewsContext';
+import { useNews } from '../../../packages/shared-logic/context/NewsContext';
 // FIX: Corrected import path for monorepo structure
-import type { SearchResult } from '../../../../packages/shared-logic/types';
+import type { SearchResult } from '../../../packages/shared-logic/types';
 import { MagnifyingGlassIcon, XMarkIcon, WrenchScrewdriverIcon, HomeModernIcon, NewspaperIcon, UserGroupIcon } from './Icons';
 
 interface GlobalSearchModalProps {
