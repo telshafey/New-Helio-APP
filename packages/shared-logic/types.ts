@@ -469,6 +469,7 @@ export interface AuthContextType {
   publicLogin: (email: string, password?: string) => boolean;
   publicLogout: () => void;
   register: (user: Omit<AppUser, 'id' | 'joinDate' | 'avatar' | 'status' | 'role'>) => boolean;
+  // FIX: Correct updateProfile type to not expect role, as it's not editable from the profile page.
   updateProfile: (user: Omit<AppUser, 'joinDate' | 'status' | 'password' | 'role'>) => void;
 }
 

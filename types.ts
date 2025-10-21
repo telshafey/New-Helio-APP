@@ -469,7 +469,8 @@ export interface AuthContextType {
   publicLogin: (email: string, password?: string) => boolean;
   publicLogout: () => void;
   register: (user: Omit<AppUser, 'id' | 'joinDate' | 'avatar' | 'status' | 'role'>) => boolean;
-  updateProfile: (user: Omit<AppUser, 'joinDate' | 'status' | 'password'>) => void;
+  // FIX: Correct updateProfile type to not expect role, aligning with packages/shared-logic/types.ts
+  updateProfile: (user: Omit<AppUser, 'joinDate' | 'status' | 'password' | 'role'>) => void;
 }
 
 export interface CommunityContextType {

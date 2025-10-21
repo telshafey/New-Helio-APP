@@ -1,5 +1,6 @@
 
-// FIX: Corrected import path for types
+
+// FIX: Corrected import path for types to align with the monorepo structure.
 import type { Category, Service, Review, News, Notification, Property, EmergencyContact, ServiceGuide, AppUser, Supervisor, Driver, WeeklyScheduleItem, ExternalRoute, PublicPagesContent, Post, Advertisement, AboutCityPageContent, AdminUser, AuditLog, MarketplaceItem, JobPosting, Circle, LostAndFoundItem, ExclusiveOffer, UserOffer, InternalRoute } from '../packages/shared-logic/types';
 
 export const mockReviews: Review[] = [
@@ -195,7 +196,7 @@ export const mockNews: News[] = [
     {
         id: 2,
         title: "بدء تشغيل خطوط النقل الداخلي الجديدة",
-        content: "لتسهيل حركة السكان داخل المدينة، تم تشغيل ثلاثة خطوط نقل داخلي الجديدة تغطي كافة الأحياء والمناطق الحيوية.",
+        content: "لتسهيل حركة السكان داخل المدينة، تم تشغيل ثلاثة خطوط نقل داخلي جديدة تغطي كافة الأحياء والمناطق الحيوية.",
         imageUrl: "https://picsum.photos/600/400?random=12",
         date: "2024-07-10",
         author: "جهاز النقل",
@@ -602,6 +603,7 @@ export const mockJobPostings: JobPosting[] = [
 ];
 
 export const mockLostAndFoundItems: LostAndFoundItem[] = [
+    // FIX: Completed the first object which was causing a type error.
     {
         id: 1,
         userId: 1,

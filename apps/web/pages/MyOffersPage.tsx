@@ -1,5 +1,4 @@
 import React from 'react';
-// FIX: Corrected import paths for monorepo structure
 import { useCommunity } from '../../../packages/shared-logic/context/AppContext';
 import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
 import { useServices } from '../../../packages/shared-logic/context/ServicesContext';
@@ -7,7 +6,6 @@ import { Link } from 'react-router-dom';
 import PageBanner from '../components/common/PageBanner';
 import { TagIcon, QrCodeIcon } from '../components/common/Icons';
 import EmptyState from '../components/common/EmptyState';
-// FIX: Corrected import paths for monorepo structure
 import type { Service } from '../../../packages/shared-logic/types';
 
 const MyOffersPage: React.FC = () => {
@@ -43,4 +41,36 @@ const MyOffersPage: React.FC = () => {
                                              <div className="w-32 h-32 bg-slate-100 dark:bg-slate-700 rounded-lg flex items-center justify-center">
                                                 <QrCodeIcon className="w-20 h-20 text-slate-400 dark:text-slate-500"/>
                                              </div>
-                                            <p className
+                                            <p className="mt-2 text-xs text-gray-500">امسح الرمز لدى مقدم الخدمة</p>
+                                        </div>
+                                        <div className="flex-grow text-center sm:text-right">
+                                            <h3 className="text-xl font-bold text-gray-800 dark:text-white">{offerDetails.title}</h3>
+                                            {serviceDetails && <p className="text-gray-500 dark:text-gray-400"> لدى <Link to={`/service/${serviceDetails.id}`} className="font-semibold text-cyan-500 hover:underline">{serviceDetails.name}</Link></p>}
+                                            <div className="my-4">
+                                                <p className="text-sm text-gray-500">أو استخدم الرمز التالي:</p>
+                                                <p className="text-2xl font-mono tracking-widest bg-slate-100 dark:bg-slate-700 inline-block px-4 py-2 rounded-lg mt-1">{userOffer.redeemCode}</p>
+                                            </div>
+                                            <p className="text-xs text-gray-400">تم الحصول على العرض في: {new Date(userOffer.generatedDate).toLocaleDateString('ar-EG')}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    ) : (
+                        <EmptyState
+                            icon={<TagIcon className="w-16 h-16 text-slate-400" />}
+                            title="ليس لديك عروض نشطة"
+                            message="ابدأ بتصفح العروض الحصرية واحصل على ما يناسبك!"
+                        >
+                            <Link to="/offers" className="inline-block bg-cyan-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-cyan-600 transition-colors">
+                                تصفح العروض
+                            </Link>
+                        </EmptyState>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default MyOffersPage;

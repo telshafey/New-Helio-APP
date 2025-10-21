@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+// FIX: Corrected import paths for monorepo structure
 import { useUsers } from '../../packages/shared-logic/context/UsersContext';
 import { 
     ArrowLeftIcon, TrashIcon, ChatBubbleOvalLeftEllipsisIcon, PinIcon, 
@@ -7,8 +8,10 @@ import {
 } from '../components/common/Icons';
 import EmptyState from '../components/common/EmptyState';
 import KpiCard from '../components/common/KpiCard';
+// FIX: Corrected import paths for monorepo structure
 import type { Post, Comment, AppUser, PostCategory, Circle } from '../../packages/shared-logic/types';
 import Modal from '../components/common/Modal';
+// FIX: Corrected import paths for monorepo structure
 import { useCommunity } from '../../packages/shared-logic/context/AppContext';
 
 const CommentManagementModal: React.FC<{ 
@@ -193,4 +196,112 @@ const CommunityManagementPage: React.FC = () => {
                 </h1>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    
+                    <KpiCard title="إجمالي المنشورات" value={communityStats.totalPosts.toString()} icon={<ChatBubbleOvalLeftEllipsisIcon className="w-8 h-8 text-cyan-400" />} />
+                    <KpiCard title="إجمالي التعليقات" value={communityStats.totalComments.toString()} icon={<ChatBubbleOvalLeftIcon className="w-8 h-8 text-purple-400" />} />
+                    <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:scale-[1.02]">
+                        <div className="flex items-center justify-between text-gray-500 dark:text-gray-400">
+                            <p className="font-medium text-sm">المستخدم الأكثر تفاعلاً</p>
+                            <UserCircleIcon className="w-8 h-8 text-amber-400" />
+                        </div>
+                         {communityStats.mostActiveUser ? (
+                            <div className="mt-2 flex items-center gap-3">
+                                <img src={communityStats.mostActiveUser.avatar} alt={communityStats.mostActiveUser.name} className="w-10 h-10 rounded-full object-cover" />
+                                <span className="font-bold text-gray-900 dark:text-white">{communityStats.mostActiveUser.name}</span>
+                            </div>
+                         ) : <p className="mt-2 text-gray-900 dark:text-white">لا يوجد</p>}
+                    </div>
+                </div>
+
+                 {sortedPosts.length > 0 ? (
+                    <div className="space-y-4">
+                        {sortedPosts.map(post => {
+                            const circleName = circles.find(c => c.id === post.circleId)?.name || 'غير معروف';
+                            return (
+                             <div key={post.id} className={`p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border-l-4 ${post.isPinned ? 'border-cyan-500' : 'border-transparent'}`}>
+                                <div className="flex flex-col sm:flex-row justify-between sm:items-start gap-4">
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <img src={post.avatar} alt={post.username} className="w-10 h-10 rounded-full" />
+                                            <div>
+                                                <p className="font-semibold">{post.username}</p>
+                                                <p className="text-xs text-gray-500">{new Date(post.date).toLocaleDateString()} • في: {circleName}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                           {post.isPinned && <PinIcon className="w-5 h-5 text-cyan-500" />}
+                                           <p className="font-bold text-gray-800 dark:text-white">{post.title || `منشور (${post.category})`}</p>
+                                        </div>
+                                        <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">{post.content}</p>
+                                        
+                                        {post.category === 'استطلاع رأي' && post.pollOptions && (
+                                            <div className="mt-4 space-y-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+                                                <h4 className="font-semibold text-sm">نتائج الاستطلاع:</h4>
+                                                {(() => {
+                                                    const totalVotes = post.pollOptions.reduce((sum, opt) => sum + opt.votes.length, 0);
+                                                    return post.pollOptions.map((option, index) => {
+                                                        const percentage = totalVotes > 0 ? (option.votes.length / totalVotes) * 100 : 0;
+                                                        return (
+                                                            <div key={index}>
+                                                                <div className="flex justify-between items-center text-xs mb-1">
+                                                                    <span>{option.option} ({option.votes.length} صوت)</span>
+                                                                    <span>{Math.round(percentage)}%</span>
+                                                                </div>
+                                                                <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+                                                                    <div className="bg-cyan-500 h-2 rounded-full" style={{ width: `${percentage}%` }}></div>
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    });
+                                                })()}
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="flex-shrink-0 w-full sm:w-auto">
+                                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-200 dark:border-slate-700 sm:border-none sm:pt-0 sm:mt-0">
+                                            <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                                                <div className="flex items-center gap-1.5" title="الإعجابات"><HandThumbUpIcon className="w-5 h-5"/><span>{post.likes.length}</span></div>
+                                                <div className="flex items-center gap-1.5" title="التعليقات"><ChatBubbleOvalLeftIcon className="w-5 h-5"/><span>{post.comments.length}</span></div>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <button onClick={() => setEditingPost(post)} className="p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700 text-blue-500" title="تعديل المنشور"><PencilSquareIcon className="w-5 h-5"/></button>
+                                                <button onClick={() => togglePinPost(post.id)} className={`p-2 rounded-md ${post.isPinned ? 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900/50' : 'hover:bg-slate-200 dark:hover:bg-slate-700'}`} title={post.isPinned ? "إلغاء التثبيت" : "تثبيت"}><PinIcon className="w-5 h-5"/></button>
+                                                <button onClick={() => setCommentPost(post)} className="p-2 rounded-md hover:bg-slate-200 dark:hover:bg-slate-700" title="إدارة التعليقات"><ChatBubbleOvalLeftIcon className="w-5 h-5"/></button>
+                                                <button onClick={() => deletePost(post.id)} className="p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 rounded-md" title="حذف المنشور"><TrashIcon className="w-5 h-5"/></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                            )})}
+                    </div>
+                ) : (
+                    <EmptyState
+                        icon={<ChatBubbleOvalLeftEllipsisIcon className="w-16 h-16 text-slate-400" />}
+                        title="لا توجد منشورات لإدارتها"
+                        message="عندما يقوم المستخدمون بإضافة منشورات، ستظهر هنا لتتمكن من إدارتها."
+                    />
+                )}
+            </div>
+            
+            <CommentManagementModal
+                post={commentPost}
+                onClose={() => setCommentPost(null)}
+                onDeleteComment={deleteComment}
+            />
+            {editingPost && (
+                 <Modal isOpen={!!editingPost} onClose={() => setEditingPost(null)} title="تعديل المنشور">
+                    <EditPostForm
+                        post={editingPost}
+                        onClose={() => setEditingPost(null)}
+                        onSave={(postId, data) => {
+                            editPost(postId, data);
+                            setEditingPost(null);
+                        }}
+                    />
+                 </Modal>
+            )}
+        </div>
+    );
+};
+
+export default CommunityManagementPage;

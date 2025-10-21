@@ -1,5 +1,3 @@
-
-
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 // FIX: Corrected import paths for monorepo structure
 import { mockUsers, mockAdmins } from '../data/mock-data';
@@ -105,7 +103,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return true;
     }, [users, showToast]);
 
-    const updateProfile = useCallback((updatedUser: Omit<AppUser, 'joinDate' | 'status' | 'password'>) => {
+    // FIX: Match the type definition from types.ts, which doesn't include 'role'.
+    const updateProfile = useCallback((updatedUser: Omit<AppUser, 'joinDate' | 'status' | 'password' | 'role'>) => {
         const userToUpdate = users.find(u => u.id === updatedUser.id);
         if (!userToUpdate) return;
         const finalUser = { ...userToUpdate, ...updatedUser };

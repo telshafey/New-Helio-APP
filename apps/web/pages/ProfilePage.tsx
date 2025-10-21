@@ -8,16 +8,18 @@ import { ArrowLeftIcon, UserCircleIcon, PencilIcon, StarIcon, ChatBubbleOvalLeft
 import Modal from '../components/common/Modal';
 import ImageUploader from '../components/common/ImageUploader';
 import type { AppUser, Theme } from '../../packages/shared-logic/types';
-import ServiceCard from '../components/common/ServiceCard';
+// FIX: Changed to named import for ServiceCard as it no longer has a default export.
+import { ServiceCard } from '../components/common/ServiceCard';
 
-const EditProfileForm: React.FC<{ user: AppUser; onSave: (data: Omit<AppUser, 'joinDate' | 'status' | 'role' | 'password'>) => void; onClose: () => void }> = ({ user, onSave, onClose }) => {
+const EditProfileForm: React.FC<{ user: AppUser; onSave: (data: Omit<AppUser, 'joinDate' | 'status' | 'password'>) => void; onClose: () => void }> = ({ user, onSave, onClose }) => {
     const [name, setName] = useState(user.name);
     const [email, setEmail] = useState(user.email);
     const [avatar, setAvatar] = useState([user.avatar]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSave({ id: user.id, name, email, avatar: avatar[0] });
+        // FIX: Pass role along to preserve it during update.
+        onSave({ id: user.id, name, email, avatar: avatar[0], role: user.role });
         onClose();
     };
 
@@ -95,8 +97,10 @@ const ProfilePage: React.FC = () => {
         return null; // Or a loading/error state
     }
     
-    const handleSaveProfile = (data: Omit<AppUser, 'joinDate' | 'status' | 'password' | 'role'>) => {
-        updateProfile({ ...currentPublicUser, ...data });
+    const handleSaveProfile = (data: Omit<AppUser, 'joinDate' | 'status' | 'password'>) => {
+        // FIX: The role is not meant to be updated here, so we omit it before calling updateProfile to match the expected type.
+        const { role, ...updateData } = data;
+        updateProfile(updateData);
     };
 
     const handleConfirmDeletion = () => {
@@ -118,4 +122,72 @@ const ProfilePage: React.FC = () => {
                         <div className="flex flex-col sm:flex-row items-center gap-6 mb-8 pb-8 border-b border-slate-200 dark:border-slate-700">
                             <img src={currentPublicUser.avatar} alt={currentPublicUser.name} className="w-32 h-32 rounded-full object-cover ring-4 ring-cyan-500/50" />
                             <div className="text-center sm:text-right flex-grow">
-                                <h1 className="text-3xl font-bold text-gray-800 dark:text
+                                <h1 className="text-3xl font-bold text-gray-800 dark:text-white">{currentPublicUser.name}</h1>
+                                <p className="text-gray-500 dark:text-gray-400 mt-1">{currentPublicUser.email}</p>
+                                <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">عضو منذ: {new Date(currentPublicUser.joinDate).toLocaleDateString('ar-EG')}</p>
+                            </div>
+                        </div>
+
+                        <div className="mb-10">
+                            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                                <Cog6ToothIcon className="w-7 h-7"/>
+                                الإعدادات
+                            </h2>
+                            <div className="space-y-6">
+                                <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+                                    <h3 className="font-semibold mb-3">المظهر</h3>
+                                    <ThemeSelector />
+                                </div>
+                                <div className="p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+                                    <h3 className="font-semibold mb-3">الحساب</h3>
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                         <button onClick={() => setIsEditModalOpen(true)} className="flex-1 flex items-center justify-center gap-2 bg-slate-200 dark:bg-slate-700 px-4 py-2 rounded-lg font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors">
+                                            <PencilIcon className="w-5 h-5"/>
+                                            تعديل الملف الشخصي
+                                        </button>
+                                        <button 
+                                            onClick={() => setIsDeleteModalOpen(true)}
+                                            className="flex-1 flex items-center justify-center gap-2 bg-red-100 dark:bg-red-900/50 text-red-600 dark:text-red-400 font-semibold px-4 py-2 rounded-lg hover:bg-red-200 dark:hover:bg-red-900 transition-colors"
+                                        >
+                                            <TrashIcon className="w-5 h-5"/>
+                                            طلب حذف الحساب
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mb-10">
+                            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                                <HeartIconSolid className="w-7 h-7 text-red-500"/>
+                                المفضلة ({favoriteServices.length})
+                            </h2>
+                             {favoriteServices.length > 0 ? (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {favoriteServices.map(service => (
+                                        <ServiceCard key={service.id} service={service} />
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="text-center py-8 text-gray-500 bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+                                    <p>لم تقم بإضافة أي خدمات إلى المفضلة بعد.</p>
+                                    <p className="text-sm mt-1">انقر على أيقونة القلب ❤️ على أي خدمة لإضافتها هنا.</p>
+                                </div>
+                            )}
+                        </div>
+
+                        <div>
+                            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                                <ChatBubbleOvalLeftIcon className="w-7 h-7"/>
+                                تقييماتي ({userReviews.length})
+                            </h2>
+                            <div className="space-y-6 max-h-96 overflow-y-auto pr-2">
+                                {userReviews.length > 0 ? userReviews.map(review => (
+                                    <div key={review.id} className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+                                        <div className="flex justify-between items-center mb-2">
+                                            <p className="font-semibold text-gray-700 dark:text-gray-300">
+                                                تقييم لـ <span className="font-bold text-cyan-600 dark:text-cyan-400">{review.serviceName}</span>
+                                            </p>
+                                            <p className="text-xs text-gray-500">{review.date}</p>
+                                        </div>
+                                         <div className="flex items

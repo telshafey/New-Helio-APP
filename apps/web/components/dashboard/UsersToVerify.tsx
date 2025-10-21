@@ -11,7 +11,10 @@ const UsersToVerify: React.FC = () => {
     const approveUser = (userId: number) => {
         const user = users.find(u => u.id === userId);
         if (user) {
-            handleSaveUser({ ...user, status: 'active', role: user.role });
+            // FIX: Pass the role to satisfy the handleSaveUser type which expects a complete user object.
+            // FIX: Destructure joinDate out to match the expected type for handleSaveUser.
+            const { joinDate, ...userData } = user;
+            handleSaveUser({ ...userData, status: 'active' });
         }
     };
 
