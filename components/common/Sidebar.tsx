@@ -16,9 +16,11 @@ import {
     ArchiveBoxIcon,
     TagIcon
 } from './Icons';
-import { useServices } from '../../context/ServicesContext';
-import { useAuth } from '../../context/AuthContext';
-import type { AdminUser } from '../../types';
+// FIX: Corrected import paths for monorepo structure
+import { useServices } from '../../packages/shared-logic/src/context/ServicesContext';
+import { useAuth } from '../../packages/shared-logic/src/context/AuthContext';
+// FIX: Corrected import path for types from the shared logic package.
+import type { AdminUser } from '../../packages/shared-logic/src/types';
 import Logo from './Logo';
 import { getIcon } from './iconUtils';
 

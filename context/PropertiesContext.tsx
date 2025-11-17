@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-// FIX: Corrected import paths for monorepo structure
+import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { mockProperties } from '../data/mock-data';
-import type { Property, PropertiesContextType } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Property, PropertiesContextType } from '../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 
 const PropertiesContext = createContext<PropertiesContextType | undefined>(undefined);
@@ -16,7 +16,16 @@ export const useProperties = (): PropertiesContextType => {
 
 export const PropertiesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const { showToast, showConfirmation } = useUI();
-    const [properties, setProperties] = useState<Property[]>(mockProperties);
+    const [properties, setProperties] = useState<Property[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setProperties(mockProperties);
+            setLoading(false);
+        }, 1200);
+        return () => clearTimeout(timer);
+    }, []);
 
     const genericDelete = useCallback((setItems: React.Dispatch<React.SetStateAction<any[]>>, itemId: number, itemType: string) => {
         showConfirmation(
@@ -51,6 +60,7 @@ export const PropertiesProvider: React.FC<{ children: ReactNode }> = ({ children
 
     const value: PropertiesContextType = {
         properties,
+        loading,
         handleSaveProperty,
         handleDeleteProperty,
     };

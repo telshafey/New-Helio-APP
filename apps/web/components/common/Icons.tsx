@@ -237,8 +237,6 @@ export const QrCodeIcon: React.FC<IconProps> = (props) => (
   </svg>
 );
 
-// FIX: Change invalid JSX comment to a standard comment to fix parsing.
-// FIX: Add all missing icons from here
 export const HomeModernIcon: React.FC<IconProps> = (props) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h4.5m0 0V3.545M2.25 10.75h7.5" />
@@ -462,4 +460,120 @@ export const ScaleIcon: React.FC<IconProps> = (props) => (
 );
 
 export const QuestionMarkCircleIcon: React.FC<IconProps> = (props) => (
-    <svg {...props} xmlns="http://www.w3.org
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+    </svg>
+);
+
+export const InformationCircleIcon: React.FC<IconProps> = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+    </svg>
+);
+
+export const CloudArrowUpIcon: React.FC<IconProps> = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+    </svg>
+);
+
+export const CubeIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+  </svg>
+);
+
+export const EnvelopeIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+  </svg>
+);
+
+export const PencilIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+  </svg>
+);
+
+export const WhatsAppIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+  </svg>
+);
+
+export const GooglePlayIcon: React.FC<IconProps> = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M2.7,2.2L2.7,2.2C2.6,2.3,2.5,2.4,2.5,2.5l7.9,7.9l-9,9C1.1,19.8,1,20.3,1.3,20.7l0,0c0.3,0.4,0.9,0.5,1.3,0.2l18.8-9.4c0.5-0.2,0.5-0.9,0-1.2L2.7,2.2z M12.5,11.8L4.1,3.4l16.1,8.1L12.5,11.8z M12.9,12.5l7.7,3.9L4.4,20.6L12.9,12.5z"/>
+    </svg>
+);
+
+export const AppleIcon: React.FC<IconProps> = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19.1,16.2c-0.2,1.2-0.8,2.3-1.6,3.1c-0.8,0.8-1.7,1.2-2.8,1.2s-2.1-0.5-2.9-1.4c-0.8-0.9-1.4-2-1.4-3.1 c0-0.1,0-0.2,0-0.3c0.1,0,0.1,0,0.2,0c1.2,0,2.4-0.5,3.3-1.5c1-1,1.5-2.3,1.5-3.6c0-1.4-0.6-2.6-1.6-3.4c-1-0.8-2.2-1.2-3.5-1.2 c-0.8,0-1.6,0.2-2.3,0.6C5,7.1,3.9,8.5,3.7,10.2c-0.1,0.4,0,0.8,0.3,1.1c0.3,0.3,0.7,0.4,1.1,0.3c0.1,0,0.2-0.1,0.3-0.1 c0.5-0.2,1-0.4,1.5-0.4c1.3,0,2.5,0.6,3.3,1.6c0.8,1.1,1.2,2.4,1.1,3.7c-0.1,1-0.5,2-1.2,2.8c-0.7,0.8-1.6,1.2-2.6,1.2 c-0.1,0-0.3,0-0.4-0.1c-1-0.2-1.9-0.8-2.6-1.6c-0.5-0.6-1-1.3-1.3-2c-0.3-0.8-0.5-1.6-0.4-2.5c0.1-1.9,1-3.6,2.5-4.8 c1.5-1.2,3.3-1.8,5.2-1.7c0.6,0,1.2,0.1,1.8,0.3c0.1,0,0.2,0,0.3-0.1c1.1-0.5,2.3-0.8,3.6-0.7c0.3,0,0.5,0,0.8,0.1 c-0.5,0.9-0.8,1.9-0.8,2.9c0,1.5,0.6,2.9,1.6,3.9C20.6,13.4,20.4,14.9,19.1,16.2z M15.9,4.2c0.6-0.8,1-1.7,1-2.7c-0.9,0.1-1.9,0.5-2.7,1.2 C14.5,3.2,15,3.6,15.9,4.2z"/>
+    </svg>
+);
+
+export const ShareIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.186 2.25 2.25 0 00-3.933 2.186z" />
+  </svg>
+);
+
+export const AdjustmentsHorizontalIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0h7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+  </svg>
+);
+
+export const UsersIcon: React.FC<IconProps> = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-4.598M12 13.5a3 3 0 100-6 3 3 0 000 6z" />
+    </svg>
+);
+
+export const BeakerIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.25M9.75 3.104c.251-.132.52-.244.797-.342A13.5 13.5 0 0112 3c2.49 0 4.805.62 6.75 1.75m-6.75-.646v5.714a2.25 2.25 0 00.659 1.591L19 14.25m-9.25-11.146c.251-.132.52-.244.797-.342A13.5 13.5 0 0012 3c2.49 0 4.805.62 6.75 1.75m-15.5 0a13.5 13.5 0 016.75-1.75c.277 0 .546.01.815.029m-8.15.522v5.714a2.25 2.25 0 00.659 1.591L5 14.25m-1.75.25a2.25 2.25 0 01-2.25-2.25v-2.5a2.25 2.25 0 012.25-2.25h.5A2.25 2.25 0 016 9.75v3.5a2.25 2.25 0 01-2.25 2.25h-.5m19.5 0a2.25 2.25 0 01-2.25-2.25v-2.5a2.25 2.25 0 012.25-2.25h.5a2.25 2.25 0 012.25 2.25v3.5a2.25 2.25 0 01-2.25 2.25h-.5M5 14.25L5 21" />
+  </svg>
+);
+
+export const FireIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 3.75 3.75 0 001.43 3.921z" />
+  </svg>
+);
+
+export const FilmIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6 20.25h12m-7.5-3.75v3.75m-3.75 0V15m-3.75 3.75H3V6.75A3.75 3.75 0 016.75 3h10.5A3.75 3.75 0 0121 6.75v10.5a3.75 3.75 0 01-3.75 3.75H6.75m-3.75 0h-1.5M21 15h1.5" />
+  </svg>
+);
+
+export const PinIcon: React.FC<IconProps> = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
+    </svg>
+);
+
+export const HandThumbUpIcon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M6.633 10.5l-1.875 1.875a.75.75 0 000 1.06l1.875 1.875M6.633 10.5h4.897M6.633 10.5v11.25" />
+  </svg>
+);
+
+export const Squares2X2Icon: React.FC<IconProps> = (props) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+  </svg>
+);
+export const FacebookIcon: React.FC<IconProps> = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.128 22 16.991 22 12z" />
+    </svg>
+);
+export const InstagramIcon: React.FC<IconProps> = (props) => (
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919C8.416 2.175 8.796 2.163 12 2.163zm0 1.802c-3.116 0-3.472.012-4.693.068-2.61.118-3.791 1.3-3.909 3.909-.056 1.22-.068 1.575-.068 4.693s.012 3.472.068 4.693c.118 2.61 1.3 3.791 3.909 3.909 1.22.056 1.575.068 4.693.068s3.472-.012 4.693-.068c2.61-.118 3.791-1.3 3.909-3.909.056-1.22.068-1.575.068-4.693s-.012-3.472-.068-4.693c-.118-2.61-1.3-3.791-3.909-3.909C15.472 3.975 15.116 3.965 12 3.965zM12 6.848c-2.835 0-5.152 2.316-5.152 5.152s2.316 5.152 5.152 5.152 5.152-2.316 5.152-5.152-2.316-5.152-5.152-5.152zm0 8.498c-1.849 0-3.348-1.498-3.348-3.348s1.498-3.348 3.348-3.348 3.348 1.498 3.348 3.348-1.498 3.348-3.348-3.348zm4.908-8.21a1.21 1.21 0 11-2.42 0 1.21 1.21 0 012.42 0z" />
+    </svg>
+);

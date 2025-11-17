@@ -5,7 +5,8 @@ import {
     EnvelopeIcon, MapIcon, TruckIcon, WrenchScrewdriverIcon 
 } from '../components/common/Icons';
 import { useData } from '../context/DataContext';
-import type { AboutCityPageContent, BoardMember } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { AboutCityPageContent, BoardMember } from '../packages/shared-logic/src/types';
 
 const TabButton: React.FC<{ isActive: boolean; onClick: () => void; children: React.ReactNode; icon: React.ReactNode }> = ({ isActive, onClick, children, icon }) => (
     <button

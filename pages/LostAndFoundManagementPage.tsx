@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCommunity } from '../context/AppContext';
 import { ArrowLeftIcon, ArchiveBoxIcon, CheckCircleIcon, XCircleIcon, ClockIcon, TrashIcon } from '../components/common/Icons';
-import type { LostAndFoundItem, ListingStatus } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { LostAndFoundItem, ListingStatus } from '../packages/shared-logic/src/types';
 import RejectReasonModal from '../components/common/RejectReasonModal';
 import StatusBadge from '../components/common/StatusBadge';
 

@@ -2,7 +2,8 @@ import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useCommunity } from '../../context/AppContext';
-import type { Post, PostCategory, Circle } from '../../types';
+// FIX: Corrected import path for types.
+import type { Post, PostCategory, Circle } from '../../../packages/shared-logic/src/types';
 import { ChatBubbleOvalLeftEllipsisIcon, HandThumbUpIcon, PinIcon } from '../common/Icons';
 import EmptyState from '../common/EmptyState';
 

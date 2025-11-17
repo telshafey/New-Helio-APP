@@ -1,15 +1,16 @@
 import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // FIX: Corrected import paths for monorepo structure
-import { useCommunity } from '../../../packages/shared-logic/context/AppContext';
-import { useServices } from '../../../packages/shared-logic/context/ServicesContext';
+import { useCommunity } from '../../packages/shared-logic/src/context/AppContext';
+import { useServices } from '../../packages/shared-logic/src/context/ServicesContext';
 import PageBanner from '../components/common/PageBanner';
+// FIX: Removed .tsx extension from import path to fix module resolution error.
 import { TagIcon, CalendarDaysIcon } from '../components/common/Icons';
 // FIX: Corrected import paths for monorepo structure
-import type { ExclusiveOffer } from '../../../packages/shared-logic/types';
+import type { ExclusiveOffer, Service } from '../../packages/shared-logic/src/types';
 import EmptyState from '../components/common/EmptyState';
 // FIX: Corrected import paths for monorepo structure
-import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
+import { useAuth } from '../../packages/shared-logic/src/context/AuthContext';
 
 const OfferCard: React.FC<{ offer: ExclusiveOffer; serviceName: string }> = ({ offer, serviceName }) => {
     const { generateUserOffer } = useCommunity();

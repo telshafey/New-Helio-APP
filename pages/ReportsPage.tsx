@@ -5,7 +5,8 @@ import { useProperties } from '../context/PropertiesContext';
 import { useNews } from '../context/NewsContext';
 import { ArrowLeftIcon, StarIcon, EyeIcon, ChatBubbleOvalLeftIcon, WrenchScrewdriverIcon, ChartPieIcon, ChartBarIcon, HomeModernIcon, NewspaperIcon, MagnifyingGlassIcon, StarIconOutline, ArrowTrendingUpIcon } from '../components/common/Icons';
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import type { Service, Property, News, Category } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Service, Property, News, Category } from '../packages/shared-logic/src/types';
 
 const KpiCard: React.FC<{ title: string; value: string | number; icon: React.ReactNode }> = ({ title, value, icon }) => (
     <div className="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg flex items-center space-x-4 rtl:space-x-reverse">

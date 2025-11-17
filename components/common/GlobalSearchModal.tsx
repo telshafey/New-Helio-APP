@@ -4,7 +4,8 @@ import { useUsers } from '../../context/UsersContext';
 import { useServices } from '../../context/ServicesContext';
 import { useProperties } from '../../context/PropertiesContext';
 import { useNews } from '../../context/NewsContext';
-import type { SearchResult } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { SearchResult } from '../../packages/shared-logic/src/types';
 import { MagnifyingGlassIcon, XMarkIcon, WrenchScrewdriverIcon, HomeModernIcon, NewspaperIcon, UserGroupIcon } from './Icons';
 
 interface GlobalSearchModalProps {

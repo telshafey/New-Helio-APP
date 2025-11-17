@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import type { Property } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Property } from '../../packages/shared-logic/src/types';
 import { MapPinIcon, PhoneIcon } from './Icons';
 
 const PropertyCard: React.FC<{ property: Property }> = ({ property }) => {

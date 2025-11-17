@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { AppUser } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { AppUser } from '../../packages/shared-logic/src/types';
 import { UserCircleIcon, ArrowLeftOnRectangleIcon, BuildingStorefrontIcon, TagIcon } from './Icons';
 
 interface ProfileDropDownProps {

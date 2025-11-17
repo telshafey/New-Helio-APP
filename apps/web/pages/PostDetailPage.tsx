@@ -1,15 +1,15 @@
 import React, { useMemo, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-// FIX: Corrected import paths for monorepo structure
-import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
+// FIX: Corrected import path for monorepo structure.
+import { useAuth } from '../../../packages/shared-logic/src/context/AuthContext';
 import Spinner from '../components/common/Spinner';
 import { ArrowLeftIcon, HandThumbUpIcon, ChatBubbleOvalLeftEllipsisIcon, TrashIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-// FIX: Corrected import paths for monorepo structure
-import type { Post } from '../../../packages/shared-logic/types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Post } from '../../../packages/shared-logic/src/types';
 import ShareButton from '../components/common/ShareButton';
-// FIX: Corrected import paths for monorepo structure
-import { useCommunity } from '../../../packages/shared-logic/context/AppContext';
+// FIX: Corrected import path for monorepo structure.
+import { useCommunity } from '../../../packages/shared-logic/src/context/AppContext';
 
 const PollDisplay: React.FC<{ post: Post }> = ({ post }) => {
     const { voteOnPoll } = useCommunity();

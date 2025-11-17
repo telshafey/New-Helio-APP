@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-// FIX: Corrected import paths for monorepo structure
 import { mockUsers, mockAdmins } from '../data/mock-data';
-import type { AppUser, AuthContextType, AdminUser } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { AppUser, AuthContextType, AdminUser } from '../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -103,10 +103,16 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         return true;
     }, [users, showToast]);
 
-    const updateProfile = useCallback((updatedUser: Omit<AppUser, 'joinDate' | 'status' | 'password'>) => {
+    const updateProfile = useCallback((updatedUser: Omit<AppUser, 'joinDate' | 'status' | 'password' | 'role'>) => {
         const userToUpdate = users.find(u => u.id === updatedUser.id);
         if (!userToUpdate) return;
-        const finalUser = { ...userToUpdate, ...updatedUser };
+        
+        const finalUser: AppUser = {
+          ...userToUpdate,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          avatar: updatedUser.avatar,
+        };
 
         setUsers(prev => prev.map(u => u.id === updatedUser.id ? finalUser : u));
         setCurrentPublicUser(prev => prev ? finalUser : null);

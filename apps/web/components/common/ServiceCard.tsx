@@ -1,9 +1,13 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import type { Service } from '../../../packages/shared-logic/types';
+// FIX: Corrected import path for monorepo structure
+import type { Service } from '../../packages/shared-logic/src/types';
+// FIX: Removed .tsx extension from import path to fix module resolution error.
 import { StarIcon, HeartIcon, HeartIconSolid } from './Icons';
-import { useServices } from '../../../packages/shared-logic/context/ServicesContext';
-import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
+// FIX: Corrected import path for monorepo structure
+import { useServices } from '../../packages/shared-logic/src/context/ServicesContext';
+// FIX: Corrected import path for monorepo structure
+import { useAuth } from '../../packages/shared-logic/src/context/AuthContext';
 
 const Rating: React.FC<{ rating: number }> = ({ rating }) => (
     <div className="flex items-center">

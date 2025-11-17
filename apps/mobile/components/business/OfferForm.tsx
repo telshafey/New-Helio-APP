@@ -1,1 +1,0 @@
-full contents of apps/mobile/components/business/OfferForm.tsx

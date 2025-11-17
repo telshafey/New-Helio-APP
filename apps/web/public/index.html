@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Helio APP</title>
+    <link rel="icon" href="https://i.ibb.co/bF0fJgS/favicon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0891b2" />
+    <script>
+      // Immediately apply theme from localStorage to prevent flash
+      (function() {
+        function getInitialTheme() {
+          try {
+            const storedTheme = localStorage.getItem('theme');
+            if (storedTheme === 'light' || storedTheme === 'dark') {
+              return storedTheme;
+            }
+            return 'system';
+          } catch (e) {
+            return 'system';
+          }
+        }
+        
+        const theme = getInitialTheme();
+        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (theme === 'dark' || (theme === 'system' && isSystemDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+    <style>
+      /* Modern, subtle scrollbar for a better mobile experience */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(148, 163, 184, 0.5); /* slate-400 with 50% opacity */
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(100, 116, 139, 0.7); /* slate-500 with 70% opacity */
+      }
+      /* For Firefox */
+      html {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(148, 163, 184, 0.5) transparent; /* thumb color track color */
+        scroll-behavior: smooth;
+      }
+      /* Global animation for modals */
+      .animate-fade-in-up {
+          animation: fadeInUp 0.3s ease-out;
+      }
+      @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+      }
+       .animate-fade-in {
+          animation: fadeIn 0.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+      }
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+      }
+      
+      /* Enhanced Initial Loader Styles */
+      #root {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(-45deg, #f1f5f9, #e2e8f0, #f1f5f9);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+      }
+      .dark #root {
+        background: linear-gradient(-45deg, #0f172a, #1e293b, #0f172a);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+      }
+
+      #initial-loader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+        animation: fadeIn 1s ease-out;
+      }
+      .helio-logo {
+        height: 6rem; /* 96px */
+        animation: scaleInFade 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+      }
+      .loader-dots {
+        display: flex;
+        gap: 0.75rem;
+      }
+      .loader-dot {
+        width: 0.75rem;
+        height: 0.75rem;
+        background-color: rgb(8, 145, 178);
+        border-radius: 50%;
+        animation: bounce 1.4s infinite ease-in-out both;
+      }
+      .loader-dot:nth-child(1) { animation-delay: -0.32s; }
+      .loader-dot:nth-child(2) { animation-delay: -0.16s; }
+
+      @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      @keyframes scaleInFade {
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes bounce {
+        0%, 80%, 100% { transform: scale(0); }
+        40% { transform: scale(1.0); }
+      }
+    </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    }
+  </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "recharts": "https://aistudiocdn.com/recharts@^3.2.1",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^6.25.1",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.20.0",
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^11.3.11",
+    "@react-navigation/native-stack": "https://aistudiocdn.com/@react-navigation/native-stack@^7.3.28",
+    "react-native": "https://aistudiocdn.com/react-native@^0.82.0",
+    "@react-navigation/native": "https://aistudiocdn.com/@react-navigation/native@^7.1.18",
+    "@react-navigation/bottom-tabs": "https://aistudiocdn.com/@react-navigation/bottom-tabs@^7.4.9",
+    "react-native-svg": "https://aistudiocdn.com/react-native-svg@^15.14.0",
+    "@react-navigation/material-top-tabs": "https://aistudiocdn.com/@react-navigation/material-top-tabs@^7.3.8"
+  }
+}
+</script>
+</head>
+  <body class="bg-slate-100 dark:bg-slate-900">
+    <div id="root">
+      <div id="initial-loader">
+        <img src="https://i.ibb.co/7v49zC6/helio-logo.png" alt="Helio Logo" class="helio-logo" />
+        <div class="loader-dots">
+          <div class="loader-dot"></div>
+          <div class="loader-dot"></div>
+          <div class="loader-dot"></div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../src/index.tsx"></script>
+  </body>
+</html>

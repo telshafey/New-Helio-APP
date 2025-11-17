@@ -4,7 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PageBanner from '../components/common/PageBanner';
 import { ArchiveBoxIcon, PlusIcon, MapPinIcon } from '../components/common/Icons';
-import type { LostAndFoundItem } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { LostAndFoundItem } from '../packages/shared-logic/src/types';
 import Modal from '../components/common/Modal';
 import ImageUploader from '../components/common/ImageUploader';
 import EmptyState from '../components/common/EmptyState';

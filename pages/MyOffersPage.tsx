@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import PageBanner from '../components/common/PageBanner';
 import { TagIcon, QrCodeIcon } from '../components/common/Icons';
 import EmptyState from '../components/common/EmptyState';
-import type { Service } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Service } from '../packages/shared-logic/src/types';
 
 const MyOffersPage: React.FC = () => {
     const { userOffers, offers } = useCommunity();

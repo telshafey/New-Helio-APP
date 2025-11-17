@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import type { Activity } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Activity } from '../../packages/shared-logic/src/types';
 import { WrenchScrewdriverIcon, ShieldExclamationIcon, NewspaperIcon, HomeModernIcon } from '../common/Icons';
 import { useServices } from '../../context/ServicesContext';
 import { useProperties } from '../../context/PropertiesContext';

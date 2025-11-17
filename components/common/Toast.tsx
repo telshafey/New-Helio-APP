@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useUI } from '../../context/UIContext';
 import { CheckCircleIcon, XCircleIcon } from './Icons';
-import type { ToastMessage } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { ToastMessage } from '../../packages/shared-logic/src/types';
 
 const Toast: React.FC<{ message: ToastMessage; onDismiss: (id: number) => void }> = ({ message, onDismiss }) => {
     useEffect(() => {

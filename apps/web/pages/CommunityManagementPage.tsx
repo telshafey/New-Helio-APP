@@ -1,7 +1,8 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // FIX: Corrected import paths for monorepo structure
-import { useUsers } from '../../packages/shared-logic/context/UsersContext';
+import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
+// FIX: Removed .tsx extension from import path to fix module resolution error.
 import { 
     ArrowLeftIcon, TrashIcon, ChatBubbleOvalLeftEllipsisIcon, PinIcon, 
     ChatBubbleOvalLeftIcon, UserCircleIcon, XMarkIcon, HandThumbUpIcon, PencilSquareIcon, PlusIcon
@@ -9,10 +10,10 @@ import {
 import EmptyState from '../components/common/EmptyState';
 import KpiCard from '../components/common/KpiCard';
 // FIX: Corrected import paths for monorepo structure
-import type { Post, Comment, AppUser, PostCategory, Circle } from '../../packages/shared-logic/types';
+import type { Post, Comment, AppUser, PostCategory, Circle } from '../../packages/shared-logic/src/types';
 import Modal from '../components/common/Modal';
 // FIX: Corrected import paths for monorepo structure
-import { useCommunity } from '../../packages/shared-logic/context/AppContext';
+import { useCommunity } from '../../packages/shared-logic/src/context/AppContext';
 
 const CommentManagementModal: React.FC<{ 
     post: Post | null; 

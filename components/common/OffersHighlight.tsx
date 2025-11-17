@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import type { ExclusiveOffer, Service } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { ExclusiveOffer, Service } from '../../packages/shared-logic/src/types';
 import { TagIcon, CalendarDaysIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons';
 import { prefetchMap } from './AnimatedRoutes';
 import { useCommunity } from '../../context/AppContext';

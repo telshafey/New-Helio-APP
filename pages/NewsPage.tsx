@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, PlusIcon, PencilSquareIcon, TrashIcon, NewspaperIcon } from '../components/common/Icons';
-import type { News } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { News } from '../packages/shared-logic/src/types';
+// FIX: Corrected import paths for monorepo structure
 import { useNews } from '../context/NewsContext';
 import { useAuth } from '../context/AuthContext';
 import Modal from '../components/common/Modal';

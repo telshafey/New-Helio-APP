@@ -4,7 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import Spinner from '../components/common/Spinner';
 import { ArrowLeftIcon, HandThumbUpIcon, ChatBubbleOvalLeftEllipsisIcon, TrashIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-import type { Post } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Post } from '../packages/shared-logic/src/types';
 import ShareButton from '../components/common/ShareButton';
 import { useCommunity } from '../context/AppContext';
 

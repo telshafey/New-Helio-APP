@@ -1,1 +1,0 @@
-full contents of apps/mobile/App.tsx

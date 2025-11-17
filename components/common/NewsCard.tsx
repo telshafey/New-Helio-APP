@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import type { News } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { News } from '../../packages/shared-logic/src/types';
 
 const NewsCard: React.FC<{ newsItem: News }> = ({ newsItem }) => {
     return (

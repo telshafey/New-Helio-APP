@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
-// FIX: Corrected import path for monorepo structure
-import type { Alert } from '../../../packages/shared-logic/types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Alert } from '../../packages/shared-logic/src/types';
 import { BellAlertIcon, UserPlusIcon, BuildingStorefrontIcon } from '../common/Icons';
-// FIX: Corrected import path for monorepo structure
-import { useUsers } from '../../../packages/shared-logic/context/UsersContext';
-// FIX: Corrected import path for monorepo structure
-import { useProperties } from '../../../packages/shared-logic/context/PropertiesContext';
+// FIX: Corrected import paths for monorepo structure
+import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
+import { useProperties } from '../../packages/shared-logic/src/context/PropertiesContext';
 
 const formatRelativeTime = (dateString: string) => {
     const date = new Date(dateString);

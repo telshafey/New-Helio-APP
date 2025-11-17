@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-// FIX: Corrected import paths for monorepo structure
+import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { mockServices, mockCategories } from '../data/mock-data';
-import type { Service, Category, Review, ServicesContextType } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Service, Category, Review, ServicesContextType } from '../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 import { useAuth } from './AuthContext';
 
@@ -19,8 +19,18 @@ export const ServicesProvider: React.FC<{ children: ReactNode }> = ({ children }
     const { showToast, showConfirmation } = useUI();
     const { currentPublicUser } = useAuth();
 
-    const [services, setServices] = useState<Service[]>(mockServices);
-    const [categories, setCategories] = useState<Category[]>(mockCategories);
+    const [services, setServices] = useState<Service[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setServices(mockServices);
+            setCategories(mockCategories);
+            setLoading(false);
+        }, 1200); // Simulate network delay
+        return () => clearTimeout(timer);
+    }, []);
 
     const genericDelete = useCallback((setItems: React.Dispatch<React.SetStateAction<any[]>>, itemId: number, itemType: string) => {
         showConfirmation(
@@ -121,6 +131,7 @@ export const ServicesProvider: React.FC<{ children: ReactNode }> = ({ children }
     const value: ServicesContextType = {
         categories,
         services,
+        loading,
         handleSaveService,
         handleDeleteService,
         handleToggleFavorite,

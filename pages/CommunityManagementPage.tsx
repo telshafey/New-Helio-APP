@@ -7,7 +7,8 @@ import {
 } from '../components/common/Icons';
 import EmptyState from '../components/common/EmptyState';
 import KpiCard from '../components/common/KpiCard';
-import type { Post, Comment, AppUser, PostCategory, Circle } from '../types';
+// FIX: Corrected import paths for monorepo structure
+import type { Post, Comment, AppUser, PostCategory, Circle } from '../../packages/shared-logic/src/types';
 import Modal from '../components/common/Modal';
 import { useCommunity } from '../context/AppContext';
 

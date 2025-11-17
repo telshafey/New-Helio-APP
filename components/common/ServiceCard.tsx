@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import type { Service } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Service } from '../../packages/shared-logic/src/types';
 import { StarIcon, HeartIcon, HeartIconSolid } from './Icons';
 import { useServices } from '../../context/ServicesContext';
 import { useAuth } from '../../context/AuthContext';

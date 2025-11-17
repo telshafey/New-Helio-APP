@@ -15,7 +15,8 @@ import PropertyCarousel from '../components/common/PropertyCarousel';
 import NewsCarousel from '../components/common/NewsCarousel';
 import { prefetchMap } from '../components/common/AnimatedRoutes';
 import { useTransportation } from '../context/TransportationContext';
-import type { Driver, SearchResult } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Driver, SearchResult } from '../packages/shared-logic/src/types';
 import OffersHighlight from '../components/common/OffersHighlight';
 
 // New inline component for Transportation Highlight

@@ -5,9 +5,11 @@ import {
     TrashIcon, UserGroupIcon, UserCircleIcon, CheckCircleIcon, ClockIcon, NoSymbolIcon, UserMinusIcon,
     ArrowUpCircleIcon, ArrowDownCircleIcon
 } from '../components/common/Icons';
+// FIX: Corrected import paths for monorepo structure
 import { useUsers } from '../context/UsersContext';
 import { useAuth } from '../context/AuthContext';
-import type { AppUser, AdminUser, UserStatus, UserRole } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { AppUser, AdminUser, UserStatus, UserRole } from '../packages/shared-logic/src/types';
 import Modal from '../components/common/Modal';
 import ImageUploader from '../components/common/ImageUploader';
 import EmptyState from '../components/common/EmptyState';
@@ -30,22 +32,23 @@ const TabButton: React.FC<{ active: boolean; onClick: () => void; children: Reac
 
 const UserForm: React.FC<{
     user: AppUser | null;
-    onSave: (user: Omit<AppUser, 'id' | 'joinDate'> & { id?: number }) => void;
+    onSave: (user: Omit<AppUser, 'id' | 'joinDate' | 'password'> & { id?: number }) => void;
     onClose: () => void;
 }> = ({ user, onSave, onClose }) => {
     const [formData, setFormData] = useState({
         name: user?.name || '',
         email: user?.email || '',
         status: user?.status || 'active',
+        role: user?.role || 'user',
     });
     const [avatar, setAvatar] = useState<string[]>(user?.avatar ? [user.avatar] : []);
 
     useEffect(() => {
         if (user) {
-            setFormData({ name: user.name, email: user.email, status: user.status });
+            setFormData({ name: user.name, email: user.email, status: user.status, role: user.role });
             setAvatar(user.avatar ? [user.avatar] : []);
         } else {
-            setFormData({ name: '', email: '', status: 'active' });
+            setFormData({ name: '', email: '', status: 'active', role: 'user' });
             setAvatar([]);
         }
     }, [user]);
@@ -61,8 +64,8 @@ const UserForm: React.FC<{
             id: user?.id,
             ...formData,
             status: formData.status as UserStatus,
+            role: formData.role as UserRole,
             avatar: avatar[0] || `https://picsum.photos/200/200?random=${Date.now()}`,
-            role: user?.role || 'user',
         });
     };
 
@@ -96,7 +99,7 @@ const UserForm: React.FC<{
 
 const AdminForm: React.FC<{
     admin: AdminUser | null;
-    onSave: (admin: Omit<AdminUser, 'id'> & { id?: number }) => void;
+    onSave: (admin: Omit<AdminUser, 'id' | 'password'> & { id?: number }) => void;
     onClose: () => void;
 }> = ({ admin, onSave, onClose }) => {
     const [formData, setFormData] = useState({
@@ -307,11 +310,11 @@ const AdminUsersTab: React.FC<{ onAdd: () => void; onEdit: (admin: AdminUser) =>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4">
-                                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-300">{admin.role}</span>
+                                        <span className="px-2 py-1 text-xs font-medium rounded-full bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-300">{admin.role}</span>
                                     </td>
                                     {canManage && (
                                         <td className="px-6 py-4">
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-1">
                                                 <button onClick={() => onEdit(admin)} className="p-2 text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-md" title="تعديل"><PencilSquareIcon className="w-5 h-5" /></button>
                                                 <button onClick={() => handleDeleteAdmin(admin.id)} className="p-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 rounded-md" title="حذف"><TrashIcon className="w-5 h-5" /></button>
                                             </div>
@@ -322,120 +325,74 @@ const AdminUsersTab: React.FC<{ onAdd: () => void; onEdit: (admin: AdminUser) =>
                         </tbody>
                     </table>
                 </div>
-             ) : (
-                <EmptyState
-                    icon={<UserCircleIcon className="w-16 h-16 text-slate-400" />}
-                    title="لا يوجد مديرون مضافون"
-                    message="ابدأ بإضافة حسابات للمديرين والمشرفين للوصول إلى لوحة التحكم."
-                >
-                    {canManage && (
-                        <button onClick={onAdd} className="flex items-center justify-center gap-2 bg-cyan-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-cyan-600 transition-colors">
-                            <UserPlusIcon className="w-5 h-5" />
-                            <span>إضافة مدير جديد</span>
-                        </button>
-                    )}
-                </EmptyState>
-             )}
+            ) : <EmptyState icon={<UserGroupIcon className="w-16 h-16 text-slate-400"/>} title="لا يوجد مديرون" message="ابدأ بإضافة أول مدير لإدارة النظام." />}
         </div>
     );
 };
 
+
 const UsersPage: React.FC = () => {
     const navigate = useNavigate();
     const { users, admins, handleSaveUser, handleSaveAdmin } = useUsers();
-    const [activeTab, setActiveTab] = useState<'users' | 'admins'>('users');
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { hasPermission } = useAuth();
+    const canManageAdmins = hasPermission(['مدير عام']);
+
+    const [activeTab, setActiveTab] = useState<'regular' | 'admin'>('regular');
+    const [isUserModalOpen, setIsUserModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState<AppUser | null>(null);
+    
+    const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
     const [editingAdmin, setEditingAdmin] = useState<AdminUser | null>(null);
 
     const userStats = useMemo(() => {
         const total = users.length;
-        const active = users.filter(u => u.status === 'active').length;
+        const newToday = users.filter(u => new Date(u.joinDate).toDateString() === new Date().toDateString()).length;
         const pending = users.filter(u => u.status === 'pending').length;
-        const banned = users.filter(u => u.status === 'banned').length;
-        const deletionRequested = users.filter(u => u.status === 'deletion_requested').length;
-        return { total, active, pending, banned, deletionRequested };
+        const serviceProviders = users.filter(u => u.role === 'service_provider').length;
+        return { total, newToday, pending, serviceProviders };
     }, [users]);
-
-    const handleOpenUserModal = (user: AppUser | null) => {
-        setEditingUser(user);
-        setEditingAdmin(null);
-        setIsModalOpen(true);
-    };
     
-    const handleOpenAdminModal = (admin: AdminUser | null) => {
-        setEditingAdmin(admin);
-        setEditingUser(null);
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setEditingUser(null);
-        setEditingAdmin(null);
-    };
-    
-    const handleSaveAndCloseUser = (user: Omit<AppUser, 'id' | 'joinDate'> & { id?: number }) => {
-        handleSaveUser(user);
-        handleCloseModal();
-    };
-
-    const handleSaveAndCloseAdmin = (admin: Omit<AdminUser, 'id'> & { id?: number }) => {
-        handleSaveAdmin(admin);
-        handleCloseModal();
-    };
-
-    const renderContent = () => {
-        switch (activeTab) {
-            case 'users':
-                return <RegularUsersTab onAdd={() => handleOpenUserModal(null)} onEdit={handleOpenUserModal} />;
-            case 'admins':
-                return <AdminUsersTab onAdd={() => handleOpenAdminModal(null)} onEdit={handleOpenAdminModal} />;
-            default:
-                return null;
-        }
-    }
+    const handleAddUser = () => { setEditingUser(null); setIsUserModalOpen(true); };
+    const handleEditUser = (user: AppUser) => { setEditingUser(user); setIsUserModalOpen(true); };
+    const handleAddAdmin = () => { setEditingAdmin(null); setIsAdminModalOpen(true); };
+    const handleEditAdmin = (admin: AdminUser) => { setEditingAdmin(admin); setIsAdminModalOpen(true); };
 
     return (
         <div className="animate-fade-in">
             <button onClick={() => navigate(-1)} className="flex items-center space-x-2 rtl:space-x-reverse text-cyan-500 dark:text-cyan-400 hover:underline mb-6">
                 <ArrowLeftIcon className="w-5 h-5" />
-                <span>العودة إلى لوحة التحكم</span>
+                <span>العودة</span>
             </button>
             <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-lg">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">إدارة المستخدمين</h1>
-
-                <div className="grid grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+                <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-3">
+                    <UserGroupIcon className="w-8 h-8"/>
+                    إدارة المستخدمين
+                </h1>
+                
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <KpiCard title="إجمالي المستخدمين" value={userStats.total.toString()} icon={<UserGroupIcon className="w-8 h-8 text-cyan-400"/>} />
-                    <KpiCard title="المستخدمون النشطون" value={userStats.active.toString()} icon={<CheckCircleIcon className="w-8 h-8 text-green-400"/>} />
-                    <KpiCard title="مستخدمون قيد المراجعة" value={userStats.pending.toString()} icon={<ClockIcon className="w-8 h-8 text-yellow-400"/>} />
-                    <KpiCard title="طلبات حذف" value={userStats.deletionRequested.toString()} icon={<UserMinusIcon className="w-8 h-8 text-orange-400"/>} />
-                    <KpiCard title="المستخدمون المحظورون" value={userStats.banned.toString()} icon={<NoSymbolIcon className="w-8 h-8 text-red-400"/>} />
+                    <KpiCard title="مستخدمون جدد اليوم" value={userStats.newToday.toString()} icon={<UserPlusIcon className="w-8 h-8 text-lime-400"/>} />
+                    <KpiCard title="حسابات معلقة" value={userStats.pending.toString()} icon={<ClockIcon className="w-8 h-8 text-amber-400"/>} />
+                    <KpiCard title="مقدمو خدمات" value={userStats.serviceProviders.toString()} icon={<UserCircleIcon className="w-8 h-8 text-purple-400"/>} />
                 </div>
                 
-                <div className="flex gap-2 mb-6 border-b border-slate-200 dark:border-slate-700 pb-4">
-                    <TabButton active={activeTab === 'users'} onClick={() => setActiveTab('users')} icon={<UserGroupIcon className="w-5 h-5" />}>المستخدمون</TabButton>
-                    <TabButton active={activeTab === 'admins'} onClick={() => setActiveTab('admins')} icon={<UserCircleIcon className="w-5 h-5" />}>المديرون</TabButton>
+                 <div className="border-b border-slate-200 dark:border-slate-700 mb-6">
+                    <nav className="-mb-px flex gap-4" aria-label="Tabs">
+                        <TabButton active={activeTab === 'regular'} onClick={() => setActiveTab('regular')} icon={<UserGroupIcon className="w-5 h-5" />}>المستخدمون ({users.length})</TabButton>
+                        {canManageAdmins && <TabButton active={activeTab === 'admin'} onClick={() => setActiveTab('admin')} icon={<UserCircleIcon className="w-5 h-5" />}>المديرون ({admins.length})</TabButton>}
+                    </nav>
                 </div>
 
-                {renderContent()}
-
+                {activeTab === 'regular' && <RegularUsersTab onAdd={handleAddUser} onEdit={handleEditUser} />}
+                {activeTab === 'admin' && canManageAdmins && <AdminUsersTab onAdd={handleAddAdmin} onEdit={handleEditAdmin} />}
             </div>
             
-            <Modal 
-                isOpen={isModalOpen} 
-                onClose={handleCloseModal} 
-                title={
-                    activeTab === 'users' 
-                        ? (editingUser ? 'تعديل مستخدم' : 'إضافة مستخدم جديد') 
-                        : (editingAdmin ? 'تعديل مدير' : 'إضافة مدير جديد')
-                }
-            >
-                {activeTab === 'users' ? (
-                    <UserForm user={editingUser} onSave={handleSaveAndCloseUser} onClose={handleCloseModal} />
-                ) : (
-                    <AdminForm admin={editingAdmin} onSave={handleSaveAndCloseAdmin} onClose={handleCloseModal} />
-                )}
+            <Modal isOpen={isUserModalOpen} onClose={() => setIsUserModalOpen(false)} title={editingUser ? 'تعديل مستخدم' : 'إضافة مستخدم جديد'}>
+                <UserForm user={editingUser} onSave={(data) => { handleSaveUser(data as any); setIsUserModalOpen(false); }} onClose={() => setIsUserModalOpen(false)} />
+            </Modal>
+            
+            <Modal isOpen={isAdminModalOpen} onClose={() => setIsAdminModalOpen(false)} title={editingAdmin ? 'تعديل مدير' : 'إضافة مدير جديد'}>
+                <AdminForm admin={editingAdmin} onSave={(data) => { handleSaveAdmin(data as any); setIsAdminModalOpen(false); }} onClose={() => setIsAdminModalOpen(false)} />
             </Modal>
         </div>
     );

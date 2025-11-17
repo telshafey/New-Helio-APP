@@ -1,8 +1,10 @@
 import React, { useState, useCallback, ReactNode } from 'react';
+// FIX: Corrected import path for types from the shared logic package.
 import { useData } from '../context/DataContext';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, HomeIcon, InformationCircleIcon, QuestionMarkCircleIcon, BookOpenIcon, PlusIcon, TrashIcon, PencilSquareIcon, BuildingLibraryIcon } from '../components/common/Icons';
-import type { HomePageContent, AboutPageContent, FaqPageContent, PolicyPageContent, PublicPagesContent, AboutCityPageContent, BoardMember } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { HomePageContent, AboutPageContent, FaqPageContent, PolicyPageContent, PublicPagesContent, AboutCityPageContent, BoardMember } from '../packages/shared-logic/src/types';
 import { InputField, TextareaField } from '../components/common/FormControls';
 
 const SaveButton: React.FC<{ onClick: () => void; isSaving: boolean }> = ({ onClick, isSaving }) => (
@@ -201,77 +203,7 @@ const AboutCityPageForm: React.FC<{ content: AboutCityPageContent; onSave: (data
 };
 
 const TabButton: React.FC<{
-    tab: string;
-    activeTab: string;
-    onClick: (tab: string) => void;
+    tab: keyof PublicPagesContent;
+    activeTab: keyof PublicPagesContent;
+    onClick: (tab: keyof PublicPagesContent) => void;
     children: ReactNode;
-    icon: ReactNode;
-}> = ({ tab, activeTab, onClick, children, icon }) => (
-    <button
-        onClick={() => onClick(tab)}
-        className={`flex items-center gap-2 px-4 py-3 font-semibold rounded-t-lg transition-colors focus:outline-none text-sm ${
-            activeTab === tab
-                ? 'bg-white dark:bg-slate-800 text-cyan-500 border-b-2 border-cyan-500'
-                : 'bg-transparent text-gray-500 dark:text-gray-400 hover:bg-slate-200/50 dark:hover:bg-slate-700/50'
-        }`}
-    >
-        {icon}
-        {children}
-    </button>
-);
-
-
-const ContentManagementPage: React.FC = () => {
-    const navigate = useNavigate();
-    const { publicPagesContent, handleUpdatePublicPageContent } = useData();
-    const [activeTab, setActiveTab] = useState('home');
-
-    const handleSave = useCallback(<K extends keyof PublicPagesContent>(page: K, content: PublicPagesContent[K]) => {
-        handleUpdatePublicPageContent(page, content);
-    }, [handleUpdatePublicPageContent]);
-    
-    const renderTabContent = () => {
-        switch(activeTab) {
-            case 'home':
-                return <HomePageForm content={publicPagesContent.home} onSave={(data) => handleSave('home', data)} />;
-            case 'about':
-                return <AboutPageForm content={publicPagesContent.about} onSave={(data) => handleSave('about', data)} />;
-            case 'faq':
-                return <FaqPageForm content={publicPagesContent.faq} onSave={(data) => handleSave('faq', data)} />;
-            case 'privacy':
-                return <PolicyPageForm content={publicPagesContent.privacy} onSave={(data) => handleSave('privacy', data)} pageTitle="سياسة الخصوصية"/>;
-            case 'terms':
-                return <PolicyPageForm content={publicPagesContent.terms} onSave={(data) => handleSave('terms', data)} pageTitle="شروط الاستخدام"/>;
-            case 'about-city':
-                 return <AboutCityPageForm content={publicPagesContent.aboutCity} onSave={(data) => handleSave('aboutCity', data)} />;
-            default: return null;
-        }
-    }
-
-    return (
-        <div className="animate-fade-in">
-             <button onClick={() => navigate(-1)} className="flex items-center space-x-2 rtl:space-x-reverse text-cyan-500 dark:text-cyan-400 hover:underline mb-6">
-                <ArrowLeftIcon className="w-5 h-5" />
-                <span>العودة</span>
-            </button>
-            <h1 className="text-3xl font-bold mb-6">إدارة محتوى الصفحات العامة</h1>
-            
-            <div className="border-b border-gray-200 dark:border-slate-700 mb-6">
-                <nav className="-mb-px flex gap-2 flex-wrap" aria-label="Tabs">
-                    <TabButton tab="home" activeTab={activeTab} onClick={setActiveTab} icon={<HomeIcon className="w-5 h-5"/>}>الرئيسية</TabButton>
-                    <TabButton tab="about-city" activeTab={activeTab} onClick={setActiveTab} icon={<BuildingLibraryIcon className="w-5 h-5"/>}>عن المدينة</TabButton>
-                    <TabButton tab="about" activeTab={activeTab} onClick={setActiveTab} icon={<InformationCircleIcon className="w-5 h-5"/>}>حول التطبيق</TabButton>
-                    <TabButton tab="faq" activeTab={activeTab} onClick={setActiveTab} icon={<QuestionMarkCircleIcon className="w-5 h-5"/>}>الأسئلة الشائعة</TabButton>
-                    <TabButton tab="privacy" activeTab={activeTab} onClick={setActiveTab} icon={<BookOpenIcon className="w-5 h-5"/>}>الخصوصية</TabButton>
-                    <TabButton tab="terms" activeTab={activeTab} onClick={setActiveTab} icon={<BookOpenIcon className="w-5 h-5"/>}>شروط الاستخدام</TabButton>
-                </nav>
-            </div>
-            
-            <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-lg">
-                {renderTabContent()}
-            </div>
-        </div>
-    );
-};
-
-export default ContentManagementPage;

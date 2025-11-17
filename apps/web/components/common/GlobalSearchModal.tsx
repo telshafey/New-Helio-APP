@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 // FIX: Corrected import path for monorepo structure
-import { useUsers } from '../../../packages/shared-logic/context/UsersContext';
+import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
 // FIX: Corrected import path for monorepo structure
-import { useServices } from '../../../packages/shared-logic/context/ServicesContext';
+import { useServices } from '../../packages/shared-logic/src/context/ServicesContext';
 // FIX: Corrected import path for monorepo structure
-import { useProperties } from '../../../packages/shared-logic/context/PropertiesContext';
+import { useProperties } from '../../packages/shared-logic/src/context/PropertiesContext';
 // FIX: Corrected import path for monorepo structure
-import { useNews } from '../../../packages/shared-logic/context/NewsContext';
+import { useNews } from '../../packages/shared-logic/src/context/NewsContext';
 // FIX: Corrected import path for monorepo structure
-import type { SearchResult } from '../../../packages/shared-logic/types';
+import type { SearchResult } from '../../packages/shared-logic/src/types';
+// FIX: Removed .tsx extension from import path to fix module resolution error.
 import { MagnifyingGlassIcon, XMarkIcon, WrenchScrewdriverIcon, HomeModernIcon, NewspaperIcon, UserGroupIcon } from './Icons';
 
 interface GlobalSearchModalProps {
@@ -56,7 +57,7 @@ const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, onClose }
                 type: 'خدمة',
                 title: s.name,
                 subtitle: s.address,
-                link: `/service/${s.id}`,
+                link: `/services/detail/${s.id}`,
                 icon: <WrenchScrewdriverIcon className="w-5 h-5 text-cyan-500" />
             }));
 

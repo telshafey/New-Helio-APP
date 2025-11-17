@@ -1,1 +1,0 @@
-full contents of apps/mobile/screens/SplashScreen.tsx

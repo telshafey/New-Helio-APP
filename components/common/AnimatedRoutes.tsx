@@ -39,6 +39,25 @@ const PublicOffersPage = lazyWithPrefetch(() => import('../../pages/PublicOffers
 const MyBusinessPage = lazyWithPrefetch(() => import('../../pages/MyBusinessPage'));
 const MyOffersPage = lazyWithPrefetch(() => import('../../pages/MyOffersPage'));
 
+// New form pages
+const NewPostPage = lazyWithPrefetch(() => import('../../pages/NewPostPage'));
+const NewMarketplaceItemPage = lazyWithPrefetch(() => import('../../pages/NewMarketplaceItemPage'));
+const NewJobPage = lazyWithPrefetch(() => import('../../pages/NewJobPage'));
+const NewLostAndFoundPage = lazyWithPrefetch(() => import('../../pages/NewLostAndFoundPage'));
+const EditOfferPage = lazyWithPrefetch(() => import('../../pages/EditOfferPage'));
+const EditServicePage = lazyWithPrefetch(() => import('../../pages/EditServicePage'));
+const EditPropertyPage = lazyWithPrefetch(() => import('../../pages/EditPropertyPage'));
+const EditEmergencyContactPage = lazyWithPrefetch(() => import('../../pages/EditEmergencyContactPage'));
+const EditServiceGuidePage = lazyWithPrefetch(() => import('../../pages/EditServiceGuidePage'));
+const EditUserPage = lazyWithPrefetch(() => import('../../pages/EditUserPage'));
+const EditAdminPage = lazyWithPrefetch(() => import('../../pages/EditAdminPage'));
+const EditNewsPage = lazyWithPrefetch(() => import('../../pages/EditNewsPage'));
+const EditNotificationPage = lazyWithPrefetch(() => import('../../pages/EditNotificationPage'));
+const EditAdvertisementPage = lazyWithPrefetch(() => import('../../pages/EditAdvertisementPage'));
+const EditDriverPage = lazyWithPrefetch(() => import('../../pages/EditDriverPage'));
+const EditRoutePage = lazyWithPrefetch(() => import('../../pages/EditRoutePage'));
+const EditPostPage = lazyWithPrefetch(() => import('../../pages/EditPostPage'));
+
 
 export const prefetchMap: { [path: string]: () => Promise<any> } = {
   '/': PublicHomePage.preload,
@@ -121,44 +140,53 @@ const AnimatedRoutes: React.FC = () => {
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-                <Route path="/" element={<AnimatedPage><PublicHomePage /></AnimatedPage>} />
+                {/* Specific and dynamic routes first */}
                 <Route path="/login-user" element={<AnimatedPage><PublicLoginPage /></AnimatedPage>} />
                 <Route path="/register" element={<AnimatedPage><RegisterPage /></AnimatedPage>} />
                 <Route path="/profile" element={isPublicAuthenticated ? <AnimatedPage><ProfilePage /></AnimatedPage> : <Navigate to="/login-user" />} />
+                <Route path="/my-business/offer/new" element={isServiceProvider ? <AnimatedPage><EditOfferPage /></AnimatedPage> : <Navigate to="/" />} />
+                <Route path="/my-business/offer/edit/:offerId" element={isServiceProvider ? <AnimatedPage><EditOfferPage /></AnimatedPage> : <Navigate to="/" />} />
                 <Route path="/my-business" element={isServiceProvider ? <AnimatedPage><MyBusinessPage /></AnimatedPage> : <Navigate to="/" />} />
                 <Route path="/my-offers" element={isPublicAuthenticated ? <AnimatedPage><MyOffersPage /></AnimatedPage> : <Navigate to="/login-user" />} />
                 <Route path="/favorites" element={isPublicAuthenticated ? <AnimatedPage><FavoritesPage /></AnimatedPage> : <Navigate to="/login-user" />} />
                 <Route path="/user-notifications" element={<AnimatedPage><UserNotificationsPage /></AnimatedPage>} />
                 <Route path="/user/:userId" element={<AnimatedPage><PublicProfilePage /></AnimatedPage>} />
+                <Route path="/services/subcategory/:subCategoryId" element={<AnimatedPage><PublicServiceListPage /></AnimatedPage>} />
+                <Route path="/service/:serviceId" element={<AnimatedPage><PublicServiceDetailPage /></AnimatedPage>} />
+                <Route path="/property/:propertyId" element={<AnimatedPage><PublicPropertyDetailPage /></AnimatedPage>} />
+                <Route path="/news/:newsId" element={<AnimatedPage><PublicNewsDetailPage /></AnimatedPage>} />
+                <Route path="/post/edit/:postId" element={isPublicAuthenticated ? <AnimatedPage><EditPostPage /></AnimatedPage> : <Navigate to="/login-user" />} />
+                <Route path="/post/:postId" element={<AnimatedPage><PostDetailPage /></AnimatedPage>} />
+                <Route path="/community/new-post" element={isPublicAuthenticated ? <AnimatedPage><NewPostPage /></AnimatedPage> : <Navigate to="/login-user" />} />
+                <Route path="/community/new-item" element={isPublicAuthenticated ? <AnimatedPage><NewMarketplaceItemPage /></AnimatedPage> : <Navigate to="/login-user" />} />
+                <Route path="/community/new-job" element={isPublicAuthenticated ? <AnimatedPage><NewJobPage /></AnimatedPage> : <Navigate to="/login-user" />} />
+                <Route path="/community/new-lost-found" element={isPublicAuthenticated ? <AnimatedPage><NewLostAndFoundPage /></AnimatedPage> : <Navigate to="/login-user" />} />
+
+                {/* Top-level static routes */}
+                <Route path="/services" element={<AnimatedPage><PublicServicesPage /></AnimatedPage>} />
+                <Route path="/properties" element={<AnimatedPage><PublicPropertiesPage /></AnimatedPage>} />
+                <Route path="/news" element={<AnimatedPage><PublicNewsPage /></AnimatedPage>} />
+                <Route path="/community" element={<AnimatedPage><CommunityPage /></AnimatedPage>} />
+                <Route path="/transportation" element={<AnimatedPage><PublicTransportationPage /></AnimatedPage>} />
+                <Route path="/emergency" element={<AnimatedPage><EmergencyPage /></AnimatedPage>} />
                 <Route path="/about" element={<AnimatedPage><AboutPage /></AnimatedPage>} />
                 <Route path="/about-city" element={<AnimatedPage><AboutCityPage /></AnimatedPage>} />
                 <Route path="/privacy-policy" element={<AnimatedPage><PrivacyPolicyPage /></AnimatedPage>} />
                 <Route path="/faq" element={<AnimatedPage><FaqPage /></AnimatedPage>} />
                 <Route path="/terms-of-use" element={<AnimatedPage><TermsOfUsePage /></AnimatedPage>} />
                 <Route path="/contact" element={<AnimatedPage><ContactPage /></AnimatedPage>} />
-                <Route path="/services" element={<AnimatedPage><PublicServicesPage /></AnimatedPage>} />
-                <Route path="/services/subcategory/:subCategoryId" element={<AnimatedPage><PublicServiceListPage /></AnimatedPage>} />
-                <Route path="/service/:serviceId" element={<AnimatedPage><PublicServiceDetailPage /></AnimatedPage>} />
-                <Route path="/emergency" element={<AnimatedPage><EmergencyPage /></AnimatedPage>} />
-                <Route path="/properties" element={<AnimatedPage><PublicPropertiesPage /></AnimatedPage>} />
-                <Route path="/property/:propertyId" element={<AnimatedPage><PublicPropertyDetailPage /></AnimatedPage>} />
-                <Route path="/news" element={<AnimatedPage><PublicNewsPage /></AnimatedPage>} />
-                <Route path="/news/:newsId" element={<AnimatedPage><PublicNewsDetailPage /></AnimatedPage>} />
-                <Route path="/transportation" element={<AnimatedPage><PublicTransportationPage /></AnimatedPage>} />
                 <Route path="/city-services-guide" element={<AnimatedPage><PublicCityServicesGuidePage /></AnimatedPage>} />
-                <Route path="/community" element={<AnimatedPage><CommunityPage /></AnimatedPage>} />
-                <Route path="/post/:postId" element={<AnimatedPage><PostDetailPage /></AnimatedPage>} />
                 <Route path="/offers" element={<AnimatedPage><PublicOffersPage /></AnimatedPage>} />
                 <Route path="/reviews" element={<AnimatedPage><ReviewsPage /></AnimatedPage>} />
-                
-                {/* Marketplace and Jobs Routes */}
                 <Route path="/marketplace-management" element={<AnimatedPage><MarketplaceManagementPage /></AnimatedPage>} />
                 <Route path="/jobs-management" element={<AnimatedPage><JobsManagementPage /></AnimatedPage>} />
-                
-                {/* New Offers and Lost & Found Routes */}
                 <Route path="/offers-management" element={<AnimatedPage><OffersManagementPage /></AnimatedPage>} />
                 <Route path="/lost-and-found-management" element={<AnimatedPage><LostAndFoundManagementPage /></AnimatedPage>} />
 
+                {/* Root route as the last non-wildcard route */}
+                <Route path="/" element={<AnimatedPage><PublicHomePage /></AnimatedPage>} />
+
+                {/* Wildcard to catch all other paths */}
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </AnimatePresence>

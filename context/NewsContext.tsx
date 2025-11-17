@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
-// FIX: Corrected import paths for monorepo structure
+import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { mockNews, mockNotifications, mockAdvertisements } from '../data/mock-data';
-import type { News, Notification, Advertisement, NewsContextType } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { News, Notification, Advertisement, NewsContextType } from '../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 
 const NewsContext = createContext<NewsContextType | undefined>(undefined);
@@ -17,9 +17,20 @@ export const useNews = (): NewsContextType => {
 export const NewsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const { showToast, showConfirmation } = useUI();
 
-    const [news, setNews] = useState<News[]>(mockNews);
-    const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
-    const [advertisements, setAdvertisements] = useState<Advertisement[]>(mockAdvertisements);
+    const [news, setNews] = useState<News[]>([]);
+    const [notifications, setNotifications] = useState<Notification[]>([]);
+    const [advertisements, setAdvertisements] = useState<Advertisement[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setNews(mockNews);
+            setNotifications(mockNotifications);
+            setAdvertisements(mockAdvertisements);
+            setLoading(false);
+        }, 1200);
+        return () => clearTimeout(timer);
+    }, []);
 
     const genericSave = <T extends { id?: number }>(
         items: T[],
@@ -75,6 +86,7 @@ export const NewsProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         news,
         notifications,
         advertisements,
+        loading,
         handleSaveNews,
         handleDeleteNews,
         handleSaveNotification,

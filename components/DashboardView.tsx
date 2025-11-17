@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import KpiCard from './common/KpiCard';
 import UserActivityChart from './dashboard/UserActivityChart';
 import PropertyMap from './dashboard/PropertyMap';
-import RecentActivityTable from './dashboard/RecentInquiriesTable';
+import RecentActivityTable from './dashboard/RecentActivityTable';
 import AlertsPanel from './dashboard/AlertsPanel';
 import UsersToVerify from './dashboard/UsersToVerify';
 import Footer from './common/Footer';
 import { UserIcon, MapIcon, WrenchScrewdriverIcon, ShieldExclamationIcon, HomeModernIcon, UserGroupIcon, BusIcon, NewspaperIcon, Bars3Icon } from './common/Icons';
-import { useData } from '../context/DataContext';
-import { useServices } from '../context/ServicesContext';
-import { useProperties } from '../context/PropertiesContext';
-import { useNews } from '../context/NewsContext';
-import { useUsers } from '../context/UsersContext';
+// FIX: Corrected import paths for monorepo structure
+import { useData } from '../../packages/shared-logic/src/context/DataContext';
+import { useServices } from '../../packages/shared-logic/src/context/ServicesContext';
+import { useProperties } from '../../packages/shared-logic/src/context/PropertiesContext';
+import { useNews } from '../../packages/shared-logic/src/context/NewsContext';
+import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
 
 const DashboardView: React.FC = () => {
   const { emergencyContacts } = useData();
@@ -24,15 +25,16 @@ const DashboardView: React.FC = () => {
   const firstServiceLink = (categories.length > 0 && categories[0].subCategories.length > 0)
     ? `/services/subcategory/${categories[0].subCategories[0].id}`
     : '/';
-
+    
   const kpiData = [
-    { title: "إجمالي الخدمات", value: services.length.toString(), change: `+${services.filter(s => new Date(s.creationDate) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length}`, changeLabel: "آخر 30 يوم", icon: <WrenchScrewdriverIcon className="w-8 h-8 text-cyan-400" />, to: firstServiceLink, changeType: 'positive' as const },
-    { title: "إجمالي العقارات", value: properties.length.toString(), change: `+${properties.filter(p => new Date(p.creationDate) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length}`, changeLabel: "آخر 30 يوم", icon: <HomeModernIcon className="w-8 h-8 text-amber-400" />, to: "/properties", changeType: 'positive' as const },
-    { title: "إجمالي المستخدمين", value: users.length.toString(), change: `+${users.filter(u => new Date(u.joinDate) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length}`, changeLabel: "آخر 30 يوم", icon: <UserGroupIcon className="w-8 h-8 text-lime-400" />, to: "/users", changeType: 'positive' as const },
-    { title: "استخدام الباصات", value: "1,240 رحلة", change: "+150", changeLabel: "هذا الأسبوع", icon: <BusIcon className="w-8 h-8 text-purple-400" />, to: "/transportation", changeType: 'positive' as const },
-    { title: "الأخبار والإشعارات", value: (news.length + notifications.length).toString(), change: "+5", changeLabel: "هذا الأسبوع", icon: <NewspaperIcon className="w-8 h-8 text-indigo-400" />, to: "/news", changeType: 'positive' as const },
-    { title: "أرقام الطوارئ", value: emergencyContacts.length.toString(), change: "جاهزة للاستخدام", changeLabel: "", icon: <ShieldExclamationIcon className="w-8 h-8 text-rose-400" />, to: "/emergency", changeType: 'neutral' as const },
-  ];
+      { title: "إجمالي الخدمات", value: services.length.toString(), change: `+${services.filter(s => new Date(s.creationDate) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length}`, changeLabel: "آخر 30 يوم", icon: <WrenchScrewdriverIcon className="w-8 h-8 text-cyan-400" />, to: firstServiceLink, changeType: 'positive' as const },
+      { title: "إجمالي العقارات", value: properties.length.toString(), change: `+${properties.filter(p => new Date(p.creationDate) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length}`, changeLabel: "آخر 30 يوم", icon: <HomeModernIcon className="w-8 h-8 text-amber-400" />, to: "/properties", changeType: 'positive' as const },
+      { title: "إجمالي المستخدمين", value: users.length.toString(), change: `+${users.filter(u => new Date(u.joinDate) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)).length}`, changeLabel: "آخر 30 يوم", icon: <UserGroupIcon className="w-8 h-8 text-lime-400" />, to: "/users", changeType: 'positive' as const },
+      { title: "استخدام الباصات", value: "1,240 رحلة", change: "+150", changeLabel: "هذا الأسبوع", icon: <BusIcon className="w-8 h-8 text-purple-400" />, to: "/transportation", changeType: 'positive' as const },
+      { title: "الأخبار والإشعارات", value: (news.length + notifications.length).toString(), change: "+5", changeLabel: "هذا الأسبوع", icon: <NewspaperIcon className="w-8 h-8 text-indigo-400" />, to: "/news", changeType: 'positive' as const },
+      { title: "أرقام الطوارئ", value: emergencyContacts.length.toString(), change: "جاهزة للاستخدام", changeLabel: "", icon: <ShieldExclamationIcon className="w-8 h-8 text-rose-400" />, to: "/emergency", changeType: 'neutral' as const },
+    ];
+
 
   return (
     <>
@@ -40,12 +42,13 @@ const DashboardView: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         {kpiData.map((kpi, index) => (
           <Link to={kpi.to} key={index} className="block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-cyan-400 rounded-xl">
+            {/* FIX: Added missing 'icon', 'changeLabel', and 'changeType' props to KpiCard */}
             <KpiCard 
               title={kpi.title} 
               value={kpi.value} 
               change={kpi.change}
               changeLabel={kpi.changeLabel}
-              icon={kpi.icon} 
+              icon={kpi.icon}
               changeType={kpi.changeType}
             />
           </Link>

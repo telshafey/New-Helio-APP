@@ -1,6 +1,7 @@
 import React, { useRef, memo } from 'react';
 import { Link } from 'react-router-dom';
-import type { News } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { News } from '../../packages/shared-logic/src/types';
 import NewsCard from './NewsCard';
 import { ChevronLeftIcon, ChevronRightIcon } from './Icons';
 

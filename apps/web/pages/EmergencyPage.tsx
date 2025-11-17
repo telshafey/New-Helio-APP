@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, PhoneIcon, PencilSquareIcon, TrashIcon, PlusIcon, ShieldExclamationIcon } from '../components/common/Icons';
-// FIX: Corrected import path for monorepo structure
-import type { EmergencyContact } from '../../packages/shared-logic/types';
-// FIX: Corrected import path for monorepo structure
-import { useData } from '../../packages/shared-logic/context/DataContext';
+// FIX: Corrected import path for types from the shared logic package.
+import type { EmergencyContact } from '../../packages/shared-logic/src/types';
+// FIX: Corrected import paths for monorepo structure
+import { useData } from '../../packages/shared-logic/src/context/DataContext';
 import Modal from '../components/common/Modal';
 import EmptyState from '../components/common/EmptyState';
 import PageBanner from '../components/common/PageBanner';
-// FIX: Corrected import path for monorepo structure
-import { useAuth } from '../../packages/shared-logic/context/AuthContext';
+// FIX: Corrected import paths for monorepo structure
+import { useAuth } from '../../packages/shared-logic/src/context/AuthContext';
 
 const EmergencyCard: React.FC<{ contact: EmergencyContact; onEdit: (contact: EmergencyContact) => void; onDelete: (id: number) => void; }> = ({ contact, onEdit, onDelete }) => {
     const { isAuthenticated, hasPermission } = useAuth();

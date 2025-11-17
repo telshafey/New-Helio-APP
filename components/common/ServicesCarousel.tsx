@@ -1,5 +1,6 @@
 import React, { useRef, memo } from 'react';
-import type { Service } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Service } from '../../packages/shared-logic/src/types';
 import ServiceCard from './ServiceCard';
 import { ChevronLeftIcon, ChevronRightIcon } from './Icons';
 

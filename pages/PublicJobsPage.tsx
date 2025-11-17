@@ -4,7 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PageBanner from '../components/common/PageBanner';
 import { BriefcaseIcon, PlusIcon, MagnifyingGlassIcon, MapPinIcon } from '../components/common/Icons';
-import type { JobPosting } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { JobPosting } from '../packages/shared-logic/src/types';
 import Modal from '../components/common/Modal';
 import EmptyState from '../components/common/EmptyState';
 import { InputField, TextareaField } from '../components/common/FormControls';

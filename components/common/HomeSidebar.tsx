@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import type { Category, News, Property } from '../../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Category, News, Property } from '../../packages/shared-logic/src/types';
 import { getIcon } from './iconUtils';
 import { NewspaperIcon, HomeModernIcon } from './Icons';
 import { prefetchMap } from './AnimatedRoutes';

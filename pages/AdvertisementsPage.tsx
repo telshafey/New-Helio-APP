@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, PlusIcon, PencilSquareIcon, TrashIcon, PhotoIcon } from '../components/common/Icons';
-import type { Advertisement, Service } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Advertisement, Service } from '../packages/shared-logic/src/types';
 import { useNews } from '../context/NewsContext';
 import { useServices } from '../context/ServicesContext';
 import Modal from '../components/common/Modal';

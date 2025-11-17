@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import type { Review } from '../types';
+// FIX: Corrected import path for types from the shared logic package.
+import type { Review } from '../packages/shared-logic/src/types';
 import { ArrowLeftIcon, PencilSquareIcon, TrashIcon, ChatBubbleLeftRightIcon } from '../components/common/Icons';
 import { useServices } from '../context/ServicesContext';
 import { useAuth } from '../context/AuthContext';
