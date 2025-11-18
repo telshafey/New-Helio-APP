@@ -45,8 +45,6 @@ const UsersPage = lazyWithPrefetch(() => import('../../pages/UsersPage'));
 const NewsPage = lazyWithPrefetch(() => import('../../pages/NewsPage'));
 const AdvertisementsPage = lazyWithPrefetch(() => import('../../pages/AdvertisementsPage'));
 const NotificationsPage = lazyWithPrefetch(() => import('../../pages/NotificationsPage'));
-const CityServicesGuidePage = lazyWithPrefetch(() => import('../../pages/CityServicesGuidePage'));
-const TransportationPage = lazyWithPrefetch(() => import('../../pages/TransportationPage'));
 const AuditLogPage = lazyWithPrefetch(() => import('../../pages/AuditLogPage'));
 const CommunityManagementPage = lazyWithPrefetch(() => import('../../pages/CommunityManagementPage'));
 const ContentManagementPage = lazyWithPrefetch(() => import('../../pages/ContentManagementPage'));
@@ -65,6 +63,7 @@ const NewLostAndFoundPage = lazyWithPrefetch(() => import('../../pages/NewLostAn
 const EditOfferPage = lazyWithPrefetch(() => import('../../pages/EditOfferPage'));
 const EditPostPage = lazyWithPrefetch(() => import('../../pages/EditPostPage'));
 
+// NOTE: All other Edit*Pages have been removed as they were replaced by Modals.
 
 export const prefetchMap: { [path: string]: () => Promise<any> } = {
   '/': PublicHomePage.preload,
