@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
-import { AppProvider } from '../../packages/shared-logic/src/context/AppProvider';
+// Corrected import path to rely on standard relative traversal
+import { AppProvider } from '../../../packages/shared-logic/src/context/AppProvider';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
