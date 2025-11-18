@@ -15,13 +15,26 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.helio.app",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "يحتاج التطبيق إلى الوصول إلى معرض الصور الخاص بك",
+        "NSCameraUsageDescription": "يحتاج التطبيق إلى الوصول إلى الكاميرا"
+      }
     },
     "android": {
+      "package": "com.helio.app",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,6 +45,12 @@
         {
           "photosPermission": "يحتاج التطبيق إلى الوصول إلى معرض الصور الخاص بك للسماح لك باختيار الصور.",
           "cameraPermission": "يحتاج التطبيق إلى الوصول إلى الكاميرا للسماح لك بالتقاط الصور."
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera."
         }
       ]
     ]
