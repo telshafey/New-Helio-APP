@@ -190,20 +190,10 @@ const AnimatedRoutes: React.FC = () => {
                 <Route path="/offers-management" element={<AnimatedPage><OffersManagementPage /></AnimatedPage>} />
                 <Route path="/lost-and-found-management" element={<AnimatedPage><LostAndFoundManagementPage /></AnimatedPage>} />
 
-                {/* Dashboard Routes (Protected) - Usually handled by checking currentUser but simplified here */}
-                {/* Assuming 'dashboard' route or similar is the entry point for admin */}
-                {/* Since we are using role-based access inside DashboardPage, we route there. */}
-                {/* Note: In a real app, we'd have a separate layout or nested routes for admin dashboard */}
-                
-                 {/* Admin Pages (Hidden from public navigation, accessible via direct link or future admin login) */}
-                 {/* For now, we map them to allow build, but access control is inside components or not linked */}
+                {/* Dashboard Routes */}
                  <Route path="/admin-dashboard" element={isAuthenticated ? <AnimatedPage><DashboardPage /></AnimatedPage> : <Navigate to="/" />} />
                  <Route path="/services-overview" element={isAuthenticated ? <AnimatedPage><ServicesOverviewPage /></AnimatedPage> : <Navigate to="/" />} />
                  <Route path="/users" element={isAuthenticated ? <AnimatedPage><UsersPage /></AnimatedPage> : <Navigate to="/" />} />
-                 {/* Overriding public news/properties route for admin? No, admin usually has separate management pages. */}
-                 {/* Reusing the same path might be confusing. Let's assume these management pages are what was meant */}
-                 
-                 {/* Mapping management pages to routes if they are different from public ones */}
                  <Route path="/advertisements" element={isAuthenticated ? <AnimatedPage><AdvertisementsPage /></AnimatedPage> : <Navigate to="/" />} />
                  <Route path="/notifications" element={isAuthenticated ? <AnimatedPage><NotificationsPage /></AnimatedPage> : <Navigate to="/" />} />
                  <Route path="/audit-log" element={isAuthenticated ? <AnimatedPage><AuditLogPage /></AnimatedPage> : <Navigate to="/" />} />
@@ -211,20 +201,8 @@ const AnimatedRoutes: React.FC = () => {
                  <Route path="/content-management" element={isAuthenticated ? <AnimatedPage><ContentManagementPage /></AnimatedPage> : <Navigate to="/" />} />
                  <Route path="/settings" element={isAuthenticated ? <AnimatedPage><SettingsPage /></AnimatedPage> : <Navigate to="/" />} />
                  <Route path="/reports" element={isAuthenticated ? <AnimatedPage><ReportsPage /></AnimatedPage> : <Navigate to="/" />} />
-                 
-                 {/* Detailed Admin Pages */}
-                 <Route path="/services/detail/:serviceId" element={isAuthenticated ? <AnimatedPage><ServiceDetailPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/services/subcategory/:subCategoryId" element={<AnimatedPage><PublicServiceListPage /></AnimatedPage>} /> 
-                 {/* Note: Reusing PublicServiceListPage for admin drill-down might need adjustment if admin features are needed there. 
-                    Currently ServicePage.tsx seems to be the admin list for a subcategory. Let's map it. */}
-                 {/* If we go to /services/subcategory/:id from admin sidebar, we want ServicePage (Admin) */}
-                 {/* But from public header, we want PublicServiceListPage. Conflict? */}
-                 {/* Solution: Use different paths. Sidebar uses /services/subcategory/:id. Public uses /services/list/:id? */}
-                 {/* For now, keeping PublicServiceListPage for public. If admin needs management, they go to /services-overview -> click category -> ? */}
-                 {/* The sidebar links to /services/subcategory/:id. ServicePage.tsx is the admin view. PublicServiceListPage is public view. */}
-                 {/* We should probably distinguish them. Let's map /admin/services/:subCategoryId to ServicePage */}
-                 
                  <Route path="/admin/services/:subCategoryId" element={isAuthenticated ? <AnimatedPage><ServicePage /></AnimatedPage> : <Navigate to="/" />} />
+                 <Route path="/services/detail/:serviceId" element={isAuthenticated ? <AnimatedPage><ServiceDetailPage /></AnimatedPage> : <Navigate to="/" />} />
 
 
                 {/* Root route as the last non-wildcard route */}
