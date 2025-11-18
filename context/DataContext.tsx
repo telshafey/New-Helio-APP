@@ -8,7 +8,7 @@ import type {
     EmergencyContact, ServiceGuide,
     PublicPagesContent,
     DataContextType
-} from '../packages/shared-logic/src/types';
+} from '../../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 
 const DataContext = createContext<DataContextType | undefined>(undefined);

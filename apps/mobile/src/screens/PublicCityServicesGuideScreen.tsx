@@ -22,7 +22,7 @@ const PublicCityServicesGuideScreen = () => {
                 <View key={guide.id} style={styles.guideContainer}>
                     <TouchableOpacity onPress={() => handleToggleGuide(guide.id)} style={styles.guideHeader}>
                         <Text style={styles.guideTitle}>{guide.title}</Text>
-                        <ChevronDownIcon color="#64748b" width={24} height={24} style={{ transform: [{ rotate: openGuideId === guide.id ? '180deg' : '0deg' }] }} />
+                        <ChevronDownIcon color="#64748b" width={24} height={24} style={{ transform: [{ rotate: openGuideId === guide.id ? '180deg' : '0deg' }] }}/>
                     </TouchableOpacity>
                     {openGuideId === guide.id && (
                         <View style={styles.guideContent}>

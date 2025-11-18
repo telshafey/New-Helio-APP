@@ -4,9 +4,29 @@ import NewsCard from '../components/common/NewsCard';
 import { NewspaperIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
 import AdSlider from '../components/common/AdSlider';
+import CardGridPageSkeleton from '../components/skeletons/CardGridPageSkeleton';
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.07,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
 
 const PublicNewsPage: React.FC = () => {
-    const { news, advertisements } = useNews();
+    const { news, advertisements, loading } = useNews();
     const sortedNews = [...news].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
     const sliderAds = useMemo(() => {
@@ -32,12 +52,21 @@ const PublicNewsPage: React.FC = () => {
                         <AdSlider ads={sliderAds} />
                     </div>
                 )}
-                {sortedNews.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {loading ? (
+                    <CardGridPageSkeleton />
+                ) : sortedNews.length > 0 ? (
+                    <motion.div 
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
                         {sortedNews.map(newsItem => (
-                           <NewsCard key={newsItem.id} newsItem={newsItem} />
+                           <motion.div key={newsItem.id} variants={itemVariants}>
+                                <NewsCard newsItem={newsItem} />
+                           </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 ) : (
                      <div className="text-center py-16 text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
                         <h3 className="text-xl font-semibold">لا توجد أخبار حالياً</h3>

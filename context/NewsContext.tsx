@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { mockNews, mockNotifications, mockAdvertisements } from '../data/mock-data';
 // FIX: Corrected import path for types from the shared logic package.
-import type { News, Notification, Advertisement, NewsContextType } from '../packages/shared-logic/src/types';
+import type { News, Notification, Advertisement, NewsContextType } from '../../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 
 const NewsContext = createContext<NewsContextType | undefined>(undefined);

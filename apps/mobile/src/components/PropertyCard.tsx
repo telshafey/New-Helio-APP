@@ -9,7 +9,7 @@ interface PropertyCardProps {
 
 const PropertyCard: React.FC<PropertyCardProps> = ({ property, onPress }) => {
   return (
-    <Pressable onPress={onPress} style={styles.card}>
+    <Pressable onPress={onPress} style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
       <ImageBackground 
         source={{ uri: property.images[0] || `https://picsum.photos/600/400?random=${property.id}` }} 
         style={styles.image}
@@ -33,12 +33,16 @@ const styles = StyleSheet.create({
     width: 300,
     height: 200,
     borderRadius: 12,
-    marginRight: 16,
+    marginLeft: 16,
     elevation: 4,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
+  },
+  pressed: {
+    opacity: 0.9,
+    transform: [{ scale: 0.98 }],
   },
   image: {
     flex: 1,

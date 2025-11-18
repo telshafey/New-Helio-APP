@@ -4,9 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
 import { useAuth } from '../../../../../packages/shared-logic/src/context/AuthContext';
 import type { Post } from '../../../../../packages/shared-logic/src/types';
-import { HandThumbUpIcon, ChatBubbleOvalLeftEllipsisIcon, PinIcon } from '../Icons';
+// FIX: Replaced missing icon with the available one.
+import { HandThumbUpIcon, ChatBubbleOvalLeftIcon, PinIcon } from '../Icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import PollDisplay from './PollDisplay';
+// FIX: Added import for GestureResponderEvent to fix type error.
+import type { GestureResponderEvent } from 'react-native';
 
 type CommunityStackParamList = {
     Community: undefined;
@@ -21,7 +24,10 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
     const navigation = useNavigation<PostCardNavigationProp>();
     const isLiked = currentPublicUser ? post.likes.includes(currentPublicUser.id) : false;
 
-    const handleLikeClick = () => {
+    // FIX: Changed event type from React.MouseEvent to GestureResponderEvent.
+    const handleLikeClick = (e: GestureResponderEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
         if(!currentPublicUser) {
             // In a real app, you might navigate to a login screen
             return;
@@ -51,7 +57,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
 
             <View style={styles.footer}>
                 <View style={styles.stats}>
-                    <ChatBubbleOvalLeftEllipsisIcon color="#64748b" width={20} height={20} />
+                    <ChatBubbleOvalLeftIcon color="#64748b" width={20} height={20} />
                     <Text style={styles.statsText}>{post.comments.length}</Text>
                 </View>
                 <Pressable onPress={handleLikeClick} style={[styles.likeButton, isLiked && styles.likedButton]}>

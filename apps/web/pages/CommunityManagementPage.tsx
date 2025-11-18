@@ -2,10 +2,10 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // FIX: Corrected import paths for monorepo structure
 import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
-// FIX: Removed .tsx extension from import path to fix module resolution error.
+// FIX: Replaced missing ChatBubbleOvalLeftEllipsisIcon with ChatBubbleOvalLeftIcon
 import { 
-    ArrowLeftIcon, TrashIcon, ChatBubbleOvalLeftEllipsisIcon, PinIcon, 
-    ChatBubbleOvalLeftIcon, UserCircleIcon, XMarkIcon, HandThumbUpIcon, PencilSquareIcon, PlusIcon
+    ArrowLeftIcon, TrashIcon, ChatBubbleOvalLeftIcon, PinIcon, 
+    UserCircleIcon, XMarkIcon, HandThumbUpIcon, PencilSquareIcon, PlusIcon
 } from '../components/common/Icons';
 import EmptyState from '../components/common/EmptyState';
 import KpiCard from '../components/common/KpiCard';
@@ -192,12 +192,12 @@ const CommunityManagementPage: React.FC = () => {
             </button>
             <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-lg">
                 <h1 className="text-3xl font-bold mb-6 flex items-center gap-3">
-                    <ChatBubbleOvalLeftEllipsisIcon className="w-8 h-8"/>
+                    <ChatBubbleOvalLeftIcon className="w-8 h-8"/>
                     إدارة المجتمع
                 </h1>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                    <KpiCard title="إجمالي المنشورات" value={communityStats.totalPosts.toString()} icon={<ChatBubbleOvalLeftEllipsisIcon className="w-8 h-8 text-cyan-400" />} />
+                    <KpiCard title="إجمالي المنشورات" value={communityStats.totalPosts.toString()} icon={<ChatBubbleOvalLeftIcon className="w-8 h-8 text-cyan-400" />} />
                     <KpiCard title="إجمالي التعليقات" value={communityStats.totalComments.toString()} icon={<ChatBubbleOvalLeftIcon className="w-8 h-8 text-purple-400" />} />
                     <div className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:scale-[1.02]">
                         <div className="flex items-center justify-between text-gray-500 dark:text-gray-400">
@@ -277,7 +277,7 @@ const CommunityManagementPage: React.FC = () => {
                     </div>
                 ) : (
                     <EmptyState
-                        icon={<ChatBubbleOvalLeftEllipsisIcon className="w-16 h-16 text-slate-400" />}
+                        icon={<ChatBubbleOvalLeftIcon className="w-16 h-16 text-slate-400" />}
                         title="لا توجد منشورات لإدارتها"
                         message="عندما يقوم المستخدمون بإضافة منشورات، ستظهر هنا لتتمكن من إدارتها."
                     />

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect, useMemo } from 'react';
 // FIX: Corrected import path for types from the shared logic package.
-import type { ToastMessage, UIContextType, Theme, ConfirmationState, GeolocationState } from '../packages/shared-logic/src/types';
+import type { ToastMessage, UIContextType, Theme, ConfirmationState, GeolocationState } from '../../packages/shared-logic/src/types';
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
 

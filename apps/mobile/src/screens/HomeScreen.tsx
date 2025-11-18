@@ -1,5 +1,5 @@
-import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { ScrollView, StyleSheet, View, RefreshControl } from 'react-native';
 import { useNews } from '../../../../packages/shared-logic/src/context/NewsContext';
 import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
 import { useProperties } from '../../../../packages/shared-logic/src/context/PropertiesContext';
@@ -9,6 +9,7 @@ import PropertyCarousel from '../components/PropertyCarousel';
 import NewsCarousel from '../components/NewsCarousel';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import HomeScreenSkeleton from '../components/skeletons/HomeScreenSkeleton';
 
 // Define the navigation param list for type safety
 type HomeStackParamList = {
@@ -22,9 +23,20 @@ type HomeScreenNavigationProp = NativeStackNavigationProp<HomeStackParamList, 'H
 
 const HomeScreen = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { advertisements, news } = useNews();
-  const { services } = useServices();
-  const { properties } = useProperties();
+  const { advertisements, news, loading: newsLoading } = useNews();
+  const { services, loading: servicesLoading } = useServices();
+  const { properties, loading: propertiesLoading } = useProperties();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const isLoading = newsLoading || servicesLoading || propertiesLoading;
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    // Simulate a refresh action. In a real app, you'd re-fetch data here.
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   const sliderAds = React.useMemo(() => {
     const today = new Date();
@@ -36,12 +48,21 @@ const HomeScreen = () => {
     });
   }, [advertisements]);
 
+  if (isLoading) {
+    return <HomeScreenSkeleton />;
+  }
+
   const recentServices = [...services].sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime()).slice(0, 10);
   const recentNews = [...news].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 8);
   const recentProperties = [...properties].sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime()).slice(0, 8);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView 
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#0891b2']} />
+      }
+    >
       {sliderAds.length > 0 && <AdSlider ads={sliderAds} navigation={navigation} />}
       
       <View style={styles.carouselContainer}>

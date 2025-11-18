@@ -6,7 +6,7 @@ const { width } = Dimensions.get('window');
 
 interface AdSliderProps {
   ads: Advertisement[];
-  navigation: any; // Using any for simplicity, can be typed with navigation props
+  navigation: any; 
 }
 
 const AdSlider: React.FC<AdSliderProps> = ({ ads, navigation }) => {
@@ -34,7 +34,6 @@ const AdSlider: React.FC<AdSliderProps> = ({ ads, navigation }) => {
     if (item.serviceId) {
         navigation.navigate('ServiceDetail', { serviceId: item.serviceId });
     }
-    // External URL handling would require Linking from react-native
   };
 
   const renderItem = ({ item }: { item: Advertisement }) => (

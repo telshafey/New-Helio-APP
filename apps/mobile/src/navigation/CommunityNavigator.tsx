@@ -21,7 +21,7 @@ const CommunityNavigator = () => {
     >
       <Stack.Screen name="Community" component={CommunityScreen} options={{ title: "المجتمع" }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: "تفاصيل المنشور" }} />
-      {/* Form Screens */}
+      
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="NewPost" component={NewPostScreen} options={{ title: "منشور جديد" }} />
         <Stack.Screen name="NewMarketplaceItem" component={NewMarketplaceItemScreen} options={{ title: "إضافة إعلان بيع" }} />

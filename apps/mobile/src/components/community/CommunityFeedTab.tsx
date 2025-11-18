@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
 import PostCard from './PostCard';
 import EmptyState from '../common/EmptyState';
-import { ChatBubbleOvalLeftEllipsisIcon } from '../Icons';
+// FIX: Replaced missing icon with the available one.
+import { ChatBubbleOvalLeftIcon } from '../Icons';
 
 const CommunityFeedTab = () => {
     const { posts } = useCommunity();
@@ -26,7 +27,7 @@ const CommunityFeedTab = () => {
             ListEmptyComponent={
                 <View style={{marginTop: 50}}>
                     <EmptyState
-                        icon={<ChatBubbleOvalLeftEllipsisIcon width={64} height={64} color="#9ca3af" />}
+                        icon={<ChatBubbleOvalLeftIcon width={64} height={64} color="#9ca3af" />}
                         title="لا توجد منشورات"
                         message="كن أول من يضيف منشوراً في المجتمع!"
                     />

@@ -4,19 +4,20 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { useProperties } from '../../../../packages/shared-logic/src/context/PropertiesContext';
 import ImageSlider from '../components/ImageSlider';
 import { PhoneIcon, ShareIcon, CheckCircleIcon } from '../components/Icons';
+import ShareButton from '../components/common/ShareButton';
+import DetailSkeleton from '../components/skeletons/DetailSkeleton';
 
 type ParamList = {
   PropertyDetail: {
     propertyId: number;
   };
 };
-
 type ScreenRouteProp = RouteProp<ParamList, 'PropertyDetail'>;
 
 const PropertyDetailScreen = () => {
   const navigation = useNavigation();
   const route = useRoute<ScreenRouteProp>();
-  const { properties } = useProperties();
+  const { properties, loading } = useProperties();
   const { propertyId } = route.params;
 
   const property = properties.find(p => p.id === propertyId);
@@ -27,24 +28,15 @@ const PropertyDetailScreen = () => {
     }
   }, [navigation, property]);
 
+  if (loading) {
+      return <DetailSkeleton />;
+  }
+
   if (!property) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.errorText}>لم يتم العثور على العقار.</Text>
-      </View>
-    );
+    return <View style={styles.container}><Text style={styles.errorText}>لم يتم العثور على العقار.</Text></View>;
   }
   
   const handleCall = (number: string) => Linking.openURL(`tel:${number}`);
-  const handleShare = async () => {
-      try {
-          await Share.share({
-              message: `تحقق من هذا العقار: ${property.title} في تطبيق هيليو.`,
-          });
-      } catch (error) {
-          console.log(error);
-      }
-  };
 
   const priceLabel = property.type === 'rent' ? 'جنيه/شهرياً' : 'جنيه';
 
@@ -64,10 +56,7 @@ const PropertyDetailScreen = () => {
           <Text style={styles.price}>{property.price.toLocaleString('ar-EG')} <Text style={styles.priceLabel}>{priceLabel}</Text></Text>
         </View>
 
-        <View style={styles.section}>
-            <Text style={styles.sectionTitle}>الوصف</Text>
-            <Text style={styles.aboutText}>{property.description}</Text>
-        </View>
+        <View style={styles.section}><Text style={styles.sectionTitle}>الوصف</Text><Text style={styles.aboutText}>{property.description}</Text></View>
         
         {property.amenities.length > 0 && (
             <View style={styles.section}>
@@ -91,10 +80,7 @@ const PropertyDetailScreen = () => {
                     <PhoneIcon color="#fff" width={24} height={24} />
                     <Text style={styles.actionButtonText}>اتصال: {property.contact.phone}</Text>
                 </Pressable>
-                <Pressable style={[styles.actionButton, styles.shareButton]} onPress={handleShare}>
-                    <ShareIcon color="#fff" width={24} height={24} />
-                    <Text style={styles.actionButtonText}>مشاركة</Text>
-                </Pressable>
+                <ShareButton title={property.title} message={`تحقق من هذا العقار: ${property.title} في تطبيق هيليو.`} />
             </View>
         </View>
       </View>
@@ -104,7 +90,7 @@ const PropertyDetailScreen = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f1f5f9' },
-  errorText: { fontSize: 18, color: '#ef4444', textAlign: 'center', marginTop: 50 },
+  errorText: { fontSize: 18, textAlign: 'center', marginTop: 50 },
   contentContainer: { padding: 16 },
   headerSection: { backgroundColor: 'white', padding: 16, borderRadius: 12, marginBottom: 16 },
   titleContainer: { flexDirection: 'row-reverse', justifyContent: 'space-between', alignItems: 'flex-start' },
@@ -124,7 +110,6 @@ const styles = StyleSheet.create({
   actionsContainer: { gap: 12 },
   actionButton: { flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'center', padding: 14, borderRadius: 8, gap: 10 },
   callButton: { backgroundColor: '#22c55e' },
-  shareButton: { backgroundColor: '#3b82f6' },
   actionButtonText: { color: 'white', fontSize: 16, fontWeight: 'bold' }
 });
 

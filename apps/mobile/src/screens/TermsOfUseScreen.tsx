@@ -13,7 +13,7 @@ const TermsOfUseScreen = () => {
           <Text style={styles.title}>{section.title}</Text>
           {section.content.map((item, itemIndex) => {
               if (typeof item === 'string') {
-                  return <Text key={itemIndex} style={styles.paragraph}>{item}</Text>;
+                  return <Text key={itemIndex} style={styles.paragraph}>{item.replace(/\*\*(.*?)\*\*/g, '$1')}</Text>;
               } else if (item.list) {
                   return (
                       <View key={itemIndex} style={styles.list}>

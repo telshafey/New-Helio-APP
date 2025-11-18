@@ -1,11 +1,10 @@
-import React, { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, Modal } from 'react-native';
+import React, { useState, useMemo, useCallback } from 'react';
+import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, RefreshControl } from 'react-native';
 import { useProperties } from '../../../../packages/shared-logic/src/context/PropertiesContext';
 import PropertyCard from '../components/PropertyCard';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AdjustmentsHorizontalIcon } from '../components/Icons';
-import PropertyFiltersModal from '../components/properties/PropertyFiltersModal';
+import CardSkeleton from '../components/skeletons/CardSkeleton';
 
 type PropertiesStackParamList = {
   Properties: undefined;
@@ -15,40 +14,45 @@ type ScreenNavigationProp = NativeStackNavigationProp<PropertiesStackParamList, 
 
 const PropertiesScreen = () => {
     const navigation = useNavigation<ScreenNavigationProp>();
-    const { properties } = useProperties();
+    const { properties, loading } = useProperties();
     const [searchTerm, setSearchTerm] = useState('');
     const [typeFilter, setTypeFilter] = useState<'all' | 'sale' | 'rent'>('all');
-    
-    // State for modal and filters
-    const [isFilterModalVisible, setFilterModalVisible] = useState(false);
-    const [priceRange, setPriceRange] = useState({ min: '', max: '' });
-    const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
-    
-    const activeFilterCount = useMemo(() => {
-        let count = 0;
-        if (priceRange.min || priceRange.max) count++;
-        count += selectedAmenities.length;
-        return count;
-    }, [priceRange, selectedAmenities]);
+    const [refreshing, setRefreshing] = useState(false);
 
     const filteredProperties = useMemo(() => {
         return properties.filter(prop => {
             const matchesSearch = prop.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                                   prop.location.address.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesType = typeFilter === 'all' || prop.type === typeFilter;
-            
-            const minPrice = parseFloat(priceRange.min);
-            const maxPrice = parseFloat(priceRange.max);
-            const matchesPrice = 
-                (isNaN(minPrice) || prop.price >= minPrice) &&
-                (isNaN(maxPrice) || prop.price <= maxPrice);
-
-            const matchesAmenities = selectedAmenities.length === 0 || 
-                                     selectedAmenities.every(amenity => prop.amenities.includes(amenity));
-
-            return matchesSearch && matchesType && matchesPrice && matchesAmenities;
+            return matchesSearch && matchesType;
         });
-    }, [properties, searchTerm, typeFilter, priceRange, selectedAmenities]);
+    }, [properties, searchTerm, typeFilter]);
+    
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => setRefreshing(false), 2000);
+    }, []);
+    
+    if (loading) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.filtersContainer}>
+                    <View style={[styles.searchInput, styles.skeleton]} />
+                    <View style={[styles.buttonGroup, styles.skeleton, { height: 44 }]}/>
+                </View>
+                <FlatList
+                    data={[1,2,3,4]}
+                    keyExtractor={item => item.toString()}
+                    renderItem={() => (
+                        <View style={{ marginHorizontal: 16, marginVertical: 8 }}>
+                           <CardSkeleton height={200}/>
+                        </View>
+                    )}
+                    contentContainerStyle={{ paddingTop: 8 }}
+                />
+            </View>
+        );
+    }
     
     return (
         <View style={styles.container}>
@@ -64,15 +68,6 @@ const PropertiesScreen = () => {
                     <TouchableOpacity style={[styles.filterButton, typeFilter === 'sale' && styles.activeFilter]} onPress={() => setTypeFilter('sale')}><Text style={[styles.filterButtonText, typeFilter === 'sale' && styles.activeText]}>بيع</Text></TouchableOpacity>
                     <TouchableOpacity style={[styles.filterButton, typeFilter === 'rent' && styles.activeFilter]} onPress={() => setTypeFilter('rent')}><Text style={[styles.filterButtonText, typeFilter === 'rent' && styles.activeText]}>إيجار</Text></TouchableOpacity>
                 </View>
-                 <TouchableOpacity style={styles.advancedFilterButton} onPress={() => setFilterModalVisible(true)}>
-                    <AdjustmentsHorizontalIcon color="#334155" width={20} height={20} />
-                    <Text style={styles.advancedFilterButtonText}>فلاتر متقدمة</Text>
-                     {activeFilterCount > 0 && (
-                        <View style={styles.filterCountBadge}>
-                            <Text style={styles.filterCountText}>{activeFilterCount}</Text>
-                        </View>
-                     )}
-                </TouchableOpacity>
             </View>
 
             <FlatList
@@ -88,17 +83,9 @@ const PropertiesScreen = () => {
                 )}
                 ListEmptyComponent={<Text style={styles.emptyText}>لا توجد عقارات تطابق بحثك.</Text>}
                 contentContainerStyle={{ paddingTop: 8, paddingBottom: 16 }}
-            />
-            <PropertyFiltersModal
-                isVisible={isFilterModalVisible}
-                onClose={() => setFilterModalVisible(false)}
-                onApply={(price, amenities) => {
-                    setPriceRange(price);
-                    setSelectedAmenities(amenities);
-                    setFilterModalVisible(false);
-                }}
-                initialPriceRange={priceRange}
-                initialAmenities={selectedAmenities}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={['#0891b2']} />
+                }
             />
         </View>
     );
@@ -113,11 +100,8 @@ const styles = StyleSheet.create({
     activeFilter: { backgroundColor: '#0891b2' },
     filterButtonText: { fontWeight: '600', color: '#334155' },
     activeText: { color: 'white' },
-    advancedFilterButton: { flexDirection: 'row-reverse', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: 12, paddingVertical: 10, backgroundColor: '#f1f5f9', borderRadius: 8 },
-    advancedFilterButtonText: { fontWeight: '600', color: '#334155' },
-    filterCountBadge: { position: 'absolute', top: -5, left: -5, backgroundColor: '#0891b2', borderRadius: 10, width: 20, height: 20, justifyContent: 'center', alignItems: 'center' },
-    filterCountText: { color: 'white', fontSize: 12, fontWeight: 'bold' },
-    emptyText: { textAlign: 'center', marginTop: 50, fontSize: 16, color: '#64748b' }
+    emptyText: { textAlign: 'center', marginTop: 50, fontSize: 16, color: '#64748b' },
+    skeleton: { backgroundColor: '#e2e8f0' },
 });
 
 export default PropertiesScreen;

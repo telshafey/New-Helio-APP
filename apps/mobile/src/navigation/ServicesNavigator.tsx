@@ -3,26 +3,34 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ServicesScreen from '../screens/ServicesScreen';
 import ServiceListScreen from '../screens/ServiceListScreen';
 import ServiceDetailScreen from '../screens/ServiceDetailScreen';
+import { useUI } from '../../../packages/shared-logic/src/context/UIContext';
 
 const Stack = createNativeStackNavigator();
 
 const ServicesNavigator = () => {
+  const { isDarkMode } = useUI();
+
   return (
     <Stack.Navigator 
       screenOptions={{ 
         headerShown: true,
         headerBackTitleVisible: false,
         headerTintColor: '#0891b2',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: isDarkMode ? '#1e293b' : 'white',
+        },
+        // FIX: Merged duplicate headerTitleStyle properties
         headerTitleStyle: {
             fontWeight: 'bold',
-        },
-        headerTitleAlign: 'center'
+            color: isDarkMode ? 'white' : '#1e293b',
+        }
       }}
     >
       <Stack.Screen 
         name="Services" 
         component={ServicesScreen} 
-        options={{ headerShown: false }} // Hide header on the main category screen
+        options={{ headerShown: false }}
       />
       <Stack.Screen 
         name="ServiceList" 

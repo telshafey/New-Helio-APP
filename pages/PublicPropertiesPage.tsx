@@ -9,11 +9,32 @@ import FilterDrawer from '../components/common/FilterDrawer';
 import PropertyFilters from '../components/properties/PropertyFilters';
 import { useNews } from '../context/NewsContext';
 import AdSlider from '../components/common/AdSlider';
+import CardGridPageSkeleton from '../components/skeletons/CardGridPageSkeleton';
+import { motion } from 'framer-motion';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.07,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+};
+
 
 const PublicPropertiesPage: React.FC = () => {
     const navigate = useNavigate();
-    const { properties } = useProperties();
-    const { advertisements } = useNews();
+    const { properties, loading: propertiesLoading } = useProperties();
+    const { advertisements, loading: newsLoading } = useNews();
 
     // Existing state
     const [searchTerm, setSearchTerm] = useState('');
@@ -28,6 +49,8 @@ const PublicPropertiesPage: React.FC = () => {
     const [appliedPriceRange, setAppliedPriceRange] = useState({ min: '', max: '' });
     const [appliedAmenities, setAppliedAmenities] = useState<string[]>([]);
     
+    const isLoading = propertiesLoading || newsLoading;
+
     const activeFilterCount = useMemo(() => {
         let count = 0;
         if (appliedPriceRange.min || appliedPriceRange.max) count++;
@@ -126,12 +149,21 @@ const PublicPropertiesPage: React.FC = () => {
                     </button>
                 </div>
                 
-                {filteredProperties.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {isLoading ? (
+                    <CardGridPageSkeleton />
+                ) : filteredProperties.length > 0 ? (
+                    <motion.div 
+                      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                      variants={containerVariants}
+                      initial="hidden"
+                      animate="visible"
+                    >
                         {filteredProperties.map(prop => (
-                            <PropertyCard key={prop.id} property={prop} />
+                           <motion.div key={prop.id} variants={itemVariants}>
+                                <PropertyCard property={prop} />
+                           </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 ) : (
                      <div className="mt-16">
                         <EmptyState

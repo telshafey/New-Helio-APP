@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useData } from '../../../../packages/shared-logic/src/context/DataContext';
-import { BuildingLibraryIcon, BuildingOffice2Icon, UserGroupIcon, EnvelopeIcon } from '../components/Icons';
+import { useUI } from '../../../../packages/shared-logic/src/context/UIContext';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -54,6 +54,7 @@ const BoardTab = () => {
 };
 
 const AboutCityScreen = () => {
+  const { isDarkMode } = useUI();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -61,7 +62,7 @@ const AboutCityScreen = () => {
         tabBarInactiveTintColor: 'gray',
         tabBarIndicatorStyle: { backgroundColor: '#0891b2' },
         tabBarLabelStyle: { fontWeight: 'bold', fontSize: 12 },
-        tabBarStyle: { backgroundColor: 'white' },
+        tabBarStyle: { backgroundColor: isDarkMode ? '#1e293b' : 'white' },
       }}
     >
       <Tab.Screen name="City" component={CityTab} options={{ title: 'عن المدينة' }} />

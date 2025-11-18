@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { mockProperties } from '../data/mock-data';
 // FIX: Corrected import path for types from the shared logic package.
-import type { Property, PropertiesContextType } from '../packages/shared-logic/src/types';
+import type { Property, PropertiesContextType } from '../../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 
 const PropertiesContext = createContext<PropertiesContextType | undefined>(undefined);

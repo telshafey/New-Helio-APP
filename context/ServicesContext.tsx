@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
 import { mockServices, mockCategories } from '../data/mock-data';
 // FIX: Corrected import path for types from the shared logic package.
-import type { Service, Category, Review, ServicesContextType } from '../packages/shared-logic/src/types';
+import type { Service, Category, Review, ServicesContextType } from '../../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 import { useAuth } from './AuthContext';
 

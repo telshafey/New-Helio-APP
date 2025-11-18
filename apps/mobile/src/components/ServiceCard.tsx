@@ -11,14 +11,14 @@ interface ServiceCardProps {
 const Rating: React.FC<{ rating: number }> = ({ rating }) => (
     <View style={styles.ratingContainer}>
         {[...Array(5)].map((_, i) => (
-            <StarIcon key={i} width={16} height={16} color={i < Math.round(rating) ? '#facc15' : '#d1d5db'} />
+            <StarIcon key={i} width={16} height={16} color={i < Math.round(rating) ? '#facc15' : '#d1d5db'} filled={i < Math.round(rating)} />
         ))}
     </View>
 );
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ service, onPress }) => {
   return (
-    <Pressable onPress={onPress} style={styles.card}>
+    <Pressable onPress={onPress} style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
       <Image 
         source={{ uri: service.images[0] || `https://picsum.photos/400/300?random=${service.id}` }} 
         style={styles.image}
@@ -37,12 +37,16 @@ const styles = StyleSheet.create({
     width: 280,
     backgroundColor: 'white',
     borderRadius: 12,
-    marginRight: 16,
+    marginLeft: 16,
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+  },
+  pressed: {
+    opacity: 0.9,
+    transform: [{ scale: 0.98 }],
   },
   image: {
     width: '100%',
@@ -67,6 +71,7 @@ const styles = StyleSheet.create({
   },
   ratingContainer: {
     flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });
 

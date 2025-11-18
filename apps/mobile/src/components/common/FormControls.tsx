@@ -12,6 +12,7 @@ const InputField: React.FC<InputFieldProps> = ({ label, value, onChangeText, ...
         <Text style={styles.label}>{label}</Text>
         <TextInput
             style={styles.input}
+            placeholderTextColor="#94a3b8"
             value={value}
             onChangeText={onChangeText}
             {...props}
@@ -38,6 +39,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         textAlign: 'right',
         fontSize: 16,
+        borderWidth: 1,
+        borderColor: '#e2e8f0',
     },
 });
 

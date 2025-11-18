@@ -4,6 +4,7 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
 import ServiceCard from '../components/ServiceCard';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import CardSkeleton from '../components/skeletons/CardSkeleton';
 
 type ServicesStackParamList = {
   Services: undefined;
@@ -17,7 +18,7 @@ type ScreenNavigationProp = NativeStackNavigationProp<ServicesStackParamList, 'S
 const ServiceListScreen = () => {
   const navigation = useNavigation<ScreenNavigationProp>();
   const route = useRoute<ScreenRouteProp>();
-  const { services } = useServices();
+  const { services, loading } = useServices();
   const { subCategoryId, title } = route.params;
 
   // Set the header title dynamically
@@ -27,13 +28,30 @@ const ServiceListScreen = () => {
   
   const filteredServices = services.filter(s => s.subCategoryId === subCategoryId);
 
+  if (loading) {
+      return (
+        <View style={styles.container}>
+            <FlatList
+                data={[1,2,3,4]}
+                keyExtractor={item => item.toString()}
+                renderItem={() => (
+                    <View style={{ marginVertical: 8, alignItems: 'center' }}>
+                        <CardSkeleton height={220} />
+                    </View>
+                )}
+                contentContainerStyle={{ paddingTop: 16 }}
+            />
+        </View>
+      );
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
         data={filteredServices}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-            <View style={{ marginHorizontal: 16, marginVertical: 8 }}>
+            <View style={{ marginVertical: 8, alignItems: 'center' }}>
                 <ServiceCard 
                     service={item} 
                     onPress={() => navigation.navigate('ServiceDetail', { serviceId: item.id })}

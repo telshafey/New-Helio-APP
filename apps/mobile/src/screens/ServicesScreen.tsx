@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, LayoutAnimation, UIManager, Platform } from 'react-native';
 import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
 import { useNavigation } from '@react-navigation/native';
 import { getIcon } from '../components/iconUtils';
 import { ChevronDownIcon } from '../components/Icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 type ServicesStackParamList = {
   Services: undefined;
   ServiceList: { subCategoryId: number, title: string };
-  ServiceDetail: { serviceId: number };
 };
 type ServicesScreenNavigationProp = NativeStackNavigationProp<ServicesStackParamList, 'Services'>;
 
@@ -21,6 +24,7 @@ const ServicesScreen = () => {
   const [openCategoryId, setOpenCategoryId] = useState<number | null>(serviceCategories[0]?.id || null);
 
   const handleToggleCategory = (id: number) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setOpenCategoryId(prevId => (prevId === id ? null : id));
   };
   

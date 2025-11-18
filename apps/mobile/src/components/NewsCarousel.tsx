@@ -27,6 +27,7 @@ const NewsCarousel: React.FC<NewsCarouselProps> = ({ title, news, navigation }) 
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
+        inverted
       />
     </View>
   );

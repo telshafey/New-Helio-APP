@@ -1,10 +1,12 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-// FIX: Corrected import path for types from the shared logic package.
 import type { Service } from '../../packages/shared-logic/src/types';
 import { StarIcon, HeartIcon, HeartIconSolid } from './Icons';
 import { useServices } from '../../context/ServicesContext';
 import { useAuth } from '../../context/AuthContext';
+import { motion } from 'framer-motion';
+
+const MotionLink = motion(Link);
 
 const Rating: React.FC<{ rating: number }> = ({ rating }) => (
     <div className="flex items-center">
@@ -28,8 +30,14 @@ const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
     };
 
     return (
-        <div className="relative group">
-            <Link to={`/service/${service.id}`} className="block bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 active:scale-[0.98]">
+        <div className="relative group h-full">
+            <MotionLink 
+                to={`/service/${service.id}`} 
+                className="block bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden h-full"
+                whileHover={{ y: -5 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
                 <div className="relative">
                     <img 
                         src={service.images[0] || `https://picsum.photos/400/300?random=${service.id}`} 
@@ -46,7 +54,7 @@ const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
                     <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-1 truncate group-hover:text-cyan-500">{service.name}</h3>
                     <p className="text-gray-500 dark:text-gray-400 text-sm truncate">{service.address}</p>
                 </div>
-            </Link>
+            </MotionLink>
              {isPublicAuthenticated && (
                 <button
                     onClick={onFavoriteClick}

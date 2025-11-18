@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 // FIX: Corrected import path for monorepo structure
-import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
+import { useUsers } from '../../../packages/shared-logic/src/context/UsersContext';
 // FIX: Corrected import path for monorepo structure
-import { useServices } from '../../packages/shared-logic/src/context/ServicesContext';
+import { useServices } from '../../../packages/shared-logic/src/context/ServicesContext';
 // FIX: Corrected import path for monorepo structure
-import { useProperties } from '../../packages/shared-logic/src/context/PropertiesContext';
+import { useProperties } from '../../../packages/shared-logic/src/context/PropertiesContext';
 // FIX: Corrected import path for monorepo structure
-import { useNews } from '../../packages/shared-logic/src/context/NewsContext';
+import { useNews } from '../../../packages/shared-logic/src/context/NewsContext';
 // FIX: Corrected import path for monorepo structure
-import type { SearchResult } from '../../packages/shared-logic/src/types';
+import type { SearchResult } from '../../../packages/shared-logic/src/types';
 // FIX: Removed .tsx extension from import path to fix module resolution error.
 import { MagnifyingGlassIcon, XMarkIcon, WrenchScrewdriverIcon, HomeModernIcon, NewspaperIcon, UserGroupIcon } from './Icons';
 

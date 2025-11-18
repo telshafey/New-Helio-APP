@@ -8,7 +8,7 @@ import type {
     Driver, WeeklyScheduleItem, Supervisor, ExternalRoute,
     TransportationContextType,
     InternalRoute
-} from '../packages/shared-logic/src/types';
+} from '../../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 
 const TransportationContext = createContext<TransportationContextType | undefined>(undefined);

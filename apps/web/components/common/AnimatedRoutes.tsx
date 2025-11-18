@@ -1,11 +1,10 @@
 import React from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useAuth } from '../../packages/shared-logic/src/context/AuthContext';
+import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
 import { lazyWithPrefetch } from './lazyWithPrefetch';
 
 // Lazy-loaded page components with prefetching capability
-// FIX: Corrected import paths to point to the root `pages` directory where the component files with content reside.
 const EmergencyPage = lazyWithPrefetch(() => import('../../../pages/EmergencyPage'));
 const PrivacyPolicyPage = lazyWithPrefetch(() => import('../../../pages/PrivacyPolicyPage'));
 const AboutPage = lazyWithPrefetch(() => import('../../../pages/AboutPage'));
@@ -39,6 +38,7 @@ const ReviewsPage = lazyWithPrefetch(() => import('../../../pages/ReviewsPage'))
 const PublicOffersPage = lazyWithPrefetch(() => import('../../../pages/PublicOffersPage'));
 const MyBusinessPage = lazyWithPrefetch(() => import('../../../pages/MyBusinessPage'));
 const MyOffersPage = lazyWithPrefetch(() => import('../../../pages/MyOffersPage'));
+const NotFoundPage = lazyWithPrefetch(() => import('../../../pages/NotFoundPage'));
 
 // New form pages
 const NewPostPage = lazyWithPrefetch(() => import('../../../pages/NewPostPage'));
@@ -46,17 +46,6 @@ const NewMarketplaceItemPage = lazyWithPrefetch(() => import('../../../pages/New
 const NewJobPage = lazyWithPrefetch(() => import('../../../pages/NewJobPage'));
 const NewLostAndFoundPage = lazyWithPrefetch(() => import('../../../pages/NewLostAndFoundPage'));
 const EditOfferPage = lazyWithPrefetch(() => import('../../../pages/EditOfferPage'));
-const EditServicePage = lazyWithPrefetch(() => import('../../../pages/EditServicePage'));
-const EditPropertyPage = lazyWithPrefetch(() => import('../../../pages/EditPropertyPage'));
-const EditEmergencyContactPage = lazyWithPrefetch(() => import('../../../pages/EditEmergencyContactPage'));
-const EditServiceGuidePage = lazyWithPrefetch(() => import('../../../pages/EditServiceGuidePage'));
-const EditUserPage = lazyWithPrefetch(() => import('../../../pages/EditUserPage'));
-const EditAdminPage = lazyWithPrefetch(() => import('../../../pages/EditAdminPage'));
-const EditNewsPage = lazyWithPrefetch(() => import('../../../pages/EditNewsPage'));
-const EditNotificationPage = lazyWithPrefetch(() => import('../../../pages/EditNotificationPage'));
-const EditAdvertisementPage = lazyWithPrefetch(() => import('../../../pages/EditAdvertisementPage'));
-const EditDriverPage = lazyWithPrefetch(() => import('../../../pages/EditDriverPage'));
-const EditRoutePage = lazyWithPrefetch(() => import('../../../pages/EditRoutePage'));
 const EditPostPage = lazyWithPrefetch(() => import('../../../pages/EditPostPage'));
 
 
@@ -187,8 +176,8 @@ const AnimatedRoutes: React.FC = () => {
                 {/* Root route as the last non-wildcard route */}
                 <Route path="/" element={<AnimatedPage><PublicHomePage /></AnimatedPage>} />
 
-                {/* Wildcard to catch all other paths */}
-                <Route path="*" element={<Navigate to="/" replace />} />
+                {/* Catch-all route for 404 */}
+                <Route path="*" element={<AnimatedPage><NotFoundPage /></AnimatedPage>} />
             </Routes>
         </AnimatePresence>
     );

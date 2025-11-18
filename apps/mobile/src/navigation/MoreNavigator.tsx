@@ -18,43 +18,48 @@ import PublicTransportationScreen from '../screens/PublicTransportationScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import NewOfferScreen from '../screens/forms/NewOfferScreen';
+import { useUI } from '../../../packages/shared-logic/src/context/UIContext';
 
 
 const Stack = createNativeStackNavigator();
 
 const MoreNavigator = () => {
+  const { isDarkMode } = useUI();
+
   return (
     <Stack.Navigator 
       screenOptions={{ 
         headerBackTitleVisible: false,
         headerTintColor: '#0891b2',
         headerTitleAlign: 'center',
-        headerTitleStyle: { fontWeight: 'bold' }
+        headerStyle: {
+          backgroundColor: isDarkMode ? '#1e293b' : 'white',
+        },
+        headerTitleStyle: { 
+          fontWeight: 'bold',
+          color: isDarkMode ? 'white' : '#1e293b'
+        }
       }}
     >
       <Stack.Screen name="More" component={MoreScreen} options={{ headerShown: false }} />
       
-      {/* Auth Flow as modals */}
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'تسجيل الدخول' }} />
         <Stack.Screen name="Register" component={RegisterScreen} options={{ title: 'إنشاء حساب' }} />
         <Stack.Screen name="NewOffer" component={NewOfferScreen} options={{ title: 'إضافة عرض جديد' }} />
       </Stack.Group>
       
-      {/* User specific */}
       <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: 'الملف الشخصي' }}/>
       <Stack.Screen name="Favorites" component={FavoritesScreen} options={{ title: 'المفضلة' }}/>
       <Stack.Screen name="MyBusiness" component={MyBusinessScreen} options={{ title: 'إدارة أعمالي' }}/>
       <Stack.Screen name="MyOffers" component={MyOffersScreen} options={{ title: 'عروضي' }}/>
 
-      {/* City Info */}
       <Stack.Screen name="Transportation" component={PublicTransportationScreen} options={{ title: 'دليل المواصلات' }}/>
       <Stack.Screen name="Emergency" component={EmergencyScreen} options={{ title: 'أرقام الطوارئ' }}/>
       <Stack.Screen name="CityServicesGuide" component={PublicCityServicesGuideScreen} options={{ title: 'خدمات جهاز المدينة' }}/>
       <Stack.Screen name="AboutCity" component={AboutCityScreen} options={{ title: 'عن المدينة والشركة' }}/>
       <Stack.Screen name="Offers" component={OffersScreen} options={{ title: 'العروض' }}/>
       
-      {/* App Info */}
       <Stack.Screen name="AboutApp" component={AboutAppScreen} options={{ title: 'حول التطبيق' }}/>
       <Stack.Screen name="Faq" component={FaqScreen} options={{ title: 'الأسئلة الشائعة' }}/>
       <Stack.Screen name="Contact" component={ContactScreen} options={{ title: 'تواصل معنا' }}/>

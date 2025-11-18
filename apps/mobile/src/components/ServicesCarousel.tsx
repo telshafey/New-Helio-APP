@@ -27,6 +27,7 @@ const ServicesCarousel: React.FC<ServicesCarouselProps> = ({ title, services, na
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
+        inverted // For RTL layout
       />
     </View>
   );

@@ -1,5 +1,4 @@
 import React, { Suspense, useState, useEffect } from 'react';
-import SkeletonLoader from './components/common/SkeletonLoader';
 import ToastContainer from './components/common/Toast';
 import ScrollToTop from './components/common/ScrollToTop';
 import ConfirmationDialog from './components/common/ConfirmationDialog';
@@ -70,9 +69,7 @@ const App: React.FC = () => {
         <PublicHeader />
         <SideDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
         <main className="flex-grow pt-12 md:pt-14 pb-12 md:pb-0 relative">
-          <Suspense fallback={<SkeletonLoader />}>
-            <AnimatedRoutes />
-          </Suspense>
+          <AnimatedRoutes />
         </main>
         <div className="hidden md:block">
           <PublicFooter />

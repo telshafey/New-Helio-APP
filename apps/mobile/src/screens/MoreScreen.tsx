@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SectionList } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SectionList, Image } from 'react-native';
 import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { 
-    UserCircleIcon, HeartIcon, BuildingStorefrontIcon, TagIcon, 
+    HeartIcon, BuildingStorefrontIcon, TagIcon, 
     TruckIcon, BuildingLibraryIcon, DocumentDuplicateIcon, QuestionMarkCircleIcon, 
     InformationCircleIcon, BookOpenIcon, ArrowLeftOnRectangleIcon, PhoneIcon
 } from '../components/Icons';
@@ -26,7 +26,6 @@ const MoreScreen = () => {
     
     const handleLogout = () => {
         publicLogout();
-        // The App will automatically re-render to the signed-out state
     };
 
     const sections = [
@@ -56,10 +55,10 @@ const MoreScreen = () => {
             <View style={styles.headerContainer}>
                 {isPublicAuthenticated && currentPublicUser ? (
                     <TouchableOpacity style={styles.profileHeader} onPress={() => navigation.navigate('Profile')}>
-                        <UserCircleIcon color="#fff" width={64} height={64} />
+                         <Image source={{uri: currentPublicUser.avatar}} style={styles.profileAvatar} />
                         <View>
                             <Text style={styles.profileName}>{currentPublicUser.name}</Text>
-                            <Text style={styles.profileAction}>عرض الملف الشخصي</Text>
+                            <Text style={styles.profileAction}>عرض الملف الشخصي والإعدادات</Text>
                         </View>
                     </TouchableOpacity>
                 ) : (
@@ -90,7 +89,7 @@ const MoreScreen = () => {
                 keyExtractor={(item, index) => item.title + index}
                 renderItem={({ item }) => <ListItem title={item.title} icon={item.icon} onPress={() => navigation.navigate(item.screen)} />}
                 renderSectionHeader={({ section: { title } }) => <Text style={styles.sectionHeader}>{title}</Text>}
-                scrollEnabled={false} // The outer ScrollView handles scrolling
+                scrollEnabled={false}
                 contentContainerStyle={{ paddingHorizontal: 16 }}
             />
             
@@ -110,6 +109,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f1f5f9' },
   headerContainer: { backgroundColor: '#0891b2', padding: 16, paddingTop: 60, paddingBottom: 32 },
   profileHeader: { flexDirection: 'row-reverse', alignItems: 'center', gap: 16 },
+  profileAvatar: { width: 64, height: 64, borderRadius: 32, borderWidth: 2, borderColor: 'white' },
   profileName: { fontSize: 22, fontWeight: 'bold', color: 'white', textAlign: 'right' },
   profileAction: { fontSize: 14, color: '#cffafe', textAlign: 'right' },
   loginHeader: { flexDirection: 'row-reverse', justifyContent: 'space-around' },
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   loginButtonText: { color: '#0891b2', fontWeight: 'bold', textAlign: 'center' },
   registerButton: { flex: 1, backgroundColor: 'transparent', borderWidth: 1, borderColor: 'white', padding: 12, borderRadius: 8, marginLeft: 8 },
   registerButtonText: { color: 'white', fontWeight: 'bold', textAlign: 'center' },
-  quickAccessContainer: { margin: 16, marginTop: -16, backgroundColor: 'white', borderRadius: 12, elevation: 3 },
+  quickAccessContainer: { margin: 16, marginTop: -16, backgroundColor: 'white', borderRadius: 12, elevation: 3, overflow: 'hidden' },
   listItem: { flexDirection: 'row-reverse', alignItems: 'center', padding: 16, backgroundColor: 'white', borderBottomWidth: 1, borderBottomColor: '#f1f5f9' },
   listItemText: { fontSize: 16, color: '#1e293b', marginRight: 16, flex: 1, textAlign: 'right' },
   sectionHeader: { fontSize: 14, fontWeight: 'bold', color: '#64748b', textAlign: 'right', marginTop: 16, marginBottom: 8 },

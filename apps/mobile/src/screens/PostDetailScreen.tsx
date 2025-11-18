@@ -4,7 +4,8 @@ import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { useCommunity } from '../../../../packages/shared-logic/src/context/AppContext';
 import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
 import type { Post, Comment } from '../../../../packages/shared-logic/src/types';
-import { HandThumbUpIcon, ChatBubbleOvalLeftEllipsisIcon, TrashIcon, ArrowUturnLeftIcon } from '../components/Icons';
+// FIX: Replaced missing icon with the available one.
+import { HandThumbUpIcon, ChatBubbleOvalLeftIcon, TrashIcon, ArrowUturnLeftIcon } from '../components/Icons';
 import PollDisplay from '../components/community/PollDisplay';
 import ShareButton from '../components/common/ShareButton'; // Assuming a native ShareButton exists
 
@@ -90,7 +91,7 @@ const PostDetailScreen = () => {
                             <Text style={[styles.footerButtonText, isLiked && styles.likedText]}>{post.likes.length} إعجاب</Text>
                         </Pressable>
                          <View style={styles.footerButton}>
-                            <ChatBubbleOvalLeftEllipsisIcon color="#64748b" width={22} height={22} />
+                            <ChatBubbleOvalLeftIcon color="#64748b" width={22} height={22} />
                             <Text style={styles.footerButtonText}>{post.comments.length} تعليق</Text>
                         </View>
                         <ShareButton title={post.title || ''} message={post.content} />

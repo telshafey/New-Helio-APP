@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import EmptyState from '../components/common/EmptyState';
 import { TagIcon, QrCodeIcon } from '../components/Icons';
+import type { Service } from '../../../../packages/shared-logic/src/types';
 
 type RootStackParamList = {
     Offers: undefined;
@@ -20,6 +21,9 @@ const MyOffersScreen = () => {
     const navigation = useNavigation<NavigationProp>();
 
     const myActiveOffers = userOffers.filter(uo => uo.userId === currentPublicUser?.id && uo.status === 'active');
+    
+    const getOfferDetails = (offerId: number) => offers.find(o => o.id === offerId);
+    const getServiceDetails = (serviceId: number): Service | undefined => services.find(s => s.id === serviceId);
 
     return (
         <View style={styles.container}>
@@ -27,9 +31,10 @@ const MyOffersScreen = () => {
                 data={myActiveOffers}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item: userOffer }) => {
-                    const offerDetails = offers.find(o => o.id === userOffer.offerId);
+                    const offerDetails = getOfferDetails(userOffer.offerId);
                     if (!offerDetails) return null;
-                    const serviceDetails = services.find(s => s.id === offerDetails.serviceId);
+                    const serviceDetails = getServiceDetails(offerDetails.serviceId);
+                    
                     return (
                         <View style={styles.card}>
                             <View style={styles.qrContainer}>
@@ -56,7 +61,7 @@ const MyOffersScreen = () => {
                          </TouchableOpacity>
                     </View>
                 }
-                contentContainerStyle={{ flexGrow: 1 }}
+                contentContainerStyle={{ flexGrow: 1, padding: 8 }}
             />
         </View>
     );
@@ -64,7 +69,7 @@ const MyOffersScreen = () => {
 
 const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: '#f1f5f9' },
-    card: { backgroundColor: 'white', borderRadius: 12, margin: 16, flexDirection: 'row-reverse', alignItems: 'center', padding: 16 },
+    card: { backgroundColor: 'white', borderRadius: 12, margin: 8, flexDirection: 'row-reverse', alignItems: 'center', padding: 16 },
     qrContainer: { padding: 12, backgroundColor: '#f1f5f9', borderRadius: 8 },
     detailsContainer: { flex: 1, marginRight: 16 },
     title: { fontSize: 18, fontWeight: 'bold', textAlign: 'right' },

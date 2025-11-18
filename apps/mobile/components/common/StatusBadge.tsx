@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import type { ListingStatus, UserStatus } from '../../../../packages/shared-logic/src/types';
-// FIX: Added UserMinusIcon and XCircleIcon to the import list.
+// FIX: Corrected import path to remove .tsx extension and added missing icon imports.
 import { ClockIcon, CheckCircleIcon, XCircleIcon, UserMinusIcon } from '../Icons';
 
 interface StatusBadgeProps {

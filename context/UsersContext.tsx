@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { mockUsers, mockAdmins, mockAuditLogs } from '../data/mock-data';
 // FIX: Corrected import path for types from the shared logic package.
-import type { AppUser, AdminUser, AuditLog, UsersContextType, UserRole } from '../packages/shared-logic/src/types';
+import type { AppUser, AdminUser, AuditLog, UsersContextType, UserRole } from '../../packages/shared-logic/src/types';
 import { useUI } from './UIContext';
 
 const UsersContext = createContext<UsersContextType | undefined>(undefined);

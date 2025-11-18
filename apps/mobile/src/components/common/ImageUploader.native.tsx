@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Image, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { TrashIcon, CloudArrowUpIcon } from '../Icons';
@@ -23,10 +23,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
+            allowsEditing: !multiple,
             aspect: [4, 3],
             quality: 0.8,
-            base64: true, // Needed to get the data URI
+            base64: true,
             allowsMultipleSelection: multiple,
         });
 
@@ -68,7 +68,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 { text: 'التقط صورة', onPress: takePhoto },
                 { text: 'اختر من المعرض', onPress: pickImage },
                 { text: 'إلغاء', style: 'cancel' },
-            ]
+            ],
+            { cancelable: true }
         );
     }
 
@@ -81,7 +82,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
     const canAddMore = multiple ? images.length < maxFiles : images.length < 1;
 
     return (
-        <View>
+        <View style={styles.wrapper}>
             {label && <Text style={styles.label}>{label}</Text>}
             <View style={styles.grid}>
                 {images.map((image, index) => (
@@ -106,6 +107,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 };
 
 const styles = StyleSheet.create({
+    wrapper: { marginVertical: 8 },
     label: { fontSize: 14, fontWeight: '600', color: '#475569', textAlign: 'right', marginBottom: 8 },
     grid: { flexDirection: 'row-reverse', flexWrap: 'wrap' },
     imageContainer: { width: 80, height: 80, borderRadius: 8, margin: 4 },

@@ -27,6 +27,7 @@ const PropertyCarousel: React.FC<PropertyCarouselProps> = ({ title, properties, 
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.listContent}
+        inverted
       />
     </View>
   );

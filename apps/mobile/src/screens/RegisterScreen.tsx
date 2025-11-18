@@ -1,67 +1,67 @@
+
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import InputField from '../components/common/FormControls';
-// FIX: Import NativeStackNavigationProp to fix navigation type error
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useUI } from '../../../../packages/shared-logic/src/context/UIContext';
 
 const RegisterScreen = () => {
     const { register } = useAuth();
-    // FIX: Add generic type to useNavigation to fix navigate error
+    const { showToast } = useUI();
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
 
     const handleSubmit = () => {
-        setError('');
         if (password.length < 6) {
-            setError('يجب أن تكون كلمة المرور 6 أحرف على الأقل.');
+            showToast('يجب أن تكون كلمة المرور 6 أحرف على الأقل.', 'error');
             return;
         }
         const success = register({ name, email, password });
         if (success) {
             navigation.goBack();
-        } else {
-            setError('هذا البريد الإلكتروني مسجل بالفعل.');
         }
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>إنشاء حساب جديد</Text>
-            <Text style={styles.subtitle}>انضم إلى مجتمع هليوبوليس الجديدة.</Text>
+         <KeyboardAvoidingView 
+            style={{ flex: 1 }} 
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={ Platform.OS === "ios" ? 64 : 0 }
+        >
+            <ScrollView contentContainerStyle={styles.container}>
+                <Text style={styles.title}>إنشاء حساب جديد</Text>
+                <Text style={styles.subtitle}>انضم إلى مجتمع هليوبوليس الجديدة.</Text>
 
-            <View style={styles.form}>
-                <InputField label="الاسم الكامل" value={name} onChangeText={setName} />
-                <InputField label="البريد الإلكتروني" value={email} onChangeText={setEmail} keyboardType="email-address" />
-                <InputField label="كلمة المرور" value={password} onChangeText={setPassword} secureTextEntry />
+                <View style={styles.form}>
+                    <InputField label="الاسم الكامل" value={name} onChangeText={setName} />
+                    <InputField label="البريد الإلكتروني" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none"/>
+                    <InputField label="كلمة المرور" value={password} onChangeText={setPassword} secureTextEntry />
 
-                {error && <Text style={styles.errorText}>{error}</Text>}
-
-                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                    <Text style={styles.buttonText}>إنشاء الحساب</Text>
+                    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                        <Text style={styles.buttonText}>إنشاء الحساب</Text>
+                    </TouchableOpacity>
+                </View>
+                
+                <TouchableOpacity onPress={() => navigation.navigate('Login')} style={{ marginTop: 32 }}>
+                    <Text style={styles.loginText}>لديك حساب بالفعل؟ <Text style={styles.loginLink}>سجل الدخول</Text></Text>
                 </TouchableOpacity>
-            </View>
-            
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text style={styles.loginText}>لديك حساب بالفعل؟ <Text style={styles.loginLink}>سجل الدخول</Text></Text>
-            </TouchableOpacity>
-        </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#f1f5f9', padding: 24, justifyContent: 'center' },
-    title: { fontSize: 32, fontWeight: 'bold', textAlign: 'center', marginBottom: 8 },
+    container: { flexGrow: 1, backgroundColor: '#f1f5f9', padding: 24, justifyContent: 'center' },
+    title: { fontSize: 32, fontWeight: 'bold', textAlign: 'center', marginBottom: 8, color: '#1e293b' },
     subtitle: { fontSize: 16, color: '#64748b', textAlign: 'center', marginBottom: 32 },
     form: { width: '100%' },
-    errorText: { color: 'red', textAlign: 'center', marginTop: 8 },
-    button: { backgroundColor: '#0891b2', padding: 16, borderRadius: 8, alignItems: 'center', marginTop: 16 },
+    button: { backgroundColor: '#0891b2', padding: 16, borderRadius: 8, alignItems: 'center', marginTop: 16, elevation: 2 },
     buttonText: { color: 'white', fontWeight: 'bold', fontSize: 16 },
-    loginText: { textAlign: 'center', marginTop: 24, color: '#64748b' },
+    loginText: { textAlign: 'center', color: '#64748b' },
     loginLink: { color: '#0891b2', fontWeight: 'bold' }
 });
 
