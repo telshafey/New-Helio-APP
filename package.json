@@ -1,5 +1,6 @@
 {
   "name": "helio-monorepo",
+  "main": "apps/mobile/index.js",
   "private": true,
   "workspaces": [
     "apps/*",
