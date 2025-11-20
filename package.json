@@ -12,7 +12,7 @@
     "web": "npm run dev --workspace=helio-web",
     "build:web": "npm run build --workspace=helio-web",
     "build:mobile:apk": "cd apps/mobile && eas build --platform android --profile preview",
-    "eas-build-pre-install": "npm install",
+    "eas-build-pre-install": "rm -rf package-lock.json && npm install",
     "postinstall": "echo 'Shared logic setup complete'"
   },
   "devDependencies": {
