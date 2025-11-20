@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 7.0.0"
+    "version": ">= 7.0.0",
+    "npmClient": "npm"
   },
   "build": {
     "development": {
@@ -11,9 +12,16 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
       }
     },
-    "production": {}
+    "production": {
+      "android": {
+        "buildType": "aab"
+      }
+    }
   },
   "submit": {
     "production": {}

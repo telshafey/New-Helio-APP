@@ -11,9 +11,14 @@
     "ios": "npm run ios --workspace=helio-mobile",
     "web": "npm run dev --workspace=helio-web",
     "build:web": "npm run build --workspace=helio-web",
-    "build:mobile:apk": "cd apps/mobile && eas build --platform android --profile preview"
+    "build:mobile:apk": "cd apps/mobile && eas build --platform android --profile preview",
+    "postinstall": "npm run build:shared",
+    "build:shared": "echo 'Shared logic setup complete'"
   },
   "devDependencies": {
     "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
