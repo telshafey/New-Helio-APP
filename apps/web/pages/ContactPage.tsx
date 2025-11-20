@@ -1,8 +1,9 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, EnvelopeIcon, WhatsAppIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-import { CONTACT_INFO } from '../../packages/shared-logic/src/config';
+import { CONTACT_INFO } from '@helio/shared-logic';
 
 const ContactPage: React.FC = () => {
     const navigate = useNavigate();
