@@ -11,7 +11,7 @@
     "ios": "npm run ios --workspace=helio-mobile",
     "web": "npm run dev --workspace=helio-web",
     "build:web": "npm run build --workspace=helio-web",
-    "build:mobile:android": "cd apps/mobile && eas build --platform android --local"
+    "build:mobile:apk": "cd apps/mobile && eas build --platform android --profile preview"
   },
   "devDependencies": {
     "typescript": "^5.3.0"
