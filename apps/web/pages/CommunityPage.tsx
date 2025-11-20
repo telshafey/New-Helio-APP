@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUsers } from '../context/UsersContext';
-import { useAuth } from '../context/AuthContext';
-// FIX: Corrected import path for types from the shared logic package.
-import type { Circle } from '../packages/shared-logic/src/types';
+import { useUsers, useAuth, useCommunity, useNews } from '@helio/shared-logic';
+import type { Circle } from '@helio/shared-logic';
 import { 
-    PlusIcon, ChatBubbleOvalLeftIcon, UsersIcon, TrashIcon, 
+    PlusIcon, ChatBubbleOvalLeftEllipsisIcon, UsersIcon, TrashIcon, 
     ShoppingBagIcon, BriefcaseIcon, ArchiveBoxIcon
 } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-import { useCommunity } from '../context/AppContext';
-import { useNews } from '../context/NewsContext';
 import AdSlider from '../components/common/AdSlider';
 
 // Import newly created tab components
@@ -80,7 +76,7 @@ const CommunityPage: React.FC = () => {
             <PageBanner
                 title="مجتمع هليوبوليس"
                 subtitle="شارك، تواصل، وكن جزءاً من مجتمع حيوي."
-                icon={<ChatBubbleOvalLeftIcon className="w-12 h-12 text-teal-500" />}
+                icon={<ChatBubbleOvalLeftEllipsisIcon className="w-12 h-12 text-teal-500" />}
             />
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {sliderAds.length > 0 && (
@@ -94,7 +90,7 @@ const CommunityPage: React.FC = () => {
                          <div className="border-b border-slate-200 dark:border-slate-700 mb-6">
                             <div className="overflow-x-auto scrollbar-hide">
                                 <nav className="-mb-px flex gap-2 whitespace-nowrap" aria-label="Tabs">
-                                    <TabButton tabId="feed" title="المنشورات" icon={<ChatBubbleOvalLeftIcon className="w-5 h-5"/>} />
+                                    <TabButton tabId="feed" title="المنشورات" icon={<ChatBubbleOvalLeftEllipsisIcon className="w-5 h-5"/>} />
                                     <TabButton tabId="marketplace" title="البيع والشراء" icon={<ShoppingBagIcon className="w-5 h-5"/>} />
                                     <TabButton tabId="jobs" title="الوظائف" icon={<BriefcaseIcon className="w-5 h-5"/>} />
                                     <TabButton tabId="lost-and-found" title="المفقودات" icon={<ArchiveBoxIcon className="w-5 h-5"/>} />

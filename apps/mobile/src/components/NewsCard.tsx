@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, Text, Image, Pressable, StyleSheet, DimensionValue } from 'react-native';
-import type { News } from '../../../../packages/shared-logic/src/types';
+import type { News } from '../shared';
 
 interface NewsCardProps {
   newsItem: News;

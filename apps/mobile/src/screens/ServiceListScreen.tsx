@@ -1,7 +1,8 @@
+
 import React, { useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
+import { useServices } from '../shared';
 import ServiceCard from '../components/ServiceCard';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import CardSkeleton from '../components/skeletons/CardSkeleton';

@@ -1,16 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-// FIX: Corrected import path for monorepo structure.
-import { useAuth } from '../../packages/shared-logic/src/context/AuthContext';
+import { useAuth, useCommunity } from '@helio/shared-logic';
 import Spinner from '../components/common/Spinner';
-// FIX: Replaced missing icon with the available one.
 import { ArrowLeftIcon, HandThumbUpIcon, ChatBubbleOvalLeftIcon, TrashIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-// FIX: Corrected import path for types from the shared logic package.
-import type { Post } from '../../packages/shared-logic/src/types';
+import type { Post } from '@helio/shared-logic';
 import ShareButton from '../components/common/ShareButton';
-// FIX: Corrected import path for monorepo structure.
-import { useCommunity } from '../../packages/shared-logic/src/context/AppContext';
 
 const PollDisplay: React.FC<{ post: Post }> = ({ post }) => {
     const { voteOnPoll } = useCommunity();
@@ -55,7 +50,7 @@ const PollDisplay: React.FC<{ post: Post }> = ({ post }) => {
                     return (
                         <div key={index} className={`p-3 border-2 rounded-lg ${isUserChoice ? 'border-cyan-500 bg-cyan-50 dark:bg-cyan-900/30' : 'border-slate-200 dark:border-slate-700'}`}>
                             <div className="flex justify-between items-center font-semibold mb-1">
-                                <span className={isUserChoice ? 'text-cyan-700 dark:text-cyan-300' : ''}>{option.option}</span>
+                                <span className="text-cyan-700 dark:text-cyan-300">{option.option}</span>
                                 <span>{Math.round(percentage)}%</span>
                             </div>
                             <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">

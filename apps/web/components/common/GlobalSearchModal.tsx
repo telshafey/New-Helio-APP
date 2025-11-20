@@ -1,16 +1,8 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-// FIX: Corrected import path for monorepo structure
-import { useUsers } from '../../../packages/shared-logic/src/context/UsersContext';
-// FIX: Corrected import path for monorepo structure
-import { useServices } from '../../../packages/shared-logic/src/context/ServicesContext';
-// FIX: Corrected import path for monorepo structure
-import { useProperties } from '../../../packages/shared-logic/src/context/PropertiesContext';
-// FIX: Corrected import path for monorepo structure
-import { useNews } from '../../../packages/shared-logic/src/context/NewsContext';
-// FIX: Corrected import path for monorepo structure
-import type { SearchResult } from '../../../packages/shared-logic/src/types';
-// FIX: Removed .tsx extension from import path to fix module resolution error.
+import { useUsers, useServices, useProperties, useNews } from '@helio/shared-logic';
+import type { SearchResult } from '@helio/shared-logic';
 import { MagnifyingGlassIcon, XMarkIcon, WrenchScrewdriverIcon, HomeModernIcon, NewspaperIcon, UserGroupIcon } from './Icons';
 
 interface GlobalSearchModalProps {
@@ -57,7 +49,7 @@ const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, onClose }
                 type: 'خدمة',
                 title: s.name,
                 subtitle: s.address,
-                link: `/services/detail/${s.id}`,
+                link: `/service/${s.id}`,
                 icon: <WrenchScrewdriverIcon className="w-5 h-5 text-cyan-500" />
             }));
 
@@ -68,7 +60,7 @@ const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, onClose }
                 type: 'عقار',
                 title: p.title,
                 subtitle: p.location.address,
-                link: '/properties',
+                link: `/property/${p.id}`,
                 icon: <HomeModernIcon className="w-5 h-5 text-amber-500" />
             }));
         
@@ -79,7 +71,7 @@ const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, onClose }
                 type: 'خبر',
                 title: n.title,
                 subtitle: `بواسطة ${n.author}`,
-                link: '/news',
+                link: `/news/${n.id}`,
                 icon: <NewspaperIcon className="w-5 h-5 text-purple-500" />
             }));
             
@@ -90,7 +82,7 @@ const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, onClose }
                 type: 'مستخدم',
                 title: u.name,
                 subtitle: u.email,
-                link: '/users',
+                link: `/user/${u.id}`,
                 icon: <UserGroupIcon className="w-5 h-5 text-lime-500" />
             }));
 

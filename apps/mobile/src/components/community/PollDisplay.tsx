@@ -1,9 +1,9 @@
+
 import React, { useMemo } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
-import { useAuth } from '../../../../../packages/shared-logic/src/context/AuthContext';
-import type { Post } from '../../../../../packages/shared-logic/src/types';
+import { useCommunity, useAuth } from '../../shared';
+import type { Post } from '../../shared';
 
 const PollDisplay: React.FC<{ post: Post }> = ({ post }) => {
     const { voteOnPoll } = useCommunity();

@@ -12,8 +12,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      // Create an alias for the shared logic package to resolve relative paths correctly during build
-      '../../packages/shared-logic': path.resolve(__dirname, '../../packages/shared-logic'),
+      // Map the shared package alias to the source directory
+      '@helio/shared-logic': path.resolve(__dirname, '../../packages/shared-logic/src'),
     },
   },
   build: {
@@ -31,5 +31,8 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    fs: {
+        allow: ['../..'], // Allow serving files from the workspace root
+    },
   },
 });

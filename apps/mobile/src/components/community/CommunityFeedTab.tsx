@@ -1,9 +1,9 @@
+
 import React, { useState, useMemo } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
-import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
+import { useCommunity } from '../../shared';
 import PostCard from './PostCard';
 import EmptyState from '../common/EmptyState';
-// FIX: Replaced missing icon with the available one.
 import { ChatBubbleOvalLeftIcon } from '../Icons';
 
 const CommunityFeedTab = () => {

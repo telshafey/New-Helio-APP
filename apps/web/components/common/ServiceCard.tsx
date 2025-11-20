@@ -1,13 +1,9 @@
+
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-// FIX: Corrected import path for monorepo structure
-import type { Service } from '../../../../packages/shared-logic/src/types';
-// FIX: Removed .tsx extension from import path to fix module resolution error.
+import type { Service } from '@helio/shared-logic';
 import { StarIcon, HeartIcon, HeartIconSolid } from './Icons';
-// FIX: Corrected import path for monorepo structure
-import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
-// FIX: Corrected import path for monorepo structure
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
+import { useServices, useAuth } from '@helio/shared-logic';
 import { motion } from 'framer-motion';
 
 const MotionLink = motion(Link);

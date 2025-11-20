@@ -1,9 +1,9 @@
 
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated, TouchableOpacity } from 'react-native';
-import { useUI } from '../../../../packages/shared-logic/src/context/UIContext';
+import { useUI } from '../../shared';
 import { CheckCircleIcon, XCircleIcon } from '../Icons';
-import type { ToastMessage } from '../../../../packages/shared-logic/src/types';
+import type { ToastMessage } from '../../shared';
 
 const ToastItem: React.FC<{ message: ToastMessage; onDismiss: (id: number) => void; index: number }> = ({ message, onDismiss, index }) => {
     const opacity = useRef(new Animated.Value(0)).current;

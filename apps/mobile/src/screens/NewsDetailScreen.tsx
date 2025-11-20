@@ -1,7 +1,8 @@
+
 import React, { useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { useNews } from '../../../../packages/shared-logic/src/context/NewsContext';
+import { useNews } from '../shared';
 import ShareButton from '../components/common/ShareButton';
 import DetailSkeleton from '../components/skeletons/DetailSkeleton';
 

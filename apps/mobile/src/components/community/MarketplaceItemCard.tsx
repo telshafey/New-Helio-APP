@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, Pressable } from 'react-native';
-import type { MarketplaceItem } from '../../../../../packages/shared-logic/src/types';
+import type { MarketplaceItem } from '../../shared';
 
 const { width } = Dimensions.get('window');
 const cardWidth = (width / 2) - 24; // 2 columns with 16 padding on each side and 16 between

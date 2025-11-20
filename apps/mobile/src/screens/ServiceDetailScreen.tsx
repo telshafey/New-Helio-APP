@@ -1,10 +1,10 @@
+
 import React, { useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Linking, Share } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
+import { useServices, useAuth } from '../shared';
 import ImageSlider from '../components/ImageSlider';
 import { PhoneIcon, WhatsAppIcon, ShareIcon, HeartIcon, HeartIconSolid, ClockIcon, MapPinIcon, StarIcon } from '../components/Icons';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
 import DetailSkeleton from '../components/skeletons/DetailSkeleton';
 
 type ParamList = {

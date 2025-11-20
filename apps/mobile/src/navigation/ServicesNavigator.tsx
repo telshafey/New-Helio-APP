@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ServicesScreen from '../screens/ServicesScreen';
 import ServiceListScreen from '../screens/ServiceListScreen';
 import ServiceDetailScreen from '../screens/ServiceDetailScreen';
-import { useUI } from '../../../packages/shared-logic/src/context/UIContext';
+import { useUI } from '../shared';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +20,6 @@ const ServicesNavigator = () => {
         headerStyle: {
           backgroundColor: isDarkMode ? '#1e293b' : 'white',
         },
-        // FIX: Merged duplicate headerTitleStyle properties
         headerTitleStyle: {
             fontWeight: 'bold',
             color: isDarkMode ? 'white' : '#1e293b',

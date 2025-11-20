@@ -1,8 +1,8 @@
+
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, Pressable, Image } from 'react-native';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
-import { useUI } from '../../../../packages/shared-logic/src/context/UIContext';
-import type { AppUser, Theme } from '../../../../packages/shared-logic/src/types';
+import { useAuth, useUI } from '../shared';
+import type { AppUser, Theme } from '../shared';
 import { PencilIcon, TrashIcon, SunIcon, MoonIcon, ComputerDesktopIcon } from '../components/Icons';
 import InputField from '../components/common/FormControls';
 import ImageUploader from '../components/common/ImageUploader.native';

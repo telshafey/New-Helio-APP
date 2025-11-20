@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
-// FIX: Corrected import path for types from the shared logic package.
-import type { AppUser } from '../../../../packages/shared-logic/src/types';
+import { useAuth } from '@helio/shared-logic';
+import type { AppUser } from '@helio/shared-logic';
 import { UserCircleIcon, ArrowLeftOnRectangleIcon, BuildingStorefrontIcon, TagIcon } from './Icons';
 
 interface ProfileDropDownProps {

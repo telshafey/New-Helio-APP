@@ -1,14 +1,12 @@
+
 import React from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
-import { useAuth } from '../../../../../packages/shared-logic/src/context/AuthContext';
-import type { Post } from '../../../../../packages/shared-logic/src/types';
-// FIX: Replaced missing icon with the available one.
+import { useCommunity, useAuth } from '../../shared';
+import type { Post } from '../../shared';
 import { HandThumbUpIcon, ChatBubbleOvalLeftIcon, PinIcon } from '../Icons';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import PollDisplay from './PollDisplay';
-// FIX: Added import for GestureResponderEvent to fix type error.
 import type { GestureResponderEvent } from 'react-native';
 
 type CommunityStackParamList = {
@@ -24,7 +22,6 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
     const navigation = useNavigation<PostCardNavigationProp>();
     const isLiked = currentPublicUser ? post.likes.includes(currentPublicUser.id) : false;
 
-    // FIX: Changed event type from React.MouseEvent to GestureResponderEvent.
     const handleLikeClick = (e: GestureResponderEvent) => {
         e.preventDefault();
         e.stopPropagation();

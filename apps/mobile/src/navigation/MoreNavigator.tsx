@@ -18,7 +18,7 @@ import PublicTransportationScreen from '../screens/PublicTransportationScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import NewOfferScreen from '../screens/forms/NewOfferScreen';
-import { useUI } from '../../../packages/shared-logic/src/context/UIContext';
+import { useUI } from '../shared';
 
 
 const Stack = createNativeStackNavigator();

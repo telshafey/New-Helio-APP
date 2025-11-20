@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, Text, ImageBackground, Pressable, StyleSheet } from 'react-native';
-import type { Property } from '../../../../packages/shared-logic/src/types';
+import type { Property } from '../shared';
 
 interface PropertyCardProps {
   property: Property;

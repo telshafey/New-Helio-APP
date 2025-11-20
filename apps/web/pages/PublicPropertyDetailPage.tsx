@@ -1,6 +1,7 @@
+
 import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useProperties } from '../context/PropertiesContext';
+import { useProperties } from '@helio/shared-logic';
 import Spinner from '../components/common/Spinner';
 import { ArrowLeftIcon, MapPinIcon, PhoneIcon, HomeModernIcon, CheckCircleIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';

@@ -1,13 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
-import { useServices } from '../../packages/shared-logic/src/context/ServicesContext';
-import { useAuth } from '../../packages/shared-logic/src/context/AuthContext';
-import { useUI } from '../../packages/shared-logic/src/context/UIContext';
+import { useUsers, useServices, useAuth, useUI } from '@helio/shared-logic';
 import { ArrowLeftIcon, UserCircleIcon, PencilIcon, StarIcon, ChatBubbleOvalLeftIcon, HeartIconSolid, TrashIcon, Cog6ToothIcon, SunIcon, MoonIcon, ComputerDesktopIcon } from '../components/common/Icons';
 import Modal from '../components/common/Modal';
 import ImageUploader from '../components/common/ImageUploader';
-import type { AppUser, Theme } from '../../packages/shared-logic/src/types';
+import type { AppUser, Theme } from '@helio/shared-logic';
 import ServiceCard from '../components/common/ServiceCard';
 import { motion } from 'framer-motion';
 

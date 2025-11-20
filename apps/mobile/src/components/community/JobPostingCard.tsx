@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import type { JobPosting } from '../../../../../packages/shared-logic/src/types';
+import type { JobPosting } from '../../shared';
 import { MapPinIcon } from '../Icons';
 
 const JobPostingCard: React.FC<{ job: JobPosting }> = ({ job }) => (

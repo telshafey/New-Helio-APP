@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
-import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
+import { useCommunity } from '../../shared';
 import JobPostingCard from './JobPostingCard';
 import EmptyState from '../common/EmptyState';
 import { BriefcaseIcon } from '../Icons';

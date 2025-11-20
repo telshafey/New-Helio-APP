@@ -1,6 +1,7 @@
+
 import React, { useState, useMemo, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, RefreshControl } from 'react-native';
-import { useProperties } from '../../../../packages/shared-logic/src/context/PropertiesContext';
+import { useProperties } from '../shared';
 import PropertyCard from '../components/PropertyCard';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';

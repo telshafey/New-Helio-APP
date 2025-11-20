@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
-import type { Service } from '../../../../packages/shared-logic/src/types';
+import type { Service } from '../shared';
 import { StarIcon } from './Icons';
 
 interface ServiceCardProps {

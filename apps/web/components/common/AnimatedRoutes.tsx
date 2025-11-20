@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
+import { useAuth } from '@helio/shared-logic';
 import { lazyWithPrefetch } from './lazyWithPrefetch';
 
 // Lazy-loaded page components with prefetching capability
@@ -54,7 +54,6 @@ const PropertiesPage = lazyWithPrefetch(() => import('../../pages/PropertiesPage
 const ServiceDetailPage = lazyWithPrefetch(() => import('../../pages/ServiceDetailPage'));
 const ReportsPage = lazyWithPrefetch(() => import('../../pages/ReportsPage'));
 
-
 // New form pages
 const NewPostPage = lazyWithPrefetch(() => import('../../pages/NewPostPage'));
 const NewMarketplaceItemPage = lazyWithPrefetch(() => import('../../pages/NewMarketplaceItemPage'));
@@ -63,7 +62,6 @@ const NewLostAndFoundPage = lazyWithPrefetch(() => import('../../pages/NewLostAn
 const EditOfferPage = lazyWithPrefetch(() => import('../../pages/EditOfferPage'));
 const EditPostPage = lazyWithPrefetch(() => import('../../pages/EditPostPage'));
 
-// NOTE: All other Edit*Pages have been removed as they were replaced by Modals.
 
 export const prefetchMap: { [path: string]: () => Promise<any> } = {
   '/': PublicHomePage.preload,

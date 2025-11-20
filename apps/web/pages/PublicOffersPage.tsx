@@ -1,14 +1,10 @@
 import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCommunity } from '../context/AppContext';
-import { useServices } from '../context/ServicesContext';
+import { useCommunity, useServices, useAuth } from '@helio/shared-logic';
 import PageBanner from '../components/common/PageBanner';
-// FIX: Removed .tsx extension from import path to fix module resolution error.
 import { TagIcon, CalendarDaysIcon } from '../components/common/Icons';
-// FIX: Corrected import path for types from the shared logic package.
-import type { ExclusiveOffer, Service } from '../../packages/shared-logic/src/types';
+import type { ExclusiveOffer, Service } from '@helio/shared-logic';
 import EmptyState from '../components/common/EmptyState';
-import { useAuth } from '../context/AuthContext';
 
 const OfferCard: React.FC<{ offer: ExclusiveOffer; serviceName: string }> = ({ offer, serviceName }) => {
     const { generateUserOffer } = useCommunity();

@@ -1,11 +1,10 @@
+
 import React, { useMemo, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
-import { useUI } from '../../../../packages/shared-logic/src/context/UIContext';
+import { useAuth, useUI, useNews } from '@helio/shared-logic';
 import { BellIcon, SunIcon, MoonIcon, MagnifyingGlassIcon } from './Icons';
 import ProfileDropDown from './ProfileDropDown';
 import Logo from './Logo';
-import { useNews } from '../../../../packages/shared-logic/src/context/NewsContext';
 import { prefetchMap } from './AnimatedRoutes';
 import GlobalSearchModal from './GlobalSearchModal';
 

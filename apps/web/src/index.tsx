@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
-// Corrected import path to rely on standard relative traversal
-import { AppProvider } from '../../../packages/shared-logic/src/context/AppProvider';
+import { AppProvider } from '@helio/shared-logic';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -23,7 +22,6 @@ root.render(
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    // Construct an absolute URL to the service worker file to avoid origin issues.
     const swUrl = `${window.location.origin}/sw.js`;
     navigator.serviceWorker.register(swUrl)
       .then(registration => {

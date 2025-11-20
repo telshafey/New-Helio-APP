@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, SectionList, Image } from 'react-native';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
+import { useAuth } from '../shared';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { 

@@ -1,7 +1,7 @@
+
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-// FIX: Corrected import path depth (5 levels up to reach root, then packages)
-import type { ListingStatus, UserStatus } from '../../../../../packages/shared-logic/src/types';
+import type { ListingStatus, UserStatus } from '../../shared';
 import * as Icons from '../Icons';
 
 interface StatusBadgeProps {

@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, LayoutAnimation, UIManager, Platform } from 'react-native';
-import { useData } from '../../../../packages/shared-logic/src/context/DataContext';
+import { useData } from '../shared';
 import { ChevronDownIcon } from '../components/Icons';
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {

@@ -1,12 +1,11 @@
+
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, TextInput, Modal } from 'react-native';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
-import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
-import { useCommunity } from '../../../../packages/shared-logic/src/context/AppContext';
+import { useAuth, useServices, useCommunity } from '../shared';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ShoppingBagIcon, TagIcon, ChatBubbleOvalLeftIcon, StarIcon, PlusIcon, PencilSquareIcon, TrashIcon } from '../components/Icons';
-import type { Review } from '../../../../packages/shared-logic/src/types';
+import type { Review } from '../shared';
 import EmptyState from '../components/common/EmptyState';
 import StatusBadge from '../components/common/StatusBadge';
 
@@ -186,7 +185,7 @@ const MyBusinessScreen: React.FC = () => {
                                     )}
                                 </View>
                             )) : <EmptyState icon={<ChatBubbleOvalLeftIcon width={48} height={48} color="#9ca3af"/>} title="لا توجد تقييمات" message="لا توجد تقييمات جديدة."/>}
-                         </View>
+                         </div>
                     </View>
                 </View>
             </View>

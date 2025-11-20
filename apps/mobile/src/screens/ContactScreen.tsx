@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import { EnvelopeIcon, WhatsAppIcon } from '../components/Icons';
-import { CONTACT_INFO } from '../../../../packages/shared-logic/src/config';
+import { CONTACT_INFO } from '../shared';
 
 const ContactScreen = () => {
     return (

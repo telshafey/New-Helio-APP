@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
+import { useCommunity } from '../../shared';
 import LostAndFoundCard from './LostAndFoundCard';
 import EmptyState from '../common/EmptyState';
 import { ArchiveBoxIcon } from '../Icons';

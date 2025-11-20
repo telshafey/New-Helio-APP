@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
+import { useAuth } from '../shared';
 
 // Import tab components
 import CommunityFeedTab from '../components/community/CommunityFeedTab';

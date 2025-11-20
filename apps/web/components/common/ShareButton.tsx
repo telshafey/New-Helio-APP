@@ -1,6 +1,6 @@
+
 import React from 'react';
-// FIX: Corrected import path for monorepo structure.
-import { useUI } from '../../../../packages/shared-logic/src/context/UIContext';
+import { useUI } from '@helio/shared-logic';
 import { ShareIcon } from './Icons';
 
 interface ShareButtonProps {

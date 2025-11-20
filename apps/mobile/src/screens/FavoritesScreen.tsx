@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
-import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
+import { useServices } from '../shared';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ServiceCard from '../components/ServiceCard';

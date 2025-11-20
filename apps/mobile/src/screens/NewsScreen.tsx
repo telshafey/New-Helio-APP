@@ -1,6 +1,7 @@
+
 import React, { useState, useCallback } from 'react';
 import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
-import { useNews } from '../../../../packages/shared-logic/src/context/NewsContext';
+import { useNews } from '../shared';
 import NewsCard from '../components/NewsCard';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';

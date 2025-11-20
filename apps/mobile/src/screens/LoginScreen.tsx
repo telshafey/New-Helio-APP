@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
+import { useAuth, useUI } from '../shared';
 import { useNavigation } from '@react-navigation/native';
 import InputField from '../components/common/FormControls';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useUI } from '../../../../packages/shared-logic/src/context/UIContext';
 
 const LoginScreen = () => {
     const { publicLogin } = useAuth();

@@ -1,10 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// FIX: Corrected import paths for monorepo structure.
-import { useAuth } from '../../../packages/shared-logic/src/context/AuthContext';
-import { useCommunity } from '../../../packages/shared-logic/src/context/AppContext';
-import type { Post, PostCategory, Circle } from '../../../packages/shared-logic/src/types';
-import { ChatBubbleOvalLeftEllipsisIcon, HandThumbUpIcon, PinIcon } from '../common/Icons';
+import { useAuth, useCommunity } from '@helio/shared-logic';
+import type { Post, PostCategory, Circle } from '@helio/shared-logic';
+import { ChatBubbleOvalLeftIcon, HandThumbUpIcon, PinIcon } from '../common/Icons';
 import EmptyState from '../common/EmptyState';
 
 const PollInCard: React.FC<{ post: Post }> = ({ post }) => {
@@ -115,7 +113,7 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => {
             <div className="flex justify-between items-center mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                 <div className="flex items-center gap-4 text-gray-500 dark:text-gray-400">
                     <div className="flex items-center gap-1.5">
-                        <ChatBubbleOvalLeftEllipsisIcon className="w-5 h-5" />
+                        <ChatBubbleOvalLeftIcon className="w-5 h-5" />
                         <span>{post.comments.length}</span>
                     </div>
                 </div>
@@ -179,7 +177,7 @@ const CommunityFeedTab: React.FC<{ posts: Post[]; circles: Circle[] }> = ({ post
             ) : (
                  <div className="mt-10">
                     <EmptyState
-                        icon={<ChatBubbleOvalLeftEllipsisIcon className="w-16 h-16 text-slate-400" />}
+                        icon={<ChatBubbleOvalLeftIcon className="w-16 h-16 text-slate-400" />}
                         title="لا توجد منشورات هنا"
                         message="حاول تغيير الفلاتر أو كن أول من يضيف منشوراً في هذه الدائرة!"
                     />

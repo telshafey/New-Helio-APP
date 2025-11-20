@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import type { Service } from '../../../../packages/shared-logic/src/types';
+import type { Service } from '../shared';
 import ServiceCard from './ServiceCard';
 
 interface ServicesCarouselProps {

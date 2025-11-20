@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import type { News } from '../../../../packages/shared-logic/src/types';
+import type { News } from '../shared';
 import NewsCard from './NewsCard';
 
 interface NewsCarouselProps {

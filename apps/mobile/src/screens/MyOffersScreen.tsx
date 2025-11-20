@@ -1,13 +1,12 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { useCommunity } from '../../../../packages/shared-logic/src/context/AppContext';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
-import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
+import { useCommunity, useAuth, useServices } from '../shared';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import EmptyState from '../components/common/EmptyState';
 import { TagIcon, QrCodeIcon } from '../components/Icons';
-import type { Service } from '../../../../packages/shared-logic/src/types';
+import type { Service } from '../shared';
 
 type RootStackParamList = {
     Offers: undefined;

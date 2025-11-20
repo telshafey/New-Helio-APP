@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { useCommunity } from '../../context/AppContext';
-// FIX: Corrected import path for types.
-import type { LostAndFoundItem } from '../../../packages/shared-logic/src/types';
+import { useCommunity } from '@helio/shared-logic';
+import type { LostAndFoundItem } from '@helio/shared-logic';
 import { ArchiveBoxIcon, MapPinIcon } from '../common/Icons';
 import EmptyState from '../common/EmptyState';
 

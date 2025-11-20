@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, LayoutAnimation, UIManager, Platform } from 'react-native';
-import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
+import { useServices } from '../shared';
 import { useNavigation } from '@react-navigation/native';
 import { getIcon } from '../components/iconUtils';
 import { ChevronDownIcon } from '../components/Icons';

@@ -1,7 +1,7 @@
+
 import React from 'react';
 import { UserCircleIcon, CheckCircleIcon } from '../common/Icons';
-// FIX: Corrected import path for monorepo structure
-import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
+import { useUsers } from '@helio/shared-logic';
 
 const UsersToVerify: React.FC = () => {
     const { users, handleSaveUser } = useUsers();

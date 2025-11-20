@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import NewsScreen from '../screens/NewsScreen';
 import NewsDetailScreen from '../screens/NewsDetailScreen';
-import { useUI } from '../../../packages/shared-logic/src/context/UIContext';
+import { useUI } from '../shared';
 
 const Stack = createNativeStackNavigator();
 

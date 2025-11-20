@@ -1,7 +1,8 @@
+
 import React, { useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Linking, Share } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { useProperties } from '../../../../packages/shared-logic/src/context/PropertiesContext';
+import { useProperties } from '../shared';
 import ImageSlider from '../components/ImageSlider';
 import { PhoneIcon, ShareIcon, CheckCircleIcon } from '../components/Icons';
 import ShareButton from '../components/common/ShareButton';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
+import { useAuth } from '@helio/shared-logic';
 import Logo from './Logo';
 import { 
     XMarkIcon, TruckIcon, ShieldExclamationIcon, BuildingLibraryIcon,

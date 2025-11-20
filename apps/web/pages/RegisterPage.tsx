@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../../packages/shared-logic/src/context/AuthContext';
+import { useAuth } from '@helio/shared-logic';
 import Logo from '../components/common/Logo';
 
 const RegisterPage: React.FC = () => {

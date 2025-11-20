@@ -2,11 +2,8 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
-import { useServices } from '../../../../../packages/shared-logic/src/context/ServicesContext';
-import { useAuth } from '../../../../../packages/shared-logic/src/context/AuthContext';
+import { useCommunity, useServices, useAuth, useUI } from '../../shared';
 import ImageUploader from '../../components/common/ImageUploader.native';
-import { useUI } from '../../../../../packages/shared-logic/src/context/UIContext';
 
 const NewOfferScreen = () => {
     const navigation = useNavigation();

@@ -4,18 +4,13 @@ import {
     MagnifyingGlassIcon, TruckIcon, ChatBubbleOvalLeftEllipsisIcon,
     WrenchScrewdriverIcon, HomeModernIcon, NewspaperIcon, PhoneIcon, MapIcon
 } from '../components/common/Icons';
-import { useData } from '../context/DataContext';
-import { useServices } from '../context/ServicesContext';
-import { useProperties } from '../context/PropertiesContext';
-import { useNews } from '../context/NewsContext';
-import { useCommunity } from '../context/AppContext';
+import { useData, useServices, useProperties, useNews, useCommunity, useTransportation } from '@helio/shared-logic';
 import AdSlider from '../components/common/AdSlider';
 import ServicesCarousel from '../components/common/ServicesCarousel';
 import PropertyCarousel from '../components/common/PropertyCarousel';
 import NewsCarousel from '../components/common/NewsCarousel';
 import { prefetchMap } from '../components/common/AnimatedRoutes';
-import { useTransportation } from '../context/TransportationContext';
-import type { Driver, SearchResult } from '../../packages/shared-logic/src/types';
+import type { Driver, SearchResult } from '@helio/shared-logic';
 import OffersHighlight from '../components/common/OffersHighlight';
 import HomePageSkeleton from '../components/skeletons/HomePageSkeleton';
 import { motion, AnimatePresence } from 'framer-motion';

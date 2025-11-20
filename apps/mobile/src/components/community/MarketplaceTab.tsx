@@ -1,7 +1,8 @@
+
 import React, { useState, useMemo } from 'react';
 import { FlatList, View, StyleSheet, TextInput } from 'react-native';
-import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
-import type { MarketplaceItem } from '../../../../../packages/shared-logic/src/types';
+import { useCommunity } from '../../shared';
+import type { MarketplaceItem } from '../../shared';
 import { ShoppingBagIcon } from '../Icons';
 import EmptyState from '../common/EmptyState';
 import MarketplaceItemCard from './MarketplaceItemCard';

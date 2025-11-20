@@ -1,13 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useServices } from '../context/ServicesContext';
-import { useCommunity } from '../context/AppContext';
+import { useAuth, useServices, useCommunity } from '@helio/shared-logic';
 import { Link, useNavigate } from 'react-router-dom';
-// FIX: Replaced missing ChatBubbleLeftRightIcon with ChatBubbleOvalLeftIcon
-import { BuildingStorefrontIcon, TagIcon, ChatBubbleOvalLeftIcon, StarIcon, PlusIcon, PencilSquareIcon, TrashIcon, ClockIcon, CheckCircleIcon, XCircleIcon } from '../components/common/Icons';
+import { BuildingStorefrontIcon, TagIcon, ChatBubbleOvalLeftIcon, StarIcon, PlusIcon, PencilSquareIcon, TrashIcon, ClockIcon, CheckCircleIcon, XCircleIcon, ChatBubbleLeftRightIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-// FIX: Corrected import path for types from the shared logic package.
-import type { ExclusiveOffer, Service, Review, ListingStatus } from '../../packages/shared-logic/src/types';
+import type { Review, ListingStatus } from '@helio/shared-logic';
 import Modal from '../components/common/Modal';
 import EmptyState from '../components/common/EmptyState';
 
@@ -94,4 +90,90 @@ const MyBusinessPage: React.FC = () => {
                     
                     {/* My Services */}
                     <section>
-                        <h2 className="text-2xl font-bold mb-4 flex items-center gap-3"><BuildingStorefrontIcon className="w-7 h-7"/>
+                        <h2 className="text-2xl font-bold mb-4 flex items-center gap-3"><BuildingStorefrontIcon className="w-7 h-7"/>خدماتي</h2>
+                        <div className="space-y-4">
+                             {myServices.length > 0 ? myServices.map(service => (
+                                <div key={service.id} className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-md flex justify-between items-center">
+                                    <div>
+                                        <p className="font-bold text-lg">{service.name}</p>
+                                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                                            <StarIcon className="w-4 h-4 text-yellow-400"/> {service.rating.toFixed(1)}
+                                            <span className="mx-1">|</span>
+                                            <ChatBubbleOvalLeftIcon className="w-4 h-4"/> {service.reviews.length} تقييم
+                                        </div>
+                                    </div>
+                                    <Link to={`/service/${service.id}`} className="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-sm font-semibold rounded-md hover:bg-slate-200">عرض</Link>
+                                </div>
+                             )) : <EmptyState icon={<BuildingStorefrontIcon className="w-12 h-12 text-slate-400"/>} title="لا توجد خدمات" message="لم يتم ربط أي خدمات بحسابك. يرجى التواصل مع الإدارة."/>}
+                        </div>
+                    </section>
+
+                    {/* My Offers */}
+                    <section>
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-2xl font-bold flex items-center gap-3"><TagIcon className="w-7 h-7"/>عروضي الحصرية</h2>
+                            <button onClick={() => navigate('/my-business/offer/new')} className="flex items-center gap-2 bg-cyan-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-cyan-600"><PlusIcon className="w-5 h-5"/>إضافة عرض</button>
+                        </div>
+                         <div className="space-y-4">
+                             {myOffers.length > 0 ? myOffers.map(offer => (
+                                 <div key={offer.id} className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-md flex flex-col sm:flex-row gap-4 justify-between">
+                                    <div className="flex gap-4">
+                                        <img src={offer.imageUrl} alt={offer.title} className="w-20 h-20 object-cover rounded-md flex-shrink-0" />
+                                        <div>
+                                            <p className="font-bold">{offer.title}</p>
+                                            <p className="text-sm text-gray-500">للخدمة: {services.find(s=> s.id === offer.serviceId)?.name}</p>
+                                            <p className="text-xs text-gray-400">تنتهي في: {offer.endDate}</p>
+                                             {offer.status === 'rejected' && <p className="text-xs text-red-500">السبب: {offer.rejectionReason}</p>}
+                                        </div>
+                                    </div>
+                                    <div className="flex sm:flex-col items-center justify-between sm:justify-start gap-2">
+                                        <StatusBadge status={offer.status} />
+                                        <div className="flex gap-2">
+                                            <button onClick={() => navigate(`/my-business/offer/edit/${offer.id}`)} className="p-2 text-blue-500 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"><PencilSquareIcon className="w-5 h-5"/></button>
+                                            <button onClick={() => handleDeleteOffer(offer.id)} className="p-2 text-red-500 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"><TrashIcon className="w-5 h-5"/></button>
+                                        </div>
+                                    </div>
+                                </div>
+                             )) : <EmptyState icon={<TagIcon className="w-12 h-12 text-slate-400"/>} title="لا توجد عروض" message="ابدأ بإضافة أول عرض حصري لجذب المزيد من العملاء."/>}
+                        </div>
+                    </section>
+
+                    {/* My Reviews */}
+                    <section>
+                         <h2 className="text-2xl font-bold mb-4 flex items-center gap-3"><ChatBubbleOvalLeftIcon className="w-7 h-7"/>أحدث التقييمات</h2>
+                         <div className="space-y-4">
+                            {myReviews.length > 0 ? myReviews.map(review => (
+                                <div key={review.id} className="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-md">
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <p className="font-semibold">{review.username} <span className="font-normal text-sm text-gray-500">على "{review.serviceName}"</span></p>
+                                            <div className="flex items-center gap-1 text-sm"><StarIcon className="w-4 h-4 text-yellow-400"/> {review.rating}/5</div>
+                                        </div>
+                                        <p className="text-xs text-gray-400">{review.date}</p>
+                                    </div>
+                                    <p className="mt-2 text-gray-600 dark:text-gray-300">{review.comment}</p>
+                                    {review.adminReply ? (
+                                        <p className="mt-2 text-sm text-cyan-700 dark:text-cyan-500 border-r-2 border-cyan-500 pr-2">ردك: {review.adminReply}</p>
+                                    ) : (
+                                        <button onClick={() => handleOpenReplyForm(review, review.serviceId)} className="mt-3 flex items-center gap-1 text-sm text-cyan-600 font-semibold hover:underline">
+                                            <ChatBubbleLeftRightIcon className="w-4 h-4"/>
+                                            أضف رداً
+                                        </button>
+                                    )}
+                                </div>
+                            )) : <EmptyState icon={<ChatBubbleOvalLeftIcon className="w-12 h-12 text-slate-400"/>} title="لا توجد تقييمات" message="عندما يضيف العملاء تقييمات لخدماتك، ستظهر هنا."/>}
+                         </div>
+                    </section>
+                </div>
+            </div>
+            
+            {replyingToReview && (
+                <Modal isOpen={isReplyModalOpen} onClose={() => setReplyModalOpen(false)} title={`الرد على تقييم ${replyingToReview.review.username}`}>
+                    <ReplyForm review={replyingToReview.review} onSave={handleSaveReply} onClose={() => setReplyModalOpen(false)} />
+                </Modal>
+            )}
+        </div>
+    );
+};
+
+export default MyBusinessPage;

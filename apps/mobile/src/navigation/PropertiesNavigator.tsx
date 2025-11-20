@@ -2,7 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PropertiesScreen from '../screens/PropertiesScreen';
 import PropertyDetailScreen from '../screens/PropertyDetailScreen';
-import { useUI } from '../../../packages/shared-logic/src/context/UIContext';
+import { useUI } from '../shared';
 
 const Stack = createNativeStackNavigator();
 

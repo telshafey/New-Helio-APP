@@ -1,6 +1,7 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { View, FlatList, StyleSheet, Dimensions, ImageBackground, Text, Pressable } from 'react-native';
-import type { Advertisement } from '../../../../packages/shared-logic/src/types';
+import type { Advertisement } from '../shared';
 
 const { width } = Dimensions.get('window');
 

@@ -1,8 +1,8 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { useData } from '../../../../packages/shared-logic/src/context/DataContext';
-import { useUI } from '../../../../packages/shared-logic/src/context/UIContext';
+import { useData, useUI } from '../shared';
 
 const Tab = createMaterialTopTabNavigator();
 

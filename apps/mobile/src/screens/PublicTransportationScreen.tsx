@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking } from 'react-native';
-import { useTransportation } from '../../../../packages/shared-logic/src/context/TransportationContext';
+import { useTransportation } from '../shared';
 import { PhoneIcon, UserCircleIcon, MapIcon, CalendarDaysIcon, ChevronDownIcon } from '../components/Icons';
 
 const PublicTransportationScreen = () => {

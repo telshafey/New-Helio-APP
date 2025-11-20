@@ -1,13 +1,12 @@
+
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, Pressable, TextInput, KeyboardAvoidingView, Platform, FlatList } from 'react-native';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
-import { useCommunity } from '../../../../packages/shared-logic/src/context/AppContext';
-import { useAuth } from '../../../../packages/shared-logic/src/context/AuthContext';
-import type { Post, Comment } from '../../../../packages/shared-logic/src/types';
-// FIX: Replaced missing icon with the available one.
+import { useCommunity, useAuth } from '../shared';
+import type { Post, Comment } from '../shared';
 import { HandThumbUpIcon, ChatBubbleOvalLeftIcon, TrashIcon, ArrowUturnLeftIcon } from '../components/Icons';
 import PollDisplay from '../components/community/PollDisplay';
-import ShareButton from '../components/common/ShareButton'; // Assuming a native ShareButton exists
+import ShareButton from '../components/common/ShareButton'; 
 
 type CommunityStackParamList = {
     PostDetail: { postId: number };

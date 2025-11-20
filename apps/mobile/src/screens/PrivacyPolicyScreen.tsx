@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { useData } from '../../../../packages/shared-logic/src/context/DataContext';
+import { useData } from '../shared';
 
 const PrivacyPolicyScreen = () => {
   const { publicPagesContent } = useData();

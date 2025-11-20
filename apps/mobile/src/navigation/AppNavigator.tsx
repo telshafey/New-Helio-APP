@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeIcon, Squares2X2Icon, HomeModernIcon, NewspaperIcon, Bars3Icon } from '../components/Icons';
@@ -8,7 +9,7 @@ import ServicesNavigator from './ServicesNavigator';
 import PropertiesNavigator from './PropertiesNavigator';
 import NewsNavigator from './NewsNavigator';
 import MoreNavigator from './MoreNavigator';
-import { useUI } from '../../../../packages/shared-logic/src/context/UIContext';
+import { useUI } from '../shared';
 
 const Tab = createBottomTabNavigator();
 

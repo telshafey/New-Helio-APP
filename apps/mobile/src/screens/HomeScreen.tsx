@@ -1,8 +1,7 @@
+
 import React, { useState, useCallback } from 'react';
 import { ScrollView, StyleSheet, View, RefreshControl } from 'react-native';
-import { useNews } from '../../../../packages/shared-logic/src/context/NewsContext';
-import { useServices } from '../../../../packages/shared-logic/src/context/ServicesContext';
-import { useProperties } from '../../../../packages/shared-logic/src/context/PropertiesContext';
+import { useNews, useServices, useProperties } from '../shared';
 import AdSlider from '../components/AdSlider';
 import ServicesCarousel from '../components/ServicesCarousel';
 import PropertyCarousel from '../components/PropertyCarousel';

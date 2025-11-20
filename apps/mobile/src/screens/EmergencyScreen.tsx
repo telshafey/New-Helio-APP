@@ -1,7 +1,7 @@
+
 import React, { useState } from 'react';
-// FIX: Import Platform from react-native to fix 'Cannot find name 'Platform'' error.
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Linking, Platform } from 'react-native';
-import { useData } from '../../../../packages/shared-logic/src/context/DataContext';
+import { useData } from '../shared';
 import { PhoneIcon } from '../components/Icons';
 
 const EmergencyScreen = () => {

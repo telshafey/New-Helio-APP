@@ -1,6 +1,7 @@
+
 import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect, useMemo } from 'react';
-// FIX: Corrected import path for types from the shared logic package.
 import type { ToastMessage, UIContextType, Theme, ConfirmationState, GeolocationState } from '../types';
+import { storage } from '../utils/storage';
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
 
@@ -21,21 +22,29 @@ const initialConfirmationState: ConfirmationState = {
 
 export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [toasts, setToasts] = useState<ToastMessage[]>([]);
+    const isWeb = typeof window !== 'undefined';
     
     const [theme, setThemeState] = useState<Theme>(() => {
-        const storedTheme = localStorage.getItem('theme');
+        const storedTheme = storage.getItem('theme') as Theme | null;
         if (storedTheme === 'light' || storedTheme === 'dark' || storedTheme === 'system') {
             return storedTheme;
         }
-        return 'system'; // Default to system preference
+        return 'system'; 
     });
     
-    const [isSystemDark, setIsSystemDark] = useState(() => window.matchMedia('(prefers-color-scheme: dark)').matches);
+    // Safe check for system preference
+    const [isSystemDark, setIsSystemDark] = useState(() => {
+        if (isWeb && window.matchMedia) {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+        return false; // Default to light if not on web or not supported
+    });
+
     const [confirmation, setConfirmation] = useState<ConfirmationState>(initialConfirmationState);
 
     const [dismissedNotificationIds, setDismissedNotificationIds] = useState<Set<number>>(() => {
         try {
-            const item = window.localStorage.getItem('dismissedNotificationIds');
+            const item = storage.getItem('dismissedNotificationIds');
             return item ? new Set(JSON.parse(item)) : new Set();
         } catch (error) {
             console.error(error);
@@ -50,15 +59,17 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     });
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        const handleChange = (e: MediaQueryListEvent) => setIsSystemDark(e.matches);
-        mediaQuery.addEventListener('change', handleChange);
-        return () => mediaQuery.removeEventListener('change', handleChange);
-    }, []);
+        if (isWeb && window.matchMedia) {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            const handleChange = (e: MediaQueryListEvent) => setIsSystemDark(e.matches);
+            mediaQuery.addEventListener('change', handleChange);
+            return () => mediaQuery.removeEventListener('change', handleChange);
+        }
+    }, [isWeb]);
 
     useEffect(() => {
         try {
-            window.localStorage.setItem('dismissedNotificationIds', JSON.stringify(Array.from(dismissedNotificationIds)));
+            storage.setItem('dismissedNotificationIds', JSON.stringify(Array.from(dismissedNotificationIds)));
         } catch (error) {
             console.error(error);
         }
@@ -70,12 +81,14 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }, [theme, isSystemDark]);
 
     useEffect(() => {
-        const root = window.document.documentElement;
-        root.classList.toggle('dark', isDarkMode);
-    }, [isDarkMode]);
+        if (isWeb && window.document) {
+            const root = window.document.documentElement;
+            root.classList.toggle('dark', isDarkMode);
+        }
+    }, [isDarkMode, isWeb]);
 
     const setTheme = useCallback((newTheme: Theme) => {
-        localStorage.setItem('theme', newTheme);
+        storage.setItem('theme', newTheme);
         setThemeState(newTheme);
     }, []);
 
@@ -113,7 +126,8 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     }, []);
 
     const requestLocation = useCallback(() => {
-        if (typeof navigator !== 'undefined' && navigator.geolocation) {
+        // Web Geolocation
+        if (isWeb && typeof navigator !== 'undefined' && navigator.geolocation) {
             setGeolocation({ loading: true, location: null, error: null });
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -135,9 +149,10 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 }
             );
         } else {
-            setGeolocation({ loading: false, location: null, error: 'Geolocation is not supported.' });
+            // TODO: Implement React Native specific geolocation (e.g. expo-location) in future
+            setGeolocation({ loading: false, location: null, error: 'Geolocation is not supported or implemented on this device.' });
         }
-    }, []);
+    }, [isWeb]);
 
     const value: UIContextType = {
         theme,

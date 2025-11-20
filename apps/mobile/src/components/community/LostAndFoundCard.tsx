@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
-import type { LostAndFoundItem } from '../../../../../packages/shared-logic/src/types';
+import type { LostAndFoundItem } from '../../shared';
 import { MapPinIcon } from '../Icons';
 
 const LostAndFoundCard: React.FC<{ item: LostAndFoundItem }> = ({ item }) => {

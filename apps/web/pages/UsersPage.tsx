@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -5,11 +6,8 @@ import {
     TrashIcon, UserGroupIcon, UserCircleIcon, CheckCircleIcon, ClockIcon, NoSymbolIcon, UserMinusIcon,
     ArrowUpCircleIcon, ArrowDownCircleIcon
 } from '../components/common/Icons';
-// FIX: Corrected import paths for monorepo structure
-import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
-import { useAuth } from '../../packages/shared-logic/src/context/AuthContext';
-// FIX: Corrected import path for types from the shared logic package.
-import type { AppUser, AdminUser, UserStatus, UserRole } from '../../packages/shared-logic/src/types';
+import { useUsers, useAuth } from '@helio/shared-logic';
+import type { AppUser, AdminUser, UserStatus, UserRole } from '@helio/shared-logic';
 import Modal from '../components/common/Modal';
 import ImageUploader from '../components/common/ImageUploader';
 import EmptyState from '../components/common/EmptyState';

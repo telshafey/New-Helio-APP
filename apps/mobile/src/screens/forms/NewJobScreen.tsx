@@ -2,9 +2,8 @@
 import React, { useState } from 'react';
 import { View, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useCommunity } from '../../../../../packages/shared-logic/src/context/AppContext';
-import type { JobPosting } from '../../../../../packages/shared-logic/src/types';
-import { useUI } from '../../../../../packages/shared-logic/src/context/UIContext';
+import { useCommunity, useUI } from '../../shared';
+import type { JobPosting } from '../../shared';
 
 const NewJobScreen = () => {
     const navigation = useNavigation();
