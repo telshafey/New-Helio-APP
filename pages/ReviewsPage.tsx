@@ -4,8 +4,7 @@ import {
     ArrowLeftIcon, StarIcon, PencilSquareIcon, TrashIcon, ChatBubbleLeftRightIcon, 
     MagnifyingGlassIcon, ArrowTrendingUpIcon, ChatBubbleOvalLeftIcon
 } from '../components/common/Icons';
-// FIX: Corrected import path for types from the shared logic package.
-import type { Review } from '../packages/shared-logic/src/types';
+import type { Review } from '../types';
 import { useServices } from '../context/ServicesContext';
 import { useAuth } from '../context/AuthContext';
 import Modal from '../components/common/Modal';

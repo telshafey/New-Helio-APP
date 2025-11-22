@@ -28,18 +28,6 @@ const PrivacyPolicyPage: React.FC = () => {
         return <BookOpenIcon className="w-6 h-6 text-cyan-500" />;
     }
 
-    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-        e.preventDefault();
-        const element = document.getElementById(targetId);
-        if (element) {
-            element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-            window.history.pushState(null, '', `#${targetId}`);
-        }
-    };
-
     return (
         <div className="animate-fade-in py-10 px-4" dir="rtl">
             <div className="max-w-6xl mx-auto">
@@ -90,7 +78,7 @@ const PrivacyPolicyPage: React.FC = () => {
                             <ul className="space-y-2 border-r-2 border-slate-200 dark:border-slate-700 pr-4">
                                 {content.sections.map((section, index) => (
                                     <li key={index}>
-                                        <a href={`#privacy-section-${index}`} onClick={(e) => handleNavClick(e, `privacy-section-${index}`)} className="block text-sm text-gray-500 dark:text-gray-400 hover:text-cyan-500 hover:border-cyan-500 dark:hover:border-cyan-400 py-1 transition-colors">
+                                        <a href={`#privacy-section-${index}`} className="block text-sm text-gray-500 dark:text-gray-400 hover:text-cyan-500 hover:border-cyan-500 dark:hover:border-cyan-400 py-1 transition-colors">
                                             {section.title}
                                         </a>
                                     </li>

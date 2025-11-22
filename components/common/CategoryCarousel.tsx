@@ -2,8 +2,7 @@ import React, { useRef, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronLeftIcon, ChevronRightIcon } from './Icons';
 import { getIcon } from './iconUtils';
-// FIX: Corrected import path for types from the shared logic package.
-import type { Category } from '../../packages/shared-logic/src/types';
+import type { Category } from '../../types';
 
 interface CategoryCarouselProps {
     title: string;

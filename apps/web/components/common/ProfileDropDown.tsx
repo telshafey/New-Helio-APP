@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '@helio/shared-logic';
-import type { AppUser } from '@helio/shared-logic';
+// FIX: Corrected import paths for monorepo structure
+import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
+// FIX: Corrected import paths for monorepo structure
+import { AppUser } from '../../../packages/shared-logic/types';
 import { UserCircleIcon, ArrowLeftOnRectangleIcon, BuildingStorefrontIcon, TagIcon } from './Icons';
 
 interface ProfileDropDownProps {

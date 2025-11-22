@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useUsers, useServices } from '@helio/shared-logic';
+import { useUsers } from '../../packages/shared-logic/context/UsersContext';
+import { useServices } from '../../packages/shared-logic/context/ServicesContext';
 import { ArrowLeftIcon, StarIcon, ChatBubbleOvalLeftIcon } from '../components/common/Icons';
 import Spinner from '../components/common/Spinner';
 

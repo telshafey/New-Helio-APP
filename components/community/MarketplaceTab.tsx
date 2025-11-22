@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useCommunity } from '../../context/AppContext';
-// FIX: Corrected import path for types.
-import type { MarketplaceItem } from '../../../packages/shared-logic/src/types';
+import type { MarketplaceItem } from '../../types';
 import { ShoppingBagIcon, MagnifyingGlassIcon, PhoneIcon } from '../common/Icons';
 import EmptyState from '../common/EmptyState';
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useData } from '../context/DataContext';
+// FIX: Corrected import paths for monorepo structure
+import { useData } from '../../../packages/shared-logic/context/DataContext';
 import { ChevronDownIcon, DocumentDuplicateIcon } from '../components/common/Icons';
 import EmptyState from '../components/common/EmptyState';
 import PageBanner from '../components/common/PageBanner';

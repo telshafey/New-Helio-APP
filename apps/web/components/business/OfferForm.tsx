@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { ExclusiveOffer, Service } from '@helio/shared-logic';
+import type { ExclusiveOffer, Service } from '../../../packages/shared-logic/types';
 import { InputField, TextareaField } from '../common/FormControls';
 import ImageUploader from '../common/ImageUploader';
 

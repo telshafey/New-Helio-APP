@@ -1,10 +1,12 @@
 import React from 'react';
-import { useCommunity, useAuth, useServices } from '@helio/shared-logic';
+import { useCommunity } from '../../../packages/shared-logic/context/AppContext';
+import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
+import { useServices } from '../../../packages/shared-logic/context/ServicesContext';
 import { Link } from 'react-router-dom';
 import PageBanner from '../components/common/PageBanner';
 import { TagIcon, QrCodeIcon } from '../components/common/Icons';
 import EmptyState from '../components/common/EmptyState';
-import type { Service } from '@helio/shared-logic';
+import type { Service } from '../../../packages/shared-logic/types';
 
 const MyOffersPage: React.FC = () => {
     const { userOffers, offers } = useCommunity();

@@ -1,6 +1,5 @@
 import React, { memo, useState } from 'react';
 import { SunIcon, MoonIcon, MagnifyingGlassIcon } from './Icons';
-// FIX: Corrected import paths for monorepo structure
 import { useAuth } from '../../context/AuthContext';
 import { useUI } from '../../context/UIContext';
 import GlobalSearchModal from './GlobalSearchModal';

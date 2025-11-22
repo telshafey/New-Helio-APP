@@ -1,9 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeftIcon, PlusIcon, StarIcon, StarIconOutline, EyeIcon, PencilSquareIcon, TrashIcon, WrenchScrewdriverIcon } from '../components/common/Icons';
-// FIX: Corrected import path for types from the shared logic package.
-import type { Service } from '../packages/shared-logic/src/types';
-// FIX: Corrected import paths for monorepo structure
+import type { Service } from '../types';
 import { useServices } from '../context/ServicesContext';
 import { useAuth } from '../context/AuthContext';
 import Modal from '../components/common/Modal';
@@ -71,7 +69,6 @@ const ServiceForm: React.FC<{
         const serviceData = {
             id: service?.id,
             subCategoryId: service ? service.subCategoryId : subCategoryId,
-            ownerId: service?.ownerId,
             ...formData,
             phone: phones.filter(p => p.trim() !== ''),
             whatsapp: whatsapps.filter(w => w.trim() !== ''),

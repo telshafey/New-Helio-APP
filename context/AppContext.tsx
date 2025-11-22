@@ -1,8 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
-// FIX: Corrected import path for monorepo structure
+
+
+import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
+// FIX: Corrected import paths for monorepo structure
 import { mockPosts, mockMarketplaceItems, mockJobPostings, mockCircles, mockLostAndFoundItems, mockOffers, mockUserOffers } from '../data/mock-data';
-// FIX: Corrected import path for types from the shared logic package.
-import type { Post, Comment, CommunityContextType, MarketplaceItem, JobPosting, ListingStatus, Circle, LostAndFoundItem, ExclusiveOffer, UserOffer } from '../../packages/shared-logic/src/types';
+// FIX: Corrected import path for types
+import type { Post, Comment, CommunityContextType, MarketplaceItem, JobPosting, ListingStatus, Circle, LostAndFoundItem, ExclusiveOffer, UserOffer } from '../types';
 import { useAuth } from './AuthContext';
 import { useUI } from './UIContext';
 
@@ -19,29 +21,13 @@ export const useCommunity = (): CommunityContextType => {
 export const CommunityProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const { currentPublicUser } = useAuth();
     const { showToast, showConfirmation } = useUI();
-    const [posts, setPosts] = useState<Post[]>([]);
-    const [circles, setCircles] = useState<Circle[]>([]);
-    const [marketplaceItems, setMarketplaceItems] = useState<MarketplaceItem[]>([]);
-    const [jobPostings, setJobPostings] = useState<JobPosting[]>([]);
-    const [lostAndFoundItems, setLostAndFoundItems] = useState<LostAndFoundItem[]>([]);
-    const [offers, setOffers] = useState<ExclusiveOffer[]>([]);
-    const [userOffers, setUserOffers] = useState<UserOffer[]>([]);
-    const [loading, setLoading] = useState(true);
-
-     useEffect(() => {
-        const timer = setTimeout(() => {
-            setPosts(mockPosts);
-            setCircles(mockCircles);
-            setMarketplaceItems(mockMarketplaceItems);
-            setJobPostings(mockJobPostings);
-            setLostAndFoundItems(mockLostAndFoundItems);
-            setOffers(mockOffers);
-            setUserOffers(mockUserOffers);
-            setLoading(false);
-        }, 1200);
-        return () => clearTimeout(timer);
-    }, []);
-
+    const [posts, setPosts] = useState<Post[]>(mockPosts);
+    const [circles, setCircles] = useState<Circle[]>(mockCircles);
+    const [marketplaceItems, setMarketplaceItems] = useState<MarketplaceItem[]>(mockMarketplaceItems);
+    const [jobPostings, setJobPostings] = useState<JobPosting[]>(mockJobPostings);
+    const [lostAndFoundItems, setLostAndFoundItems] = useState<LostAndFoundItem[]>(mockLostAndFoundItems);
+    const [offers, setOffers] = useState<ExclusiveOffer[]>(mockOffers);
+    const [userOffers, setUserOffers] = useState<UserOffer[]>(mockUserOffers);
 
     // --- GENERIC HELPERS ---
     const genericSave = <T extends { id?: number }>(
@@ -351,7 +337,6 @@ export const CommunityProvider: React.FC<{ children: ReactNode }> = ({ children 
         lostAndFoundItems,
         offers,
         userOffers,
-        loading,
         generateUserOffer,
         redeemUserOffer,
         addPost,

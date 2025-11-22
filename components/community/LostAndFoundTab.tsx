@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useCommunity } from '../../context/AppContext';
-// FIX: Corrected import path for types.
-import type { LostAndFoundItem } from '../../../packages/shared-logic/src/types';
+import type { LostAndFoundItem } from '../../types';
 import { ArchiveBoxIcon, MapPinIcon } from '../common/Icons';
 import EmptyState from '../common/EmptyState';
 
@@ -41,11 +40,10 @@ const LostAndFoundTab: React.FC = () => {
 
     return (
         <div className="space-y-6">
-            <div className="bg-slate-100 dark:bg-slate-700 p-1 rounded-lg flex gap-1">
-                <button onClick={() => setActiveSubTab('lost')} className={`flex-1 px-4 py-2 font-semibold rounded-md ${activeSubTab === 'lost' ? 'bg-white dark:bg-slate-800 shadow' : ''}`}>مفقودات</button>
-                <button onClick={() => setActiveSubTab('found')} className={`flex-1 px-4 py-2 font-semibold rounded-md ${activeSubTab === 'found' ? 'bg-white dark:bg-slate-800 shadow' : ''}`}>تم العثور عليها</button>
+            <div className="bg-slate-200 dark:bg-slate-700 p-1 rounded-lg flex gap-1">
+                <button onClick={() => setActiveSubTab('lost')} className={`flex-1 px-6 py-2 font-semibold rounded-md ${activeSubTab === 'lost' ? 'bg-white dark:bg-slate-800 shadow' : ''}`}>مفقودات</button>
+                <button onClick={() => setActiveSubTab('found')} className={`flex-1 px-6 py-2 font-semibold rounded-md ${activeSubTab === 'found' ? 'bg-white dark:bg-slate-800 shadow' : ''}`}>تم العثور عليها</button>
             </div>
-
             {filteredItems.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredItems.map(item => <LostAndFoundCard key={item.id} item={item} />)}

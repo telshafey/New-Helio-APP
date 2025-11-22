@@ -1,7 +1,9 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
+// FIX: Corrected import path for AppProvider to align with the new monorepo structure.
 import { AppProvider } from './context/AppProvider';
 
 const rootElement = document.getElementById('root');

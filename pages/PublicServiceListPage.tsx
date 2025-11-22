@@ -6,25 +6,6 @@ import { ArrowLeftIcon } from '../components/common/Icons';
 import Spinner from '../components/common/Spinner';
 import PageBanner from '../components/common/PageBanner';
 import { getIcon } from '../components/common/iconUtils';
-import { motion } from 'framer-motion';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.07,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-  },
-};
 
 const PublicServiceListPage: React.FC = () => {
     const navigate = useNavigate();
@@ -65,18 +46,11 @@ const PublicServiceListPage: React.FC = () => {
                 </button>
 
                 {filteredServices.length > 0 ? (
-                    <motion.div 
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                    >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredServices.map(service => (
-                           <motion.div key={service.id} variants={itemVariants}>
-                                <ServiceCard service={service} />
-                           </motion.div>
+                           <ServiceCard key={service.id} service={service} />
                         ))}
-                    </motion.div>
+                    </div>
                 ) : (
                     <div className="text-center py-16 text-gray-500 dark:text-gray-400 bg-white dark:bg-slate-800 rounded-xl shadow-lg">
                         <h3 className="text-xl font-semibold">لا توجد خدمات متاحة</h3>

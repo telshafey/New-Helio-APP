@@ -2,8 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCommunity } from '../context/AppContext';
 import { ArrowLeftIcon, BriefcaseIcon, CheckCircleIcon, XCircleIcon, ClockIcon, TrashIcon } from '../components/common/Icons';
-// FIX: Corrected import path for types from the shared logic package.
-import type { JobPosting, ListingStatus } from '../packages/shared-logic/src/types';
+import type { JobPosting, ListingStatus } from '../types';
 import RejectReasonModal from '../components/common/RejectReasonModal';
 import StatusBadge from '../components/common/StatusBadge';
 

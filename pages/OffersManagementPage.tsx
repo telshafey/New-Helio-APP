@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCommunity } from '../context/AppContext';
 import { useServices } from '../context/ServicesContext';
 import { ArrowLeftIcon, TagIcon, CheckCircleIcon, XCircleIcon, ClockIcon, TrashIcon, PlusIcon } from '../components/common/Icons';
-// FIX: Corrected import path for types from the shared logic package.
-import type { ExclusiveOffer, ListingStatus, Service } from '../packages/shared-logic/src/types';
+import type { ExclusiveOffer, ListingStatus, Service } from '../types';
 import RejectReasonModal from '../components/common/RejectReasonModal';
 import Modal from '../components/common/Modal';
 import OfferForm from '../components/business/OfferForm';

@@ -1,19 +1,10 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import type { News } from '../../packages/shared-logic/src/types';
-import { motion } from 'framer-motion';
-
-const MotionLink = motion(Link);
+import type { News } from '../../types';
 
 const NewsCard: React.FC<{ newsItem: News }> = ({ newsItem }) => {
     return (
-        <MotionLink 
-            to={`/news/${newsItem.id}`} 
-            className="block group bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden h-full"
-            whileHover={{ y: -5 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
-        >
+        <Link to={`/news/${newsItem.id}`} className="block group bg-white dark:bg-slate-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300 active:scale-[0.98]">
             <div className="relative">
                 <img 
                     src={newsItem.imageUrl} 
@@ -28,7 +19,7 @@ const NewsCard: React.FC<{ newsItem: News }> = ({ newsItem }) => {
                 <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-2 h-14 overflow-hidden group-hover:text-cyan-500">{newsItem.title}</h3>
                 <p className="text-gray-600 dark:text-gray-300 text-sm h-12 overflow-hidden text-ellipsis">{newsItem.content}</p>
             </div>
-        </MotionLink>
+        </Link>
     );
 };
 

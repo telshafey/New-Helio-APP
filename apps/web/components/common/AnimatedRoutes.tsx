@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useAuth } from '@helio/shared-logic';
+import { useAuth } from '../../packages/shared-logic/context/AuthContext';
 import { lazyWithPrefetch } from './lazyWithPrefetch';
 
 // Lazy-loaded page components with prefetching capability
@@ -38,29 +38,6 @@ const ReviewsPage = lazyWithPrefetch(() => import('../../pages/ReviewsPage'));
 const PublicOffersPage = lazyWithPrefetch(() => import('../../pages/PublicOffersPage'));
 const MyBusinessPage = lazyWithPrefetch(() => import('../../pages/MyBusinessPage'));
 const MyOffersPage = lazyWithPrefetch(() => import('../../pages/MyOffersPage'));
-const NotFoundPage = lazyWithPrefetch(() => import('../../pages/NotFoundPage'));
-const ServicesOverviewPage = lazyWithPrefetch(() => import('../../pages/ServicesOverviewPage'));
-const DashboardPage = lazyWithPrefetch(() => import('../../pages/DashboardPage'));
-const UsersPage = lazyWithPrefetch(() => import('../../pages/UsersPage'));
-const NewsPage = lazyWithPrefetch(() => import('../../pages/NewsPage'));
-const AdvertisementsPage = lazyWithPrefetch(() => import('../../pages/AdvertisementsPage'));
-const NotificationsPage = lazyWithPrefetch(() => import('../../pages/NotificationsPage'));
-const AuditLogPage = lazyWithPrefetch(() => import('../../pages/AuditLogPage'));
-const CommunityManagementPage = lazyWithPrefetch(() => import('../../pages/CommunityManagementPage'));
-const ContentManagementPage = lazyWithPrefetch(() => import('../../pages/ContentManagementPage'));
-const SettingsPage = lazyWithPrefetch(() => import('../../pages/SettingsPage'));
-const ServicePage = lazyWithPrefetch(() => import('../../pages/ServicePage'));
-const PropertiesPage = lazyWithPrefetch(() => import('../../pages/PropertiesPage'));
-const ServiceDetailPage = lazyWithPrefetch(() => import('../../pages/ServiceDetailPage'));
-const ReportsPage = lazyWithPrefetch(() => import('../../pages/ReportsPage'));
-
-// New form pages
-const NewPostPage = lazyWithPrefetch(() => import('../../pages/NewPostPage'));
-const NewMarketplaceItemPage = lazyWithPrefetch(() => import('../../pages/NewMarketplaceItemPage'));
-const NewJobPage = lazyWithPrefetch(() => import('../../pages/NewJobPage'));
-const NewLostAndFoundPage = lazyWithPrefetch(() => import('../../pages/NewLostAndFoundPage'));
-const EditOfferPage = lazyWithPrefetch(() => import('../../pages/EditOfferPage'));
-const EditPostPage = lazyWithPrefetch(() => import('../../pages/EditPostPage'));
 
 
 export const prefetchMap: { [path: string]: () => Promise<any> } = {
@@ -138,75 +115,51 @@ const AnimatedPage: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
 const AnimatedRoutes: React.FC = () => {
     const location = useLocation();
-    const { isPublicAuthenticated, currentPublicUser, isAuthenticated } = useAuth();
+    const { isPublicAuthenticated, currentPublicUser } = useAuth();
     const isServiceProvider = isPublicAuthenticated && currentPublicUser?.role === 'service_provider';
 
     return (
         <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-                {/* Specific and dynamic routes first */}
+                <Route path="/" element={<AnimatedPage><PublicHomePage /></AnimatedPage>} />
                 <Route path="/login-user" element={<AnimatedPage><PublicLoginPage /></AnimatedPage>} />
                 <Route path="/register" element={<AnimatedPage><RegisterPage /></AnimatedPage>} />
                 <Route path="/profile" element={isPublicAuthenticated ? <AnimatedPage><ProfilePage /></AnimatedPage> : <Navigate to="/login-user" />} />
-                <Route path="/my-business/offer/new" element={isServiceProvider ? <AnimatedPage><EditOfferPage /></AnimatedPage> : <Navigate to="/" />} />
-                <Route path="/my-business/offer/edit/:offerId" element={isServiceProvider ? <AnimatedPage><EditOfferPage /></AnimatedPage> : <Navigate to="/" />} />
                 <Route path="/my-business" element={isServiceProvider ? <AnimatedPage><MyBusinessPage /></AnimatedPage> : <Navigate to="/" />} />
                 <Route path="/my-offers" element={isPublicAuthenticated ? <AnimatedPage><MyOffersPage /></AnimatedPage> : <Navigate to="/login-user" />} />
                 <Route path="/favorites" element={isPublicAuthenticated ? <AnimatedPage><FavoritesPage /></AnimatedPage> : <Navigate to="/login-user" />} />
                 <Route path="/user-notifications" element={<AnimatedPage><UserNotificationsPage /></AnimatedPage>} />
                 <Route path="/user/:userId" element={<AnimatedPage><PublicProfilePage /></AnimatedPage>} />
-                <Route path="/services/subcategory/:subCategoryId" element={<AnimatedPage><PublicServiceListPage /></AnimatedPage>} />
-                <Route path="/service/:serviceId" element={<AnimatedPage><PublicServiceDetailPage /></AnimatedPage>} />
-                <Route path="/property/:propertyId" element={<AnimatedPage><PublicPropertyDetailPage /></AnimatedPage>} />
-                <Route path="/news/:newsId" element={<AnimatedPage><PublicNewsDetailPage /></AnimatedPage>} />
-                <Route path="/post/edit/:postId" element={isPublicAuthenticated ? <AnimatedPage><EditPostPage /></AnimatedPage> : <Navigate to="/login-user" />} />
-                <Route path="/post/:postId" element={<AnimatedPage><PostDetailPage /></AnimatedPage>} />
-                <Route path="/community/new-post" element={isPublicAuthenticated ? <AnimatedPage><NewPostPage /></AnimatedPage> : <Navigate to="/login-user" />} />
-                <Route path="/community/new-item" element={isPublicAuthenticated ? <AnimatedPage><NewMarketplaceItemPage /></AnimatedPage> : <Navigate to="/login-user" />} />
-                <Route path="/community/new-job" element={isPublicAuthenticated ? <AnimatedPage><NewJobPage /></AnimatedPage> : <Navigate to="/login-user" />} />
-                <Route path="/community/new-lost-found" element={isPublicAuthenticated ? <AnimatedPage><NewLostAndFoundPage /></AnimatedPage> : <Navigate to="/login-user" />} />
-
-                {/* Top-level static routes */}
-                <Route path="/services" element={<AnimatedPage><PublicServicesPage /></AnimatedPage>} />
-                <Route path="/properties" element={<AnimatedPage><PublicPropertiesPage /></AnimatedPage>} />
-                <Route path="/news" element={<AnimatedPage><PublicNewsPage /></AnimatedPage>} />
-                <Route path="/community" element={<AnimatedPage><CommunityPage /></AnimatedPage>} />
-                <Route path="/transportation" element={<AnimatedPage><PublicTransportationPage /></AnimatedPage>} />
-                <Route path="/emergency" element={<AnimatedPage><EmergencyPage /></AnimatedPage>} />
                 <Route path="/about" element={<AnimatedPage><AboutPage /></AnimatedPage>} />
                 <Route path="/about-city" element={<AnimatedPage><AboutCityPage /></AnimatedPage>} />
                 <Route path="/privacy-policy" element={<AnimatedPage><PrivacyPolicyPage /></AnimatedPage>} />
                 <Route path="/faq" element={<AnimatedPage><FaqPage /></AnimatedPage>} />
                 <Route path="/terms-of-use" element={<AnimatedPage><TermsOfUsePage /></AnimatedPage>} />
                 <Route path="/contact" element={<AnimatedPage><ContactPage /></AnimatedPage>} />
+                <Route path="/services" element={<AnimatedPage><PublicServicesPage /></AnimatedPage>} />
+                <Route path="/services/subcategory/:subCategoryId" element={<AnimatedPage><PublicServiceListPage /></AnimatedPage>} />
+                <Route path="/service/:serviceId" element={<AnimatedPage><PublicServiceDetailPage /></AnimatedPage>} />
+                <Route path="/emergency" element={<AnimatedPage><EmergencyPage /></AnimatedPage>} />
+                <Route path="/properties" element={<AnimatedPage><PublicPropertiesPage /></AnimatedPage>} />
+                <Route path="/property/:propertyId" element={<AnimatedPage><PublicPropertyDetailPage /></AnimatedPage>} />
+                <Route path="/news" element={<AnimatedPage><PublicNewsPage /></AnimatedPage>} />
+                <Route path="/news/:newsId" element={<AnimatedPage><PublicNewsDetailPage /></AnimatedPage>} />
+                <Route path="/transportation" element={<AnimatedPage><PublicTransportationPage /></AnimatedPage>} />
                 <Route path="/city-services-guide" element={<AnimatedPage><PublicCityServicesGuidePage /></AnimatedPage>} />
+                <Route path="/community" element={<AnimatedPage><CommunityPage /></AnimatedPage>} />
+                <Route path="/post/:postId" element={<AnimatedPage><PostDetailPage /></AnimatedPage>} />
                 <Route path="/offers" element={<AnimatedPage><PublicOffersPage /></AnimatedPage>} />
                 <Route path="/reviews" element={<AnimatedPage><ReviewsPage /></AnimatedPage>} />
+                
+                {/* Marketplace and Jobs Routes */}
                 <Route path="/marketplace-management" element={<AnimatedPage><MarketplaceManagementPage /></AnimatedPage>} />
                 <Route path="/jobs-management" element={<AnimatedPage><JobsManagementPage /></AnimatedPage>} />
+                
+                {/* New Offers and Lost & Found Routes */}
                 <Route path="/offers-management" element={<AnimatedPage><OffersManagementPage /></AnimatedPage>} />
                 <Route path="/lost-and-found-management" element={<AnimatedPage><LostAndFoundManagementPage /></AnimatedPage>} />
 
-                {/* Dashboard Routes */}
-                 <Route path="/admin-dashboard" element={isAuthenticated ? <AnimatedPage><DashboardPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/services-overview" element={isAuthenticated ? <AnimatedPage><ServicesOverviewPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/users" element={isAuthenticated ? <AnimatedPage><UsersPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/advertisements" element={isAuthenticated ? <AnimatedPage><AdvertisementsPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/notifications" element={isAuthenticated ? <AnimatedPage><NotificationsPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/audit-log" element={isAuthenticated ? <AnimatedPage><AuditLogPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/community-management" element={isAuthenticated ? <AnimatedPage><CommunityManagementPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/content-management" element={isAuthenticated ? <AnimatedPage><ContentManagementPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/settings" element={isAuthenticated ? <AnimatedPage><SettingsPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/reports" element={isAuthenticated ? <AnimatedPage><ReportsPage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/admin/services/:subCategoryId" element={isAuthenticated ? <AnimatedPage><ServicePage /></AnimatedPage> : <Navigate to="/" />} />
-                 <Route path="/services/detail/:serviceId" element={isAuthenticated ? <AnimatedPage><ServiceDetailPage /></AnimatedPage> : <Navigate to="/" />} />
-
-
-                {/* Root route as the last non-wildcard route */}
-                <Route path="/" element={<AnimatedPage><PublicHomePage /></AnimatedPage>} />
-
-                {/* Catch-all route for 404 */}
-                <Route path="*" element={<AnimatedPage><NotFoundPage /></AnimatedPage>} />
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
         </AnimatePresence>
     );

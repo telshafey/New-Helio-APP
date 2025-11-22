@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { useServices } from '../context/ServicesContext';
-import { useAuth } from '../context/AuthContext';
+// FIX: Corrected import paths for monorepo structure
+import { useServices } from '../../../packages/shared-logic/context/ServicesContext';
+import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
 import { StarIcon, PhoneIcon, ChatBubbleOvalLeftIcon, HomeModernIcon, HandThumbUpIcon, HeartIcon, HeartIconSolid, ClockIcon, MapPinIcon, FacebookIcon, InstagramIcon } from '../components/common/Icons';
 import Spinner from '../components/common/Spinner';
 import ShareButton from '../components/common/ShareButton';
@@ -75,6 +76,7 @@ const AddReviewForm: React.FC<{ serviceId: number }> = ({ serviceId }) => {
 const PublicServiceDetailPage: React.FC = () => {
     const navigate = useNavigate();
     const { serviceId } = useParams<{ serviceId: string }>();
+    // FIX: Corrected import paths for monorepo structure
     const { services, handleToggleFavorite, handleToggleHelpfulReview } = useServices();
     const { isPublicAuthenticated } = useAuth();
 

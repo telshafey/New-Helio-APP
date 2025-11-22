@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useNews } from '../context/NewsContext';
+// FIX: Corrected import paths for monorepo structure
+import { useNews } from '../../../packages/shared-logic/context/NewsContext';
 import Spinner from '../components/common/Spinner';
 import { ArrowLeftIcon, CalendarDaysIcon, UserCircleIcon, NewspaperIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';

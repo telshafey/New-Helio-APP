@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useServices } from '../context/ServicesContext';
+// FIX: Corrected import paths for monorepo structure
+import { useServices } from '../../../packages/shared-logic/context/ServicesContext';
 import { 
     Squares2X2Icon,
     ChevronDownIcon,
@@ -8,7 +9,8 @@ import {
 } from '../components/common/Icons';
 import { getIcon } from '../components/common/iconUtils';
 import PageBanner from '../components/common/PageBanner';
-import { useNews } from '../context/NewsContext';
+// FIX: Corrected import paths for monorepo structure
+import { useNews } from '../../../packages/shared-logic/context/NewsContext';
 import AdSlider from '../components/common/AdSlider';
 
 const PublicServicesPage: React.FC = () => {

@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, EnvelopeIcon, WhatsAppIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-import { CONTACT_INFO } from '../packages/shared-logic/src/config';
 
 const ContactPage: React.FC = () => {
     const navigate = useNavigate();
@@ -26,22 +25,22 @@ const ContactPage: React.FC = () => {
                                 <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-3">معلومات الاتصال</h3>
                                 <p className="text-gray-600 dark:text-gray-300">يمكنكم التواصل معنا مباشرة عبر القنوات التالية:</p>
                             </div>
-                            <a href={`mailto:${CONTACT_INFO.EMAIL}`} className="flex items-center gap-4 group">
+                            <a href="mailto:HelioAPP@tech-bokra.com" className="flex items-center gap-4 group">
                                 <div className="p-4 bg-cyan-100 dark:bg-cyan-900/50 rounded-full group-hover:bg-cyan-200 transition-colors">
                                     <EnvelopeIcon className="w-7 h-7 text-cyan-600 dark:text-cyan-400"/>
                                 </div>
                                 <div>
                                     <h4 className="font-semibold text-lg">الايميل</h4>
-                                    <p className="text-cyan-500 group-hover:underline">{CONTACT_INFO.EMAIL}</p>
+                                    <p className="text-cyan-500 group-hover:underline">HelioAPP@tech-bokra.com</p>
                                 </div>
                             </a>
-                            <a href={CONTACT_INFO.WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
+                            <a href="https://wa.me/201040303547" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group">
                                 <div className="p-4 bg-green-100 dark:bg-green-900/50 rounded-full group-hover:bg-green-200 transition-colors">
                                     <WhatsAppIcon className="w-7 h-7 text-green-600 dark:text-green-400"/>
                                 </div>
                                 <div>
                                     <h4 className="font-semibold text-lg">واتس اب</h4>
-                                    <p className="text-green-500 group-hover:underline" dir="ltr">+{CONTACT_INFO.WHATSAPP_NUMBER}</p>
+                                    <p className="text-green-500 group-hover:underline" dir="ltr">+20 104 030 3547</p>
                                 </div>
                             </a>
                         </div>

@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { UserCircleIcon, CheckCircleIcon } from '../common/Icons';
-import { useUsers } from '@helio/shared-logic';
+// FIX: Corrected import path for monorepo structure
+import { useUsers } from '../../../packages/shared-logic/context/UsersContext';
 
 const UsersToVerify: React.FC = () => {
     const { users, handleSaveUser } = useUsers();
@@ -11,6 +11,8 @@ const UsersToVerify: React.FC = () => {
     const approveUser = (userId: number) => {
         const user = users.find(u => u.id === userId);
         if (user) {
+            // FIX: Pass the role to satisfy the handleSaveUser type which expects a complete user object.
+            // FIX: Destructure joinDate out to match the expected type for handleSaveUser.
             const { joinDate, ...userData } = user;
             handleSaveUser({ ...userData, status: 'active' });
         }

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, PhoneIcon, PencilSquareIcon, TrashIcon, PlusIcon, ShieldExclamationIcon } from '../components/common/Icons';
-// FIX: Corrected import path for types from the shared logic package.
-import type { EmergencyContact } from '../packages/shared-logic/src/types';
-// FIX: Corrected import paths for monorepo structure
+import type { EmergencyContact } from '../types';
 import { useData } from '../context/DataContext';
 import Modal from '../components/common/Modal';
 import EmptyState from '../components/common/EmptyState';

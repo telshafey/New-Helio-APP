@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { mockUsers, mockAdmins, mockAuditLogs } from '../data/mock-data';
-// FIX: Corrected import path for types from the shared logic package.
-import type { AppUser, AdminUser, AuditLog, UsersContextType, UserRole } from '../../packages/shared-logic/src/types';
+import type { AppUser, AdminUser, AuditLog, UsersContextType, UserRole } from '../types';
 import { useUI } from './UIContext';
 
 const UsersContext = createContext<UsersContextType | undefined>(undefined);
@@ -56,7 +55,7 @@ export const UsersProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     
     const updateUserRole = useCallback((userId: number, role: UserRole) => {
         setUsers(prev => prev.map(user => user.id === userId ? { ...user, role } : user));
-        const roleText = role === 'service_provider' ? 'مقدم خدمة' : 'مستخدم عادي';
+        const roleText = role === 'service_provider' ? 'مقدم خدمة' : 'مستخدم';
         showToast(`تم تحديث دور المستخدم إلى ${roleText}.`);
     }, [showToast]);
 
@@ -65,9 +64,7 @@ export const UsersProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             setAdmins(prev => prev.map(a => a.id === adminData.id ? { ...a, ...adminData } : a));
             showToast('تم تحديث بيانات المدير.');
         } else {
-            const newAdmin: AdminUser = {
-                id: Math.max(...admins.map(a => a.id), 0) + 1, ...adminData
-            } as AdminUser;
+            const newAdmin: AdminUser = { id: Math.max(...admins.map(a => a.id), 0) + 1, ...adminData };
             setAdmins(prev => [newAdmin, ...prev]);
             showToast('تمت إضافة المدير.');
         }
@@ -76,7 +73,7 @@ export const UsersProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const handleDeleteAdmin = useCallback((adminId: number) => {
         genericDelete(setAdmins, adminId, 'المدير');
     }, [genericDelete]);
-    
+
     const value: UsersContextType = {
         users,
         admins,
@@ -86,7 +83,7 @@ export const UsersProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         handleDeleteUser,
         updateUserRole,
         handleSaveAdmin,
-        handleDeleteAdmin
+        handleDeleteAdmin,
     };
 
     return (

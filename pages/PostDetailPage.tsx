@@ -1,15 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-// FIX: Corrected import path for monorepo structure.
-import { useAuth } from '../packages/shared-logic/src/context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import Spinner from '../components/common/Spinner';
-import { ArrowLeftIcon, HandThumbUpIcon, ChatBubbleOvalLeftIcon, TrashIcon } from '../components/common/Icons';
+import { ArrowLeftIcon, HandThumbUpIcon, ChatBubbleOvalLeftEllipsisIcon, TrashIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-// FIX: Corrected import path for types from the shared logic package.
-import type { Post } from '../packages/shared-logic/src/types';
+import type { Post } from '../types';
 import ShareButton from '../components/common/ShareButton';
-// FIX: Corrected import path for monorepo structure.
-import { useCommunity } from '../packages/shared-logic/src/context/AppContext';
+import { useCommunity } from '../context/AppContext';
 
 const PollDisplay: React.FC<{ post: Post }> = ({ post }) => {
     const { voteOnPoll } = useCommunity();
@@ -119,7 +116,7 @@ const PostDetailPage: React.FC = () => {
             <PageBanner 
                 title={post.title || `منشور من ${post.username}`}
                 subtitle={`بواسطة ${post.username} • ${new Date(post.date).toLocaleDateString('ar-EG-u-nu-latn')}`}
-                icon={<ChatBubbleOvalLeftIcon className="w-12 h-12 text-teal-500" />}
+                icon={<ChatBubbleOvalLeftEllipsisIcon className="w-12 h-12 text-teal-500" />}
             />
             <div className="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-8">
                 <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-cyan-500 hover:underline mb-8">

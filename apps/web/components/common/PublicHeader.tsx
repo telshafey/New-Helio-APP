@@ -1,10 +1,14 @@
-
 import React, { useMemo, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useAuth, useUI, useNews } from '@helio/shared-logic';
+// FIX: Corrected import path for monorepo structure
+import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
+// FIX: Corrected import path for monorepo structure
+import { useUI } from '../../../packages/shared-logic/context/UIContext';
 import { BellIcon, SunIcon, MoonIcon, MagnifyingGlassIcon } from './Icons';
 import ProfileDropDown from './ProfileDropDown';
 import Logo from './Logo';
+// FIX: Corrected import path for monorepo structure
+import { useNews } from '../../../packages/shared-logic/context/NewsContext';
 import { prefetchMap } from './AnimatedRoutes';
 import GlobalSearchModal from './GlobalSearchModal';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { UserCircleIcon, CheckCircleIcon } from '../common/Icons';
-// FIX: Corrected import path for monorepo structure
 import { useUsers } from '../../context/UsersContext';
 
 const UsersToVerify: React.FC = () => {
@@ -11,8 +10,7 @@ const UsersToVerify: React.FC = () => {
     const approveUser = (userId: number) => {
         const user = users.find(u => u.id === userId);
         if (user) {
-            const { joinDate, ...userData } = user;
-            handleSaveUser({ ...userData, status: 'active' });
+            handleSaveUser({ ...user, status: 'active' });
         }
     };
 

@@ -4,8 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import PageBanner from '../components/common/PageBanner';
 import { ShoppingBagIcon, PlusIcon, MagnifyingGlassIcon, PhoneIcon } from '../components/common/Icons';
-// FIX: Corrected import path for types from the shared logic package.
-import type { MarketplaceItem } from '../packages/shared-logic/src/types';
+import type { MarketplaceItem } from '../types';
 import Modal from '../components/common/Modal';
 import ImageUploader from '../components/common/ImageUploader';
 import EmptyState from '../components/common/EmptyState';

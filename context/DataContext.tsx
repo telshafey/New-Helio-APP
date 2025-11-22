@@ -1,14 +1,14 @@
-import React, { createContext, useContext, useState, ReactNode, useCallback, useMemo, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback, useMemo } from 'react';
 import { 
     mockEmergencyContacts, mockServiceGuides,
     mockPublicPagesContent,
+// FIX: Corrected import paths for monorepo structure
 } from '../data/mock-data';
-// FIX: Corrected import path for types from the shared logic package.
 import type { 
     EmergencyContact, ServiceGuide,
     PublicPagesContent,
     DataContextType
-} from '../../packages/shared-logic/src/types';
+} from '../types';
 import { useUI } from './UIContext';
 
 const DataContext = createContext<DataContextType | undefined>(undefined);
@@ -28,17 +28,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [emergencyContacts, setEmergencyContacts] = useState<EmergencyContact[]>(mockEmergencyContacts);
     const [serviceGuides, setServiceGuides] = useState<ServiceGuide[]>(mockServiceGuides);
     const [publicPagesContent, setPublicPagesContent] = useState<PublicPagesContent>(mockPublicPagesContent);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setEmergencyContacts(mockEmergencyContacts);
-            setServiceGuides(mockServiceGuides);
-            setPublicPagesContent(mockPublicPagesContent);
-            setLoading(false);
-        }, 1200);
-        return () => clearTimeout(timer);
-    }, []);
 
     // --- GENERIC HELPERS ---
     const genericSave = <T extends { id?: number }>(
@@ -94,8 +83,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const value: DataContextType = {
         emergencyContacts, serviceGuides,
         publicPagesContent,
-        // FIX: Added missing 'loading' property to the context value.
-        loading,
         handleSaveEmergencyContact, handleDeleteEmergencyContact,
         handleSaveServiceGuide, handleDeleteServiceGuide,
         handleUpdatePublicPageContent,

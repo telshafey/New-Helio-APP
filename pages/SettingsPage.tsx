@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, BellIcon, UserCircleIcon, SunIcon, Cog6ToothIcon, MoonIcon, ComputerDesktopIcon } from '../components/common/Icons';
-// FIX: Corrected import paths for monorepo structure
 import { useUI } from '../context/UIContext';
-// FIX: Corrected import path for types from the shared logic package.
-import type { Theme } from '../packages/shared-logic/src/types';
+import type { Theme } from '../types';
 
 type Tab = 'general' | 'notifications' | 'account' | 'appearance';
 

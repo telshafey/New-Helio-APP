@@ -1,29 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useServices } from '../context/ServicesContext';
+import { useServices } from '../../packages/shared-logic/context/ServicesContext';
 import ServiceCard from '../components/common/ServiceCard';
 import EmptyState from '../components/common/EmptyState';
 import { HeartIconSolid } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-import { motion } from 'framer-motion';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.07,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-  },
-};
 
 const FavoritesPage: React.FC = () => {
     const { services } = useServices();
@@ -40,18 +21,11 @@ const FavoritesPage: React.FC = () => {
             />
              <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 {favoriteServices.length > 0 ? (
-                    <motion.div 
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                    >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {favoriteServices.map(service => (
-                            <motion.div key={service.id} variants={itemVariants}>
-                                <ServiceCard service={service} />
-                            </motion.div>
+                            <ServiceCard key={service.id} service={service} />
                         ))}
-                    </motion.div>
+                    </div>
                 ) : (
                     <EmptyState
                         icon={<HeartIconSolid className="w-16 h-16 text-slate-400" />}

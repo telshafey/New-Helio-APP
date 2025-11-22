@@ -8,12 +8,16 @@ import AlertsPanel from '../components/dashboard/AlertsPanel';
 import UsersToVerify from '../components/dashboard/UsersToVerify';
 import Footer from '../components/common/Footer';
 import { UserIcon, MapIcon, WrenchScrewdriverIcon, ShieldExclamationIcon, HomeModernIcon, UserGroupIcon, BusIcon, NewspaperIcon, Bars3Icon } from '../components/common/Icons';
-// FIX: Corrected import paths for monorepo structure
-import { useData } from '../../packages/shared-logic/src/context/DataContext';
-import { useServices } from '../../packages/shared-logic/src/context/ServicesContext';
-import { useProperties } from '../../packages/shared-logic/src/context/PropertiesContext';
-import { useNews } from '../../packages/shared-logic/src/context/NewsContext';
-import { useUsers } from '../../packages/shared-logic/src/context/UsersContext';
+// FIX: Corrected import path for monorepo structure
+import { useData } from '../../packages/shared-logic/context/DataContext';
+// FIX: Corrected import path for monorepo structure
+import { useServices } from '../../packages/shared-logic/context/ServicesContext';
+// FIX: Corrected import path for monorepo structure
+import { useProperties } from '../../packages/shared-logic/context/PropertiesContext';
+// FIX: Corrected import path for monorepo structure
+import { useNews } from '../../packages/shared-logic/context/NewsContext';
+// FIX: Corrected import path for monorepo structure
+import { useUsers } from '../../packages/shared-logic/context/UsersContext';
 
 const DashboardView: React.FC = () => {
   const { emergencyContacts } = useData();

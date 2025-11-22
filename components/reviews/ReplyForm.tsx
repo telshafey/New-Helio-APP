@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-// FIX: Corrected import path for types from the shared logic package.
-import type { Review } from '../../packages/shared-logic/src/types';
+import type { Review } from '../../types';
 
 const ReplyForm: React.FC<{ review: Review; onSave: (reply: string) => void; onClose: () => void; }> = ({ review, onSave, onClose }) => {
     const [reply, setReply] = useState(review.adminReply || '');

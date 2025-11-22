@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect, useMemo } from 'react';
-// FIX: Corrected import path for types from the shared logic package.
-import type { ToastMessage, UIContextType, Theme, ConfirmationState, GeolocationState } from '../../packages/shared-logic/src/types';
+// FIX: Import GeolocationState
+import type { ToastMessage, UIContextType, Theme, ConfirmationState, GeolocationState } from '../types';
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
 
@@ -43,6 +43,7 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
     });
 
+    // FIX: Add state for geolocation
     const [geolocation, setGeolocation] = useState<GeolocationState>({
         loading: false,
         location: null,
@@ -112,6 +113,7 @@ export const UIProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         });
     }, []);
 
+    // FIX: Add function to request geolocation
     const requestLocation = useCallback(() => {
         if (typeof navigator !== 'undefined' && navigator.geolocation) {
             setGeolocation({ loading: true, location: null, error: null });

@@ -1,0 +1,1 @@
+full contents of apps/mobile/screens/UserNotificationsScreen.tsx

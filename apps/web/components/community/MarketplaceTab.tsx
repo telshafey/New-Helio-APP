@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
-import { useCommunity } from '@helio/shared-logic';
-import type { MarketplaceItem } from '@helio/shared-logic';
+import { useCommunity } from '../../../packages/shared-logic/context/AppContext';
+import type { MarketplaceItem } from '../../../packages/shared-logic/types';
 import { ShoppingBagIcon, MagnifyingGlassIcon, PhoneIcon } from '../common/Icons';
 import EmptyState from '../common/EmptyState';
 

@@ -4,8 +4,7 @@ import { useCommunity } from '../context/AppContext';
 import { useServices } from '../context/ServicesContext';
 import PageBanner from '../components/common/PageBanner';
 import { TagIcon, CalendarDaysIcon } from '../components/common/Icons';
-// FIX: Corrected import path for types from the shared logic package.
-import type { ExclusiveOffer, Service } from '../packages/shared-logic/src/types';
+import type { ExclusiveOffer } from '../types';
 import EmptyState from '../components/common/EmptyState';
 import { useAuth } from '../context/AuthContext';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNews } from '../context/NewsContext';
-import { useUI } from '../context/UIContext';
+import { useNews } from '../../packages/shared-logic/context/NewsContext';
+import { useUI } from '../../packages/shared-logic/context/UIContext';
 import { ArrowLeftIcon, BellIcon, TrashIcon } from '../components/common/Icons';
 import EmptyState from '../components/common/EmptyState';
 import PageBanner from '../components/common/PageBanner';

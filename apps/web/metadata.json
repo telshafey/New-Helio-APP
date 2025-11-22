@@ -1,7 +1,1 @@
-{
-  "name": "Helio-APP_1",
-  "description": "Helio App real estate application.",
-  "requestFramePermissions": [
-    "camera"
-  ]
-}
+full contents of apps/web/metadata.json

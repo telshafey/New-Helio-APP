@@ -2,13 +2,13 @@ import React, { createContext, useContext, useState, ReactNode, useCallback } fr
 import { 
     mockInternalSupervisor, mockExternalSupervisor, mockInternalDrivers, mockWeeklySchedule, mockExternalRoutes,
     mockInternalRoutes
+// FIX: Corrected import paths for monorepo structure
 } from '../data/mock-data';
-// FIX: Corrected import path for types from the shared logic package.
 import type { 
     Driver, WeeklyScheduleItem, Supervisor, ExternalRoute,
     TransportationContextType,
     InternalRoute
-} from '../../packages/shared-logic/src/types';
+} from '../types';
 import { useUI } from './UIContext';
 
 const TransportationContext = createContext<TransportationContextType | undefined>(undefined);

@@ -1,5 +1,4 @@
 import React, { lazy, Suspense } from 'react';
-// FIX: Corrected import path for monorepo structure
 import { useAuth } from '../context/AuthContext';
 import DashboardView from '../components/DashboardView'; // General Manager default
 import Spinner from '../components/common/Spinner';

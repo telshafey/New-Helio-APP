@@ -2,12 +2,13 @@ import React, { useMemo, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useServices } from '../context/ServicesContext';
 import { useCommunity } from '../context/AppContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BuildingStorefrontIcon, TagIcon, ChatBubbleOvalLeftIcon, StarIcon, PlusIcon, PencilSquareIcon, TrashIcon, ClockIcon, CheckCircleIcon, XCircleIcon, ChatBubbleLeftRightIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-// FIX: Corrected import path for types from the shared logic package.
-import type { ExclusiveOffer, Service, Review, ListingStatus } from '../packages/shared-logic/src/types';
+import type { ExclusiveOffer, Service, Review, ListingStatus } from '../types';
 import Modal from '../components/common/Modal';
+import { InputField, TextareaField } from '../components/common/FormControls';
+import ImageUploader from '../components/common/ImageUploader';
 import EmptyState from '../components/common/EmptyState';
 
 const StatusBadge: React.FC<{ status: ListingStatus }> = ({ status }) => {
@@ -19,6 +20,64 @@ const StatusBadge: React.FC<{ status: ListingStatus }> = ({ status }) => {
     };
     const { text, classes, icon } = statusMap[status];
     return <span className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-medium rounded-full ${classes}`}>{icon}{text}</span>;
+};
+
+const OfferForm: React.FC<{
+    onClose: () => void;
+    onSave: (data: any) => void;
+    services: Service[];
+    offer: ExclusiveOffer | null;
+}> = ({ onClose, onSave, services, offer }) => {
+    const [formData, setFormData] = useState({
+        title: offer?.title || '',
+        description: offer?.description || '',
+        serviceId: offer?.serviceId || (services.length > 0 ? services[0].id : ''),
+        promoCode: offer?.promoCode || '',
+        startDate: offer?.startDate || new Date().toISOString().split('T')[0],
+        endDate: offer?.endDate || new Date().toISOString().split('T')[0],
+    });
+    const [image, setImage] = useState<string[]>(offer?.imageUrl ? [offer.imageUrl] : []);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (image.length === 0) { alert('الرجاء إضافة صورة للعرض.'); return; }
+        if (!formData.serviceId) { alert('الرجاء اختيار الخدمة المرتبطة بالعرض.'); return; }
+        
+        onSave({
+            id: offer?.id,
+            ...formData,
+            serviceId: Number(formData.serviceId),
+            imageUrl: image[0],
+        });
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className="space-y-4">
+            <ImageUploader initialImages={image} onImagesChange={setImage} multiple={false} label="صورة العرض" />
+            <InputField name="title" label="عنوان العرض" value={formData.title} onChange={handleChange} required />
+            <TextareaField name="description" label="وصف العرض" value={formData.description} onChange={handleChange} required />
+            <div>
+                <label className="block text-sm font-medium mb-1">الخدمة المرتبطة</label>
+                <select name="serviceId" value={formData.serviceId} onChange={handleChange} required className="w-full bg-slate-100 dark:bg-slate-700 p-2 rounded-md">
+                    {services.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                </select>
+            </div>
+            <InputField name="promoCode" label="كود الخصم (اختياري)" value={formData.promoCode} onChange={handleChange} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <InputField name="startDate" label="تاريخ البدء" type="date" value={formData.startDate} onChange={handleChange} required />
+                <InputField name="endDate" label="تاريخ الانتهاء" type="date" value={formData.endDate} onChange={handleChange} required />
+            </div>
+            <div className="flex justify-end gap-3 pt-4">
+                <button type="button" onClick={onClose} className="px-4 py-2 bg-slate-100 dark:bg-slate-600 rounded-md">إلغاء</button>
+                <button type="submit" className="px-4 py-2 bg-cyan-500 text-white rounded-md hover:bg-cyan-600">إرسال للمراجعة</button>
+            </div>
+        </form>
+    );
 };
 
 const ReplyForm: React.FC<{ review: Review; onSave: (reply: string) => void; onClose: () => void; }> = ({ review, onSave, onClose }) => {
@@ -35,12 +94,14 @@ const ReplyForm: React.FC<{ review: Review; onSave: (reply: string) => void; onC
     );
 };
 
+
 const MyBusinessPage: React.FC = () => {
     const { currentPublicUser } = useAuth();
     const { services, handleReplyToReview } = useServices();
-    const { offers, handleDeleteOffer } = useCommunity();
-    const navigate = useNavigate();
+    const { offers, handleSaveOffer, handleDeleteOffer } = useCommunity();
 
+    const [isOfferModalOpen, setOfferModalOpen] = useState(false);
+    const [editingOffer, setEditingOffer] = useState<ExclusiveOffer | null>(null);
     const [isReplyModalOpen, setReplyModalOpen] = useState(false);
     const [replyingToReview, setReplyingToReview] = useState<{ review: Review; serviceId: number } | null>(null);
 
@@ -65,6 +126,11 @@ const MyBusinessPage: React.FC = () => {
             }))
         ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 5); // show latest 5
     }, [myServices]);
+
+    const handleOpenOfferForm = (offer: ExclusiveOffer | null) => {
+        setEditingOffer(offer);
+        setOfferModalOpen(true);
+    };
 
     const handleOpenReplyForm = (review: Review, serviceId: number) => {
         setReplyingToReview({ review, serviceId });
@@ -115,7 +181,7 @@ const MyBusinessPage: React.FC = () => {
                     <section>
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-2xl font-bold flex items-center gap-3"><TagIcon className="w-7 h-7"/>عروضي الحصرية</h2>
-                            <button onClick={() => navigate('/my-business/offer/new')} className="flex items-center gap-2 bg-cyan-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-cyan-600"><PlusIcon className="w-5 h-5"/>إضافة عرض</button>
+                            <button onClick={() => handleOpenOfferForm(null)} className="flex items-center gap-2 bg-cyan-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-cyan-600"><PlusIcon className="w-5 h-5"/>إضافة عرض</button>
                         </div>
                          <div className="space-y-4">
                              {myOffers.length > 0 ? myOffers.map(offer => (
@@ -124,15 +190,14 @@ const MyBusinessPage: React.FC = () => {
                                         <img src={offer.imageUrl} alt={offer.title} className="w-20 h-20 object-cover rounded-md flex-shrink-0" />
                                         <div>
                                             <p className="font-bold">{offer.title}</p>
-                                            <p className="text-sm text-gray-500">للخدمة: {services.find(s=> s.id === offer.serviceId)?.name}</p>
-                                            <p className="text-xs text-gray-400">تنتهي في: {offer.endDate}</p>
+                                            <p className="text-xs text-gray-500">ينتهي في: {offer.endDate}</p>
                                              {offer.status === 'rejected' && <p className="text-xs text-red-500">السبب: {offer.rejectionReason}</p>}
                                         </div>
                                     </div>
                                     <div className="flex sm:flex-col items-center justify-between sm:justify-start gap-2">
                                         <StatusBadge status={offer.status} />
                                         <div className="flex gap-2">
-                                            <button onClick={() => navigate(`/my-business/offer/edit/${offer.id}`)} className="p-2 text-blue-500 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"><PencilSquareIcon className="w-5 h-5"/></button>
+                                            <button onClick={() => handleOpenOfferForm(offer)} className="p-2 text-blue-500 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"><PencilSquareIcon className="w-5 h-5"/></button>
                                             <button onClick={() => handleDeleteOffer(offer.id)} className="p-2 text-red-500 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"><TrashIcon className="w-5 h-5"/></button>
                                         </div>
                                     </div>
@@ -169,6 +234,10 @@ const MyBusinessPage: React.FC = () => {
                     </section>
                 </div>
             </div>
+            
+            <Modal isOpen={isOfferModalOpen} onClose={() => setOfferModalOpen(false)} title={editingOffer ? "تعديل العرض" : "إضافة عرض جديد"}>
+                <OfferForm onClose={() => setOfferModalOpen(false)} onSave={handleSaveOffer} services={myServices} offer={editingOffer} />
+            </Modal>
             
             {replyingToReview && (
                 <Modal isOpen={isReplyModalOpen} onClose={() => setReplyModalOpen(false)} title={`الرد على تقييم ${replyingToReview.review.username}`}>

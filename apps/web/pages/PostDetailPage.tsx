@@ -1,11 +1,15 @@
 import React, { useMemo, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useAuth, useCommunity } from '@helio/shared-logic';
+// FIX: Corrected import paths for monorepo structure
+import { useAuth } from '../../../packages/shared-logic/context/AuthContext';
 import Spinner from '../components/common/Spinner';
-import { ArrowLeftIcon, HandThumbUpIcon, ChatBubbleOvalLeftIcon, TrashIcon } from '../components/common/Icons';
+import { ArrowLeftIcon, HandThumbUpIcon, ChatBubbleOvalLeftEllipsisIcon, TrashIcon } from '../components/common/Icons';
 import PageBanner from '../components/common/PageBanner';
-import type { Post } from '@helio/shared-logic';
+// FIX: Corrected import paths for monorepo structure
+import type { Post } from '../../../packages/shared-logic/types';
 import ShareButton from '../components/common/ShareButton';
+// FIX: Corrected import paths for monorepo structure
+import { useCommunity } from '../../../packages/shared-logic/context/AppContext';
 
 const PollDisplay: React.FC<{ post: Post }> = ({ post }) => {
     const { voteOnPoll } = useCommunity();
@@ -50,7 +54,7 @@ const PollDisplay: React.FC<{ post: Post }> = ({ post }) => {
                     return (
                         <div key={index} className={`p-3 border-2 rounded-lg ${isUserChoice ? 'border-cyan-500 bg-cyan-50 dark:bg-cyan-900/30' : 'border-slate-200 dark:border-slate-700'}`}>
                             <div className="flex justify-between items-center font-semibold mb-1">
-                                <span className="text-cyan-700 dark:text-cyan-300">{option.option}</span>
+                                <span className={isUserChoice ? 'text-cyan-700 dark:text-cyan-300' : ''}>{option.option}</span>
                                 <span>{Math.round(percentage)}%</span>
                             </div>
                             <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
@@ -115,7 +119,7 @@ const PostDetailPage: React.FC = () => {
             <PageBanner 
                 title={post.title || `منشور من ${post.username}`}
                 subtitle={`بواسطة ${post.username} • ${new Date(post.date).toLocaleDateString('ar-EG-u-nu-latn')}`}
-                icon={<ChatBubbleOvalLeftIcon className="w-12 h-12 text-teal-500" />}
+                icon={<ChatBubbleOvalLeftEllipsisIcon className="w-12 h-12 text-teal-500" />}
             />
             <div className="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-8">
                 <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-cyan-500 hover:underline mb-8">

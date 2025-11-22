@@ -15,19 +15,8 @@ import PropertyCarousel from '../components/common/PropertyCarousel';
 import NewsCarousel from '../components/common/NewsCarousel';
 import { prefetchMap } from '../components/common/AnimatedRoutes';
 import { useTransportation } from '../context/TransportationContext';
-import type { Driver, SearchResult } from '../packages/shared-logic/src/types';
+import type { Driver, SearchResult } from '../types';
 import OffersHighlight from '../components/common/OffersHighlight';
-import HomePageSkeleton from '../components/skeletons/HomePageSkeleton';
-import { motion, AnimatePresence } from 'framer-motion';
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-};
 
 // New inline component for Transportation Highlight
 const TransportationHighlight: React.FC = () => {
@@ -144,11 +133,11 @@ const CommunityUpdates: React.FC = () => {
 
 
 const PublicHomePage: React.FC = () => {
-    const { publicPagesContent, loading: dataLoading } = useData();
-    const { services, loading: servicesLoading } = useServices();
-    const { properties, loading: propertiesLoading } = useProperties();
-    const { advertisements, news, loading: newsLoading } = useNews();
-    const { offers, loading: communityLoading } = useCommunity();
+    const { publicPagesContent } = useData();
+    const { services } = useServices();
+    const { properties } = useProperties();
+    const { advertisements, news } = useNews();
+    const { offers } = useCommunity();
     const content = publicPagesContent.home;
     const navigate = useNavigate();
 
@@ -156,10 +145,8 @@ const PublicHomePage: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
-    const [isSearchFocused, setIsSearchFocused] = useState(false);
+    const [isResultsVisible, setIsResultsVisible] = useState(false);
     const searchContainerRef = useRef<HTMLDivElement>(null);
-
-    const isLoading = dataLoading || servicesLoading || propertiesLoading || newsLoading || communityLoading;
 
     // Debounce search term
     useEffect(() => {
@@ -229,7 +216,7 @@ const PublicHomePage: React.FC = () => {
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
             if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
-                setIsSearchFocused(false);
+                setIsResultsVisible(false);
             }
         }
         document.addEventListener("mousedown", handleClickOutside);
@@ -239,7 +226,7 @@ const PublicHomePage: React.FC = () => {
     }, [searchContainerRef]);
 
     const handleResultClick = (link: string) => {
-        setIsSearchFocused(false);
+        setIsResultsVisible(false);
         setSearchTerm('');
         navigate(link);
     };
@@ -266,28 +253,12 @@ const PublicHomePage: React.FC = () => {
             .sort((a,b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
     }, [offers]);
 
-    if (isLoading) {
-        return <HomePageSkeleton />;
-    }
-
     const recentServices = [...services].sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime()).slice(0, 10);
     const recentNews = [...news].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 8);
     const recentProperties = [...properties].sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime()).slice(0, 8);
 
     return (
         <div className="animate-fade-in" dir="rtl">
-            <AnimatePresence>
-                {isSearchFocused && (
-                    <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="fixed inset-0 bg-black/40 z-10"
-                    onClick={() => setIsSearchFocused(false)}
-                    />
-                )}
-            </AnimatePresence>
-
             {/* Hero Section */}
             <section className="relative bg-slate-100 dark:bg-slate-900 pt-6 pb-10 md:pt-10 md:pb-16 text-center">
                 <div className="absolute inset-0 bg-cover bg-center opacity-10 dark:opacity-5" style={{backgroundImage: `url('https://picsum.photos/1600/900?grayscale')`}}></div>
@@ -309,64 +280,56 @@ const PublicHomePage: React.FC = () => {
                                 className="w-full pl-4 pr-12 py-3 text-base rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                onFocus={() => setIsSearchFocused(true)}
+                                onFocus={() => setIsResultsVisible(true)}
                            />
                         </div>
-                        <AnimatePresence>
-                            {isSearchFocused && searchTerm.length > 0 && (
-                                <motion.div 
-                                    initial={{ opacity: 0, y: -10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                    transition={{ duration: 0.2 }}
-                                    className="absolute top-full mt-2 w-full bg-white dark:bg-slate-800 rounded-lg shadow-xl max-h-96 overflow-y-auto text-right"
-                                >
-                                    {(searchResults.length > 0 && debouncedSearchTerm.trim().length > 1) ? (
-                                        <div className="p-2">
-                                            {Object.keys(groupedResults).map((type) => (
-                                                <div key={type} className="mb-2">
-                                                    <h3 className="text-xs font-bold uppercase text-gray-400 dark:text-gray-500 px-4 py-2">{type}</h3>
-                                                    <ul>
-                                                        {groupedResults[type].map(result => (
-                                                            <li key={result.id}>
-                                                                <button onClick={() => handleResultClick(result.link)} className="w-full text-right flex items-center gap-4 p-3 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">
-                                                                    <div className="flex-shrink-0">{result.icon}</div>
-                                                                    <div>
-                                                                        <p className="font-semibold text-gray-800 dark:text-white">{result.title}</p>
-                                                                        {result.subtitle && <p className="text-sm text-gray-500 dark:text-gray-400">{result.subtitle}</p>}
-                                                                    </div>
-                                                                </button>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ) : (debouncedSearchTerm.trim().length > 1 &&
-                                        <p className="p-8 text-center text-gray-500">لا توجد نتائج بحث.</p>
-                                    )}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                        {isResultsVisible && searchTerm.length > 0 && (
+                            <div className="absolute top-full mt-2 w-full bg-white dark:bg-slate-800 rounded-lg shadow-xl max-h-96 overflow-y-auto text-right">
+                                {(searchResults.length > 0 && debouncedSearchTerm.trim().length > 1) ? (
+                                    <div className="p-2">
+                                        {Object.keys(groupedResults).map((type) => (
+                                            <div key={type} className="mb-2">
+                                                <h3 className="text-xs font-bold uppercase text-gray-400 dark:text-gray-500 px-4 py-2">{type}</h3>
+                                                <ul>
+                                                    {groupedResults[type].map(result => (
+                                                        <li key={result.id}>
+                                                            <button onClick={() => handleResultClick(result.link)} className="w-full text-right flex items-center gap-4 p-3 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors">
+                                                                <div className="flex-shrink-0">{result.icon}</div>
+                                                                <div>
+                                                                    <p className="font-semibold text-gray-800 dark:text-white">{result.title}</p>
+                                                                    {result.subtitle && <p className="text-sm text-gray-500 dark:text-gray-400">{result.subtitle}</p>}
+                                                                </div>
+                                                            </button>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (debouncedSearchTerm.trim().length > 1 &&
+                                    <p className="p-8 text-center text-gray-500">لا توجد نتائج بحث.</p>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
             
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants} className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 {sliderAds.length > 0 && <AdSlider ads={sliderAds} />}
-            </motion.div>
+            </div>
 
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants} className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <TransportationHighlight />
                     <CommunityUpdates />
                 </div>
-            </motion.div>
+            </div>
 
-            {activeOffers.length > 0 && <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants}><OffersHighlight offers={activeOffers} services={services} /></motion.div>}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants}><ServicesCarousel title="أحدث الخدمات" services={recentServices} /></motion.div>
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants}><PropertyCarousel title="أحدث العقارات" properties={recentProperties} /></motion.div>
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={sectionVariants}><NewsCarousel title="آخر الأخبار" news={recentNews} /></motion.div>
+            {activeOffers.length > 0 && <OffersHighlight offers={activeOffers} services={services} />}
+            <ServicesCarousel title="أحدث الخدمات" services={recentServices} />
+            <PropertyCarousel title="أحدث العقارات" properties={recentProperties} />
+            <NewsCarousel title="آخر الأخبار" news={recentNews} />
             
         </div>
     );
